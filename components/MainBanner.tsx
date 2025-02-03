@@ -1,10 +1,22 @@
 import Image from "next/image";
+import dirtTexture from "../public/images/dirt2.jpg"; // Upewnij się, że ścieżka jest poprawna
 
 const MainBanner = () => (
-  <div className="relative flex items-center bg-[#8B2E06] px-16 rounded-xl shadow-strong border border-text-dark max-w-4xl mx-auto overflow-visible">
-    <div className="flex flex-col text-left text-white">
-      <h1 className="text-5xl font-extrabold font-alegreya-sans">StylowaMC</h1>
-      <p className="text-lg mt-2 font-medium">
+  <div
+    className="relative flex items-center px-16 rounded-xl shadow-strong border border-text-dark max-w-4xl mx-auto overflow-visible"
+    style={{
+      backgroundImage: `url(${dirtTexture.src})`,
+      backgroundSize: "cover",
+    }}
+  >
+    {/* Półprzezroczysta nakładka */}
+    <div className="absolute inset-0 bg-black opacity-50 rounded-xl"></div>
+
+    <div className="relative flex flex-col text-left text-white">
+      <h1 className="text-5xl font-extrabold font-alegreya-sans drop-shadow-lg">
+        StylowaMC
+      </h1>
+      <p className="text-lg mt-2 font-medium drop-shadow-lg">
         Szukasz serwera OneBlock?
         <br />
         Dołącz do nas i doświadcz zabawy jakiej nigdy jeszcze nie widziałeś!
@@ -14,11 +26,9 @@ const MainBanner = () => (
       </button>
     </div>
     <div className="relative w-80 h-80 ml-auto opacity-0">
-      {" "}
       {/* Placeholder dla wypełnienia tła */}
     </div>
     <div className="absolute top-[-80px] right-[-130px] w-[28rem] h-[28rem] animate-float">
-      {" "}
       {/* Powiększone i lepiej dopasowane logo */}
       <Image
         src="/images/logo.png" // Ścieżka do obrazu

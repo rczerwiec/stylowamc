@@ -3,7 +3,7 @@ import { FaMedal } from "react-icons/fa";
 const RankingList = () => (
   <aside className="w-2/7 p-6 bg-[#1A1A1A] rounded-xl border border-gray-700 shadow-strong font-alegreya-sans">
     <h2 className="text-xl font-bold mb-4 text-primary flex items-center">
-      <FaMedal className="mr-2 text-yellow-400" /> Ranking
+      <FaMedal className="mr-2 text-yellow-400" />Ranking ItemShop&apos;a
     </h2>
     <ul className="space-y-3">
       {[

@@ -33,7 +33,9 @@ export default function RootLayout({
           <Header />
           <main className="p-10 flex flex-col items-center gap-8 w-full max-w-6xl flex-grow">
             <section className="w-full flex flex-col items-center flex-grow">
-              <div className="flex items-start w-full">{children}</div>
+              <div className="flex items-start w-full">
+                {children}
+                </div>
             </section>
           </main>
           <Footer />
