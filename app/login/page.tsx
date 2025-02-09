@@ -1,7 +1,34 @@
-import React from 'react';
+"use client";
+import {useSignInWithEmailAndPassword} from 'react-firebase-hooks/auth'
+import {auth} from '@/app/firebase/config'
+
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
+  const router = useRouter();
+
+  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    
+    // Obsługa logowania (możesz podłączyć API lub inny system)
+    // 
+    try{
+      const res = await signInWithEmailAndPassword(email, password);
+      console.log(res);
+      setEmail('');
+      setPassword('');
+      router.push('/');
+    }
+    catch(e){
+      console.error(e);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center w-full bg-gray-900 text-white p-6 rounded-lg">
       {/* Informacja o stanie systemu */}
@@ -12,15 +39,17 @@ export default function Login() {
       {/* Formularz logowania */}
       <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Logowanie</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="username" className="block text-sm font-medium mb-2">
-              Nazwa użytkownika
+              Adres Email
             </label>
             <input
-              type="text"
-              id="username"
-              name="username"
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
@@ -33,6 +62,8 @@ export default function Login() {
               type="password"
               id="password"
               name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />

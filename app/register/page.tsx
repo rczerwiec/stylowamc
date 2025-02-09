@@ -1,7 +1,31 @@
-import React from 'react';
+"use client"
+import {useCreateUserWithEmailAndPassword} from 'react-firebase-hooks/auth'
+import {auth} from '@/app/firebase/config'
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 
-export default function Ranking() {
+export default function Register() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [code, setCode] = useState('');
+
+  const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+
+  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Obsługa rejestracji (możesz podłączyć API lub inny system)
+    try{
+      const res = await createUserWithEmailAndPassword(email, password);
+      console.log(res);
+      setEmail('');
+      setPassword('');
+    }
+    catch(e){
+      console.error(e);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center w-full bg-gray-900 text-white p-6 rounded-lg">
       {/* Informacja o stanie systemu */}
@@ -12,19 +36,7 @@ export default function Ranking() {
       {/* Formularz rejestracji */}
       <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Rejestracja</h2>
-        <form>
-          <div className="mb-4">
-            <label htmlFor="username" className="block text-sm font-medium mb-2">
-              Nazwa użytkownika
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium mb-2">
               Adres e-mail
@@ -33,6 +45,23 @@ export default function Ranking() {
               type="email"
               id="email"
               name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="server-code" className="block text-sm font-medium mb-2">
+              Kod z serwera
+            </label>
+            <input
+              type="text"
+              id="server-code"
+              name="server-code"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              placeholder="Wpisz /kod na serwerze, żeby uzyskać unikalny kod"
               className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
@@ -45,6 +74,8 @@ export default function Ranking() {
               type="password"
               id="password"
               name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />

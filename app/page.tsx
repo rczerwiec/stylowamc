@@ -1,8 +1,11 @@
+'use client'
+
 import InfoBox from "@/components/InfoBox";
 import MainBanner from "@/components/MainBanner";
 import RankingList from "@/components/RankingList";
 
 export default function Home() {
+
   return (
     <>
     <RankingList />
