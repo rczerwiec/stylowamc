@@ -26,13 +26,9 @@ export default function MainLayout({
       return <div className="h-screen flex justify-center items-center">Ładowanie...</div>;
     }
 
-    let loggedIn = true;
-    if (!user) {
-        loggedIn = false;
-    }
     return (
         <div className="min-h-screen text-text-light flex flex-col items-center font-inter">
-          <Header loggedIn={loggedIn} />
+          <Header/>
           <main className="p-10 flex flex-col items-center gap-8 w-full max-w-6xl flex-grow">
             <section className="w-full flex flex-col items-center flex-grow">
               <div className="flex items-start w-full">

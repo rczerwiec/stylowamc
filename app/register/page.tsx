@@ -1,6 +1,4 @@
 "use client"
-import {useCreateUserWithEmailAndPassword} from 'react-firebase-hooks/auth'
-import {auth} from '@/app/firebase/config'
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -10,21 +8,34 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
 
-  const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
 
-  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Obsługa rejestracji (możesz podłączyć API lub inny system)
-    try{
-      const res = await createUserWithEmailAndPassword(email, password);
-      console.log(res);
+  
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, code }),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.error || 'Błąd rejestracji');
+      }
+  
+      console.log('Sukces:', data);
+      alert('Rejestracja zakończona sukcesem!');
       setEmail('');
       setPassword('');
-    }
-    catch(e){
-      console.error(e);
+      setCode('');
+    } catch (error) {
+      console.error('Błąd:', error);
+      alert(error instanceof Error ? error.message : 'Nieznany błąd');
     }
   };
+  
 
   return (
     <div className="flex flex-col items-center justify-center w-full bg-gray-900 text-white p-6 rounded-lg">

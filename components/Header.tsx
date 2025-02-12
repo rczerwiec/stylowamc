@@ -1,9 +1,37 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { signOut } from "firebase/auth";
-import { auth } from "@/app/firebase/config"; // Upewnij się, że poprawnie importujesz `auth`
+import { auth } from "@/app/firebase/config";
+import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-const Header = ({ loggedIn }: { loggedIn: boolean }) => {
+const Header = () => {
+  const [user] = useAuthState(auth); // Pobieranie aktualnie zalogowanego użytkownika z Firebase
+  const [userName, setUserName] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserName = async () => {
+      if (user?.email) {
+        try {
+          const response = await fetch(`/api/user?email=${user.email}`);
+          const data = await response.json();
+
+          if (response.ok) {
+            setUserName(data.name || "Nowy użytkownik");
+          } else {
+            console.error("Błąd pobierania użytkownika:", data.error);
+          }
+        } catch (error) {
+          console.error("Błąd sieci:", error);
+        }
+      }
+    };
+
+    fetchUserName();
+  }, [user]);
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -52,6 +80,11 @@ const Header = ({ loggedIn }: { loggedIn: boolean }) => {
               </Link>
             </li>
             <li>
+              <Link href="/policy" className="hover:text-yellow-400 transition">
+                REGULAMIN
+              </Link>
+            </li>
+            <li>
               <Link
                 href="/shop"
                 className="bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg shadow-md hover:bg-yellow-600 transition transform hover:scale-105 animate-pulse"
@@ -64,20 +97,20 @@ const Header = ({ loggedIn }: { loggedIn: boolean }) => {
       </div>
 
       {/* Panel użytkownika */}
-      {loggedIn ? (
+      {user ? (
         <button
           onClick={handleLogout}
           className="flex items-center bg-gray-800 px-4 py-2 rounded-lg shadow-md hover:bg-gray-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <div className="w-10 h-10 rounded-full ring-2 ring-gray-300 flex items-center justify-center overflow-hidden">
             <img
-              src="https://minotar.net/helm/Stylowy/64"
+              src={`https://minotar.net/helm/${userName || "Steve"}/64`}
               alt="Avatar"
               className="w-full h-full object-cover"
             />
           </div>
           <div className="text-white font-medium ml-3">
-            <span className="block">Witaj, Stylowy</span>
+            <span className="block">Witaj, {userName || "Nowy użytkowniku"}</span>
             <span className="block text-sm text-red-400">Wyloguj się</span>
           </div>
         </button>

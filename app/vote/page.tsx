@@ -21,7 +21,7 @@ export default function Vote() {
             </tr>
           </thead>
           <tbody>
-            {["Minecraft-List", "TopG", "MinecraftServers"]?.map((site, index) => (
+            {["Placeholder1", "Placeholder2", "Placeholder3"]?.map((site, index) => (
               <tr key={index} className="bg-gray-600 hover:bg-gray-500 transition">
                 <td className="p-3 border border-gray-600">{index + 1}</td>
                 <td className="p-3 border border-gray-600">{site}</td>

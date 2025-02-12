@@ -8,9 +8,17 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  email    String  @unique
-  name     String?
-  password String
-  createdAt DateTime @default(now())
+  id         String  @id @default(uuid())
+  email      String  @unique
+  firebaseId String  @unique
+  password   String
+  name       String?
+  createdAt  DateTime @default(now())
+}
+
+model PlayerCode {
+  uuid  String  @id @default(uuid())
+  name  String?
+  code  String  @unique
+  used  Boolean @default(false)  // Nowe pole, domyślnie `false`
 }
