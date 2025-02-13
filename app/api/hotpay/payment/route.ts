@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import crypto from "crypto";
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,13 +17,10 @@ export async function POST(req: NextRequest) {
 
     // Tworzenie hash dla autoryzacji
     const hashString = `${SECRET_KEY};${KWOTA};${NAZWA_USLUGI};${ADRES_WWW};${ID_ZAMOWIENIA};${SECRET_KEY}`;
-    const encoder = new TextEncoder();
-    const hashBuffer = await crypto.subtle.digest("SHA-256", encoder.encode(hashString));
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const HASH = hashArray.map(byte => byte.toString(16).padStart(2, "0")).join("");
+    const HASH = crypto.createHash("sha256").update(hashString).digest("hex");
 
     // Tworzenie danych formularza dla HotPay
-    const formData = new URLSearchParams();
+    const formData = new FormData();
     formData.append("SEKRET", SECRET_KEY);
     formData.append("KWOTA", KWOTA);
     formData.append("NAZWA_USLUGI", NAZWA_USLUGI);
@@ -37,8 +35,7 @@ export async function POST(req: NextRequest) {
     // Wysłanie żądania do HotPay
     const response = await fetch("https://platnosc.hotpay.pl/", {
       method: "POST",
-      headers: { "Content-Type": "multipart/form-data" },
-      body: formData,
+      body: formData, // **WAŻNE** – Fetch automatycznie ustawi `Content-Type: multipart/form-data`
     });
 
     if (!response.ok) {

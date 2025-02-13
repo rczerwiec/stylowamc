@@ -119,7 +119,6 @@ export default function Shop() {
   };
 
   const handlePurchase = async () => {
-    console.log(selectedItem, nickname, SECRET_KEY);
     if (!selectedItem || !nickname || !SECRET_KEY) return;
   
     const orderId = `order_${Date.now()}`;
