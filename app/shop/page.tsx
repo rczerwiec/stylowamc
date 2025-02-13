@@ -99,14 +99,10 @@ const items = [
   },
 ];
 
-
-const RETURN_URL = "https://web.stylowamc.pl/thanks";
-
 export default function Shop() {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [nickname, setNickname] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const SECRET_KEY = process.env.NEXT_PUBLIC_HOTPAY_KEY || "";
 
   const openModal = (item: Item) => {
     setSelectedItem(item);
@@ -119,26 +115,31 @@ export default function Shop() {
   };
 
   const handlePurchase = async () => {
-    if (!selectedItem || !nickname || !SECRET_KEY) return;
+    if (!selectedItem || !nickname) return;
   
     const orderId = `order_${Date.now()}`;
     const amount = selectedItem.price.replace(" PLN", "");
     const serviceName = selectedItem.name;
   
+    const requestBody = {
+      KWOTA: amount,
+      NAZWA_USLUGI: serviceName,
+      ADRES_WWW: "https://web.stylowamc.pl/thanks",
+      ID_ZAMOWIENIA: orderId,
+      EMAIL: "test@example.com",
+    };
+  
     try {
       const response = await fetch("/api/hotpay/payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          KWOTA: amount,
-          NAZWA_USLUGI: serviceName,
-          ADRES_WWW: RETURN_URL,
-          ID_ZAMOWIENIA: orderId,
-        }),
+        body: JSON.stringify(requestBody),
       });
   
       const data = await response.json();
+  
       if (data.payment_url) {
+        console.log("Przekierowanie do płatności:", data.payment_url);
         window.location.href = data.payment_url;
       } else {
         alert("Błąd podczas inicjalizacji płatności");
