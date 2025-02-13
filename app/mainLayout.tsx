@@ -17,9 +17,9 @@ export default function MainLayout({
     const router = useRouter();
 
     useEffect(() => {
-      if (!loading && !user) {
-        router.push('/login'); // Wykonaj przekierowanie dopiero po pierwszym renderze
-      }
+      // if (!loading && !user) {
+      //   router.push('/login'); // Wykonaj przekierowanie dopiero po pierwszym renderze
+      // }
     }, [user, loading, router]);
 
     if (loading) {
