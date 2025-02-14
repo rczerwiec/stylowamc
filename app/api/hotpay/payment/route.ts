@@ -25,25 +25,30 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
     }
 
-    // 🔥 Generujemy poprawny HASH na podstawie kodu z GitHuba
+    // 🔥 Generujemy hash dynamicznie
     const hashString = `${SECRET_PASSWORD};${KWOTA};${NAZWA_USLUGI};${ADRES_WWW};${ID_ZAMOWIENIA};${SECRET_KEY}`;
     console.log("📜 HASH STRING DO SHA256:", `"${hashString}"`);
 
     const HASH = crypto.createHash("sha256").update(hashString, "utf8").digest("hex").toUpperCase();
     console.log("🔐 Wygenerowany HASH:", HASH);
 
-    // 🔥 Tworzymy formularz do automatycznego przekierowania do HotPay
+    // 🔥 Tworzymy dynamiczny formularz, który sam się wysyła
     const formHtml = `
       <html>
-      <body onload="document.forms[0].submit()">
-        <form action="https://platnosc.hotpay.pl" method="POST">
+      <head>
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+        <script src="/redirect.js" defer></script>
+      </head>
+      <body>
+        <h2 style="text-align: center;">Przekierowanie do HotPay...</h2>
+        <form id="hotpay-form" action="https://platnosc.hotpay.pl" method="POST">
           <input type="hidden" name="SEKRET" value="${SECRET_KEY}" />
           <input type="hidden" name="KWOTA" value="${KWOTA}" />
           <input type="hidden" name="NAZWA_USLUGI" value="${NAZWA_USLUGI}" />
           <input type="hidden" name="ADRES_WWW" value="${ADRES_WWW}" />
           <input type="hidden" name="ID_ZAMOWIENIA" value="${ID_ZAMOWIENIA}" />
           <input type="hidden" name="EMAIL" value="${EMAIL}" />
-          <input type="hidden" name="HASH" value="${HASH}" />
+          <p style="text-align: center;">Jeśli nie nastąpi przekierowanie, <button type="submit">kliknij tutaj</button></p>
         </form>
       </body>
       </html>
