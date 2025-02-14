@@ -123,7 +123,7 @@ export default function Shop() {
     const requestBody = {
       KWOTA: amount,
       NAZWA_USLUGI: selectedItem.name,
-      ADRES_WWW: "https://web.stylowamc.pl/thanks",
+      ADRES_WWW: "https://web.stylowamc.pl/shop/successful",
       ID_ZAMOWIENIA: orderId,
       EMAIL: "test@example.com",
     };
