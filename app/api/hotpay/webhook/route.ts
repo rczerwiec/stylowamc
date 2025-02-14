@@ -44,16 +44,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid hash" }, { status: 400 });
     }
 
-    // 🔥 Jeśli STATUS to SUCCESS → przekierowujemy użytkownika na stronę sukcesu
+    // 🔥 Zwracamy status płatności, który frontend zapisze w localStorage
     if (STATUS === "SUCCESS") {
       console.log(`✅ Płatność zaakceptowana! ID zamówienia: ${ID_ZAMOWIENIA}`);
-      return NextResponse.redirect("https://web.stylowamc.pl", 302);
+      return NextResponse.json({ status: "success", message: "Payment successful" }, { status: 200 });
     } else if (STATUS === "FAILURE") {
       console.log(`❌ Płatność odrzucona! ID zamówienia: ${ID_ZAMOWIENIA}`);
-      return NextResponse.redirect("https://web.stylowamc.pl", 302);
+      return NextResponse.json({ status: "failure", error: "Payment failed" }, { status: 400 });
     }
 
-    return NextResponse.json({ message: "Unknown status" }, { status: 400 });
+    return NextResponse.json({ status: "unknown", message: "Unknown status" }, { status: 400 });
 
   } catch (error) {
     console.error("❌ Błąd obsługi callbacka HotPay:", error);
