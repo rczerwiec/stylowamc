@@ -47,10 +47,10 @@ export async function POST(req: NextRequest) {
     // 🔥 Jeśli STATUS to SUCCESS → przekierowujemy użytkownika na stronę sukcesu
     if (STATUS === "SUCCESS") {
       console.log(`✅ Płatność zaakceptowana! ID zamówienia: ${ID_ZAMOWIENIA}`);
-      return NextResponse.redirect("http://localhost:3006/payment/successful", 302);
+      return NextResponse.redirect("https://web.stylowamc.pl/payment/successful", 302);
     } else if (STATUS === "FAILURE") {
       console.log(`❌ Płatność odrzucona! ID zamówienia: ${ID_ZAMOWIENIA}`);
-      return NextResponse.redirect("http://localhost:3006/payment/failed", 302);
+      return NextResponse.redirect("https://web.stylowamc.pl/payment/failed", 302);
     }
 
     return NextResponse.json({ message: "Unknown status" }, { status: 400 });
