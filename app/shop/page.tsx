@@ -17,7 +17,7 @@ const items = [
     id: 1,
     name: "Ranga VIP",
     description: "Dostęp do ekskluzywnych przywilejów i komend VIP.",
-    price: "19.99 PLN",
+    price: "1 PLN",
     image: "/images/logo.png",
   },
   {
@@ -119,11 +119,10 @@ export default function Shop() {
   
     const orderId = `order_${Date.now()}`;
     const amount = selectedItem.price.replace(" PLN", "");
-    const serviceName = selectedItem.name;
   
     const requestBody = {
       KWOTA: amount,
-      NAZWA_USLUGI: serviceName,
+      NAZWA_USLUGI: selectedItem.name,
       ADRES_WWW: "https://web.stylowamc.pl/thanks",
       ID_ZAMOWIENIA: orderId,
       EMAIL: "test@example.com",
@@ -136,46 +135,43 @@ export default function Shop() {
         body: JSON.stringify(requestBody),
       });
   
-      const data = await response.json();
+      // **Tutaj NIE parsujemy JSON-a!**
+      const html = await response.text();
   
-      if (data.payment_url) {
-        console.log("Przekierowanie do płatności:", data.payment_url);
-        window.location.href = data.payment_url;
-      } else {
-        alert("Błąd podczas inicjalizacji płatności");
+      // Otwieramy nową stronę i wstawiamy do niej formularz
+      const newWindow = window.open();
+      if (newWindow) {
+        newWindow.document.open();
+        newWindow.document.write(html);
+        newWindow.document.close();
       }
     } catch (error) {
-      console.error("Błąd płatności:", error);
-      alert("Wystąpił błąd, spróbuj ponownie");
+      console.error("❌ Błąd płatności:", error);
+      alert("❌ Wystąpił błąd, spróbuj ponownie");
     }
   };
-
+  
 
   return (
     <div className="flex flex-col items-center justify-center w-full bg-gray-900 text-white p-6 rounded-xl">
       <h2 className="text-3xl font-bold mb-6">🎁 Sklep 🎁</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl">
-        {items.map((item: Item) => (
-          <div
-            key={item.id}
-            className="bg-gray-800 p-6 rounded-lg shadow-md flex flex-col items-center text-center h-full"
-          >
-            <img src={item.image} alt={item.name} className="w-20 h-20 mb-4" />
-            <h3 className="text-xl font-semibold">{item.name}</h3>
-            <p className="text-gray-400 text-sm mt-2 flex-grow">{item.description}</p>
-            <p className="text-yellow-400 font-bold text-lg mt-3">{item.price}</p>
-            <div className="mt-auto">
-              <button
-                onClick={() => openModal(item)}
-                className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-semibold transition duration-200"
-              >
-                Kup teraz
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+  {items.map((item: Item) => (
+    <div key={item.id} className="bg-gray-800 p-6 rounded-lg shadow-md flex flex-col items-center text-center h-full">
+      <img src={item.image} alt={item.name} className="w-20 h-20 mb-4" />
+      <h3 className="text-xl font-semibold">{item.name}</h3>
+      <p className="text-gray-400 text-sm mt-2 flex-grow">{item.description}</p>
+      <p className="text-yellow-400 font-bold text-lg mt-3">{item.price}</p>
+      <button
+        onClick={() => openModal(item)}
+        className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-semibold transition duration-200"
+      >
+        Kup teraz
+      </button>
+    </div>
+  ))}
+</div>
 
       {isModalOpen && selectedItem && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" onClick={closeModal}>
@@ -189,24 +185,12 @@ export default function Shop() {
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
             />
-            <div className="mt-4 flex justify-between">
-              <button
-                onClick={closeModal}
-                className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md font-semibold transition duration-200"
-              >
-                Anuluj
-              </button>
-              <button
-                onClick={handlePurchase}
-                className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md font-semibold transition duration-200"
-              >
-                Potwierdź
-              </button>
-            </div>
+            <button onClick={handlePurchase} className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md font-semibold">
+              Potwierdź
+            </button>
           </div>
         </div>
       )}
     </div>
   );
 }
-

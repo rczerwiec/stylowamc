@@ -3,54 +3,112 @@ import crypto from "crypto";
 
 export async function POST(req: NextRequest) {
   try {
-    const SECRET_KEY = process.env.HOTPAY_KEY; // Zmieniono na zmienną bez `NEXT_PUBLIC_`
-    if (!SECRET_KEY) {
-      return NextResponse.json({ error: "Missing Secret Key" }, { status: 500 });
-    }
-    
-    const body = await req.json();
-    const { KWOTA, NAZWA_USLUGI, ADRES_WWW, ID_ZAMOWIENIA, EMAIL } = body;
+    console.log("🔴 API HOTPAY START 🔴");
 
-    if (!KWOTA || !NAZWA_USLUGI || !ADRES_WWW || !ID_ZAMOWIENIA) {
+    const SECRET_KEY = process.env.HOTPAY_KEY?.trim();
+    const SECRET_PASSWORD = process.env.HOTPAY_PASSWORD?.trim();
+
+    if (!SECRET_KEY || !SECRET_PASSWORD) {
+      console.error("❌ Brak kluczy w .env!");
+      return NextResponse.json({ error: "Missing Secret Key or Password" }, { status: 500 });
+    }
+
+    const body = await req.json().catch(() => null);
+    console.log("📩 ODEBRANY REQUEST:", body);
+    
+    if (!body) {
+      return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    }
+
+    const { KWOTA, NAZWA_USLUGI, ADRES_WWW = "", ID_ZAMOWIENIA, EMAIL = "" } = body;
+    if (!KWOTA || !NAZWA_USLUGI || !ID_ZAMOWIENIA) {
       return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
     }
 
-    // Tworzenie hash dla autoryzacji
-    const hashString = `${SECRET_KEY};${KWOTA};${NAZWA_USLUGI};${ADRES_WWW};${ID_ZAMOWIENIA};${SECRET_KEY}`;
-    const HASH = crypto.createHash("sha256").update(hashString).digest("hex");
+    // 🔥 Generujemy poprawny HASH na podstawie kodu z GitHuba
+    const hashString = `${SECRET_PASSWORD};${KWOTA};${NAZWA_USLUGI};${ADRES_WWW};${ID_ZAMOWIENIA};${SECRET_KEY}`;
+    console.log("📜 HASH STRING DO SHA256:", `"${hashString}"`);
 
-    // Tworzenie danych dla HotPay
-    const params = new URLSearchParams();
-    params.append("SEKRET", SECRET_KEY);
-    params.append("KWOTA", KWOTA);
-    params.append("NAZWA_USLUGI", NAZWA_USLUGI);
-    params.append("ADRES_WWW", ADRES_WWW);
-    params.append("ID_ZAMOWIENIA", ID_ZAMOWIENIA);
-    params.append("HASH", HASH);
+    const HASH = crypto.createHash("sha256").update(hashString, "utf8").digest("hex").toUpperCase();
+    console.log("🔐 Wygenerowany HASH:", HASH);
 
-    if (EMAIL) {
-      params.append("EMAIL", EMAIL);
-    }
+    // 🔥 Tworzymy formularz do automatycznego przekierowania do HotPay
+    const formHtml = `
+      <html>
+      <body onload="document.forms[0].submit()">
+        <form action="https://platnosc.hotpay.pl" method="POST">
+          <input type="hidden" name="SEKRET" value="${SECRET_KEY}" />
+          <input type="hidden" name="KWOTA" value="${KWOTA}" />
+          <input type="hidden" name="NAZWA_USLUGI" value="${NAZWA_USLUGI}" />
+          <input type="hidden" name="ADRES_WWW" value="${ADRES_WWW}" />
+          <input type="hidden" name="ID_ZAMOWIENIA" value="${ID_ZAMOWIENIA}" />
+          <input type="hidden" name="EMAIL" value="${EMAIL}" />
+          <input type="hidden" name="HASH" value="${HASH}" />
+        </form>
+      </body>
+      </html>
+    `;
 
-    // Wysłanie żądania do HotPay
-    const response = await fetch("https://platnosc.hotpay.pl/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: params.toString(),
+    return new NextResponse(formHtml, {
+      headers: { "Content-Type": "text/html" },
     });
-
-    if (!response.ok) {
-      return NextResponse.json({ error: "Failed to initialize payment" }, { status: response.status });
-    }
-
-    const paymentUrl = await response.text();
-    if (!paymentUrl.startsWith("http")) {
-      return NextResponse.json({ error: "Invalid response from HotPay" }, { status: 500 });
-    }
-
-    return NextResponse.json({ payment_url: paymentUrl });
   } catch (error) {
-    console.error("Błąd płatności:", error);
+    console.error("❌ Błąd płatności:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}
+
+// 🔥 GET – odbieramy status płatności 🔥
+export async function GET(req: NextRequest) {
+  try {
+    console.log("🔴 HOTPAY CALLBACK – ODBIERANIE STATUSU PŁATNOŚCI 🔴");
+
+    const url = new URL(req.url);
+    const params = Object.fromEntries(url.searchParams.entries());
+
+    console.log("📩 ODEBRANE PARAMETRY:", params);
+
+    const SECRET_KEY = process.env.HOTPAY_KEY?.trim();
+    const SECRET_PASSWORD = process.env.HOTPAY_PASSWORD?.trim();
+
+    if (!SECRET_KEY || !SECRET_PASSWORD) {
+      console.error("❌ Brak kluczy w .env!");
+      return NextResponse.json({ error: "Missing Secret Key or Password" }, { status: 500 });
+    }
+
+    const { KWOTA, STATUS, ID_ZAMOWIENIA, ID_PLATNOSCI, SECURE, SEKRET, HASH } = params;
+
+    if (!KWOTA || !STATUS || !ID_ZAMOWIENIA || !ID_PLATNOSCI || !SECURE || !SEKRET || !HASH) {
+      console.error("❌ Brak wymaganych parametrów!");
+      return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
+    }
+
+    // 🔥 Sprawdzamy poprawność HASH – TAK JAK NA GITHUBIE 🔥
+    const hashString = `${SECRET_PASSWORD};${KWOTA};${ID_PLATNOSCI};${ID_ZAMOWIENIA};${STATUS};${SECURE};${SEKRET}`;
+    console.log("📜 HASH STRING DO SHA256:", `"${hashString}"`);
+
+    const generatedHash = crypto.createHash("sha256").update(hashString, "utf8").digest("hex").toUpperCase();
+    console.log("🔐 Wygenerowany HASH:", generatedHash);
+    console.log("💾 Otrzymany HASH od HotPay:", HASH);
+
+    if (generatedHash !== HASH) {
+      console.error("❌ BŁĄD WALIDACJI HASH! Transakcja nieprawidłowa.");
+      return NextResponse.json({ error: "Invalid hash" }, { status: 400 });
+    }
+
+    // 🔥 Jeśli STATUS to SUCCESS → uznajemy płatność
+    if (STATUS === "SUCCESS") {
+      console.log(`✅ Płatność zaakceptowana! ID zamówienia: ${ID_ZAMOWIENIA}`);
+      return NextResponse.json({ message: "Payment successful" }, { status: 200 });
+    } else if (STATUS === "PENDING") {
+      console.log(`⏳ Płatność oczekująca... ID zamówienia: ${ID_ZAMOWIENIA}`);
+      return NextResponse.json({ message: "Payment pending" }, { status: 200 });
+    } else {
+      console.log(`❌ Płatność odrzucona! ID zamówienia: ${ID_ZAMOWIENIA}`);
+      return NextResponse.json({ error: "Payment failed" }, { status: 400 });
+    }
+  } catch (error) {
+    console.error("❌ Błąd obsługi callbacka HotPay:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
