@@ -9,13 +9,20 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Brak wymaganych pól" }, { status: 400 });
     }
 
-    // **Tworzymy zamówienie w bazie**
+    // 🔥 Zamieniamy `amount` na Float!
+    const parsedAmount = parseFloat(amount);
+
+    if (isNaN(parsedAmount)) {
+      return NextResponse.json({ error: "Nieprawidłowa wartość kwoty" }, { status: 400 });
+    }
+
+    // ✅ Tworzymy zamówienie w bazie
     const newOrder = await prisma.orders.create({
       data: {
         orderId,
-        amount,
+        amount: parsedAmount, // Teraz amount jest Float
         service_name,
-        name, // ✅ Zapisujemy nazwę gracza
+        name,
         status,
       },
     });
