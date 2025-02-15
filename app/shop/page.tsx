@@ -128,7 +128,7 @@ export default function Shop() {
       status: "PENDING",
       KWOTA: amount,
       NAZWA_USLUGI: selectedItem.name,
-      ADRES_WWW: "https://web.stylowamc.pl/shop/successful",
+      ADRES_WWW: "https://www.stylowamc.pl/shop/successful",
       ID_ZAMOWIENIA: orderId,
       EMAIL: "test@example.com",
     };
