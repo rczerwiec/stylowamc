@@ -3,7 +3,7 @@ import dirtTexture from "../public/images/dirt2.jpg"; // Upewnij się, że ście
 
 const MainBanner = () => (
   <div
-    className="relative flex items-center px-16 rounded-xl shadow-strong border border-text-dark max-w-4xl mx-auto overflow-visible"
+    className="relative flex flex-col md:flex-row items-center md:items-start px-6 md:px-8 py-8 rounded-xl shadow-strong border border-text-dark max-w-4xl mx-auto overflow-visible"
     style={{
       backgroundImage: `url(${dirtTexture.src})`,
       backgroundSize: "cover",
@@ -12,30 +12,28 @@ const MainBanner = () => (
     {/* Półprzezroczysta nakładka */}
     <div className="absolute inset-0 bg-black opacity-50 rounded-xl"></div>
 
-    <div className="relative flex flex-col text-left text-white">
-      <h1 className="text-5xl font-extrabold font-alegreya-sans drop-shadow-lg">
+    <div className="relative flex flex-col text-center md:text-left text-white w-full md:pr-60 md:w-auto">
+      <h1 className="text-3xl md:text-5xl font-extrabold font-alegreya-sans drop-shadow-lg">
         StylowaMC
       </h1>
-      <p className="text-lg mt-2 font-medium drop-shadow-lg">
+      <p className="text-md md:text-lg mt-2 font-medium drop-shadow-lg">
         Szukasz serwera OneBlock?
-        <br />
+        <br className="hidden md:block" />
         Dołącz do nas i doświadcz zabawy jakiej nigdy jeszcze nie widziałeś!
       </p>
       <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-bold shadow-md transition transform hover:scale-110 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 uppercase">
         SKOPIUJ IP SERWERA
       </button>
     </div>
-    <div className="relative w-80 h-80 ml-auto opacity-0">
-      {/* Placeholder dla wypełnienia tła */}
-    </div>
-    <div className="absolute top-[-80px] right-[-130px] w-[28rem] h-[28rem] animate-float">
-      {/* Powiększone i lepiej dopasowane logo */}
+
+    {/* Na desktopie obrazek zostaje, na telefonach go nie ma */}
+    <div className="hidden md:block absolute top-[-80px] right-[-150px] w-[28rem] h-[28rem] animate-float">
       <Image
         src="/images/logo.png" // Ścieżka do obrazu
         alt="Baner StylowaMC"
         className="w-full h-full object-contain"
-        width={800} // Szerokość obrazu w pikselach
-        height={600} // Wysokość obrazu w pikselach
+        width={800}
+        height={600}
       />
     </div>
   </div>

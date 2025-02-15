@@ -25,20 +25,21 @@ export default function MainLayout({
     }, [user, loading, router]);
 
     if (loading) {
-      return <div className="h-screen flex justify-center items-center">Ładowanie...</div>;
+      return <div className="h-screen flex justify-center items-center text-white text-xl">Ładowanie...</div>;
     }
 
     return (
         <div className="min-h-screen text-text-light flex flex-col items-center font-inter">
           <ToastContainer position="bottom-center" theme="dark" />
-          <Header/>
-          <main className="p-10 flex flex-col items-center gap-8 w-full max-w-6xl flex-grow">
-            <section className="w-full flex flex-col items-center flex-grow">
-              <div className="flex items-start w-full">
-                {children}
-              </div>
+          <Header />
+          
+          {/* 🔥 Dostosowanie `main` do mobilnych urządzeń */}
+          <main className="p-6 sm:p-10 flex flex-col items-center gap-4 sm:gap-8 w-full max-w-full sm:max-w-6xl flex-grow">
+            <section className="w-full flex flex-col items-start flex-grow">
+              {children}
             </section>
           </main>
+
           <Footer />
         </div>
     );

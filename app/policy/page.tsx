@@ -99,7 +99,7 @@ const terms = [
 
 export default function TermsPage() {
   return (
-    <div className="flex flex-col items-center justify-center w-full bg-gray-900 text-white p-6">
+    <div className="flex flex-col items-center justify-center w-full bg-gray-900 text-white p-6 rounded-lg">
       {/* Nagłówek */}
       <h2 className="text-3xl font-bold mb-6">📜 Regulamin Serwera</h2>
 

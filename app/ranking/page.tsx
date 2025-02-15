@@ -59,14 +59,16 @@ export default function Ranking() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full bg-gray-900 text-white p-6">
+    <div className="flex flex-col items-center justify-center w-full bg-gray-900 text-white p-6 rounded-lg">
       <div className="bg-yellow-500 text-gray-900 px-4 py-2 rounded-md mb-6">
         Uwaga: System rankingowy jest w trakcie tworzenia. Niektóre dane mogą być nieaktualne.
       </div>
 
       <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-5xl">
         <h2 className="text-2xl font-bold mb-6 text-center">Rankingi Serwera</h2>
-        <div className="grid grid-cols-3 gap-6">
+
+        {/* 🔥 Układ zmienia się w zależności od urządzenia */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Ranking Czasu Gry */}
           <div className="bg-gray-700 p-4 rounded-lg shadow-md">
             <h3 className="text-xl font-semibold text-yellow-400 text-center">Czas spędzony na serwerze</h3>
