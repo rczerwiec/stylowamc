@@ -4,7 +4,7 @@ const terms = [
   {
     title: "§1 Postanowienia ogólne",
     content: [
-      "Serwis internetowy działający pod adresem stylowamc.pl oferujący sprzedaż wirtualnych przedmiotów oraz usług. Prowadzony przez Radosława Czerwca prowadzącego działalność nierejestrowalną pod adresem Czciradz 31a/7 67-120 Kożuchów.",
+      "Serwis internetowy działający pod adresem www.stylowamc.pl oferujący sprzedaż wirtualnych przedmiotów oraz usług. Prowadzony przez Radosława Czerwca prowadzącego działalność nierejestrowalną pod adresem Czciradz 31a/7 67-120 Kożuchów.",
       "Niniejszy Regulamin skierowany jest zarówno do Konsumentów, jak i do Przedsiębiorców korzystających ze Sklepu i określa zasady korzystania ze Sklepu internetowego oraz zasady i tryb zawierania Umów Sprzedaży z Klientem na odległość za pośrednictwem Sklepu.",
       "Każdy Użytkownik z chwilą podjęcia czynności zmierzających do korzystania z Usług Elektronicznych Serwisu internetowego stylowamc.pl, zobowiązany jest do przestrzegania postanowień niniejszego Regulaminu.",
       "Właściciel strony i sklepu zastrzega sobie pełne prawo do wprowadzenia zmian w poniższym regulaminie.",
@@ -16,15 +16,15 @@ const terms = [
   {
     title: "§2 Definicje",
     content: [
-      "USŁUGOBIORCA / klient / gracz - osoba fizyczna lub prawna, która użytkuje serwer gier lub zakupiła usługę na stronie stylowamc.pl/shop.",
+      "USŁUGOBIORCA / klient / gracz - osoba fizyczna lub prawna, która użytkuje serwer gier lub zakupiła usługę na stronie www.stylowamc.pl/shop.",
       "USŁUGA - udostępnienie użytkownikowi uprawnień na serwerze gry lub dostarczenie wirtualnych przedmiotów, które mogą być wykorzystywane tylko i wyłącznie na naszym serwerze dostępnym w grze: „Minecraft” pod adresem stylowamc.pl.",
-      "SERWIS - Strona internetowa stylowamc.pl dostępna pod adresem https://stylowamc.pl/shop należąca do usługodawcy.",
+      "SERWIS - Strona internetowa stylowamc.pl dostępna pod adresem https://www.stylowamc.pl należąca do usługodawcy.",
     ],
   },
   {
     title: "§3 Warunki korzystania z usług",
     content: [
-      "W celu korzystania ze strony stylowamc.pl użytkownik powinien posiadać aktualną przeglądarkę internetową Firefox, Chrome, Safari, Brave bądź Opera oraz system operacyjny: Windows, Android, OSX, iOS bądź Linux.",
+      "W celu korzystania ze strony www.stylowamc.pl użytkownik powinien posiadać aktualną przeglądarkę internetową Firefox, Chrome, Safari, Brave bądź Opera oraz system operacyjny: Windows, Android, OSX, iOS bądź Linux.",
       "W celu dostępu do serwera stylowamc.pl konieczne jest posiadanie zainstalowanej gry Minecraft oraz korzystanie ze stabilnego połączenia internetowego o prędkości co najmniej 1Mbps.",
     ],
   },
