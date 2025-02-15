@@ -121,6 +121,11 @@ export default function Shop() {
     const amount = selectedItem.price.replace(" PLN", "");
   
     const requestBody = {
+      orderId,
+      amount,
+      service_name: selectedItem.name,
+      name: nickname, // ✅ Dodajemy nazwę gracza
+      status: "PENDING",
       KWOTA: amount,
       NAZWA_USLUGI: selectedItem.name,
       ADRES_WWW: "https://web.stylowamc.pl/shop/successful",
@@ -129,16 +134,28 @@ export default function Shop() {
     };
   
     try {
+      // 1️⃣ **Najpierw zapisujemy zamówienie w bazie**
+      await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId,
+          amount,
+          service_name: selectedItem.name,
+          name: nickname, // ✅ Przekazujemy nazwę gracza
+          status: "PENDING",
+        }),
+      });
+  
+      // 2️⃣ **Następnie przekierowujemy do HotPay**
       const response = await fetch("/api/hotpay/payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),
       });
   
-      // **Tutaj NIE parsujemy JSON-a!**
       const html = await response.text();
   
-      // Otwieramy nową stronę i wstawiamy do niej formularz
       const newWindow = window.open();
       if (newWindow) {
         newWindow.document.open();
@@ -150,6 +167,7 @@ export default function Shop() {
       alert("❌ Wystąpił błąd, spróbuj ponownie");
     }
   };
+  
   
 
   return (

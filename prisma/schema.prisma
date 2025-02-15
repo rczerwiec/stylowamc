@@ -22,3 +22,13 @@ model PlayerCode {
   code  String  @unique
   used  Boolean @default(false)  // Nowe pole, domyślnie `false`
 }
+
+model Orders {
+  id           String  @id @default(uuid()) // Unikalne ID zamówienia
+  orderId      String  @unique // ID zamówienia z HotPay
+  name         String  // Nazwa gracza
+  amount       Float   // Kwota płatności
+  service_name String  // Nazwa usługi
+  status       String  // Status płatności: PENDING, SUCCESS, FAILED
+  createdAt    DateTime @default(now()) // Data utworzenia zamówienia
+}
