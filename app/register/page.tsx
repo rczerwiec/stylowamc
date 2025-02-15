@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -25,14 +26,12 @@ export default function Register() {
         throw new Error(data.error || 'Błąd rejestracji');
       }
   
-      console.log('Sukces:', data);
-      alert('Rejestracja zakończona sukcesem!');
+      toast.success('Rejestracja zakończona sukcesem!')
       setEmail('');
       setPassword('');
       setCode('');
     } catch (error) {
-      console.error('Błąd:', error);
-      alert(error instanceof Error ? error.message : 'Nieznany błąd');
+      toast.error(error instanceof Error ? error.message : 'Nieznany błąd')
     }
   };
   

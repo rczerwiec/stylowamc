@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect } from "react";
 import { auth } from "./firebase/config";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function MainLayout({
     children,
@@ -28,6 +30,7 @@ export default function MainLayout({
 
     return (
         <div className="min-h-screen text-text-light flex flex-col items-center font-inter">
+          <ToastContainer position="bottom-center" theme="dark" />
           <Header/>
           <main className="p-10 flex flex-col items-center gap-8 w-full max-w-6xl flex-grow">
             <section className="w-full flex flex-col items-center flex-grow">

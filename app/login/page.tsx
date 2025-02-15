@@ -5,6 +5,7 @@ import {auth} from '@/app/firebase/config'
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -12,20 +13,21 @@ export default function Login() {
   const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
   const router = useRouter();
 
-  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
-    // Obsługa logowania (możesz podłączyć API lub inny system)
-    // 
-    try{
+  
+    try {
       const res = await signInWithEmailAndPassword(email, password);
-      console.log(res);
-      setEmail('');
-      setPassword('');
-      router.push('/');
-    }
-    catch(e){
-      console.error(e);
+  
+      if (res) {
+        toast.success("✅ Pomyślnie zalogowano!");
+        setEmail("");
+        setPassword("");
+  
+        router.push("/");
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Wystąpił błąd logowania.");
     }
   };
 

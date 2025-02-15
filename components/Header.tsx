@@ -6,6 +6,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "@/app/firebase/config";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const [user] = useAuthState(auth); // Pobieranie aktualnie zalogowanego użytkownika z Firebase
@@ -35,11 +36,13 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      console.log("Wylogowano pomyślnie");
+      toast.success("✅ Wylogowano pomyślnie!");
     } catch (error) {
-      console.error("Błąd podczas wylogowania:", error);
+      console.error("❌ Błąd podczas wylogowania:", error);
+      toast.error("❌ Wystąpił błąd podczas wylogowania. Spróbuj ponownie.");
     }
   };
+  
 
   return (
     <header className="p-4 bg-[#1A1A1A] flex items-center justify-between w-full border-b border-gray-700 shadow-md relative overflow-visible">
