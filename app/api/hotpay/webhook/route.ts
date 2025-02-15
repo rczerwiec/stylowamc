@@ -58,7 +58,12 @@ export async function POST(req: NextRequest) {
     const serviceCommands: Record<string, string> = {
       "Ranga VIP": `lp user ${playerName} parent set vip`,
       "Ranga SVIP": `lp user ${playerName} parent set svip`,
-      "Dodatkowe 5000$": `eco give ${playerName} 5000`,
+      "Ranga MVIP": `lp user ${playerName} parent set mvip`,
+      "Ranga UVIP": `lp user ${playerName} parent set uvip`,
+      "10 SMCoinów": `eco give ${playerName} 10`,
+      "25 SMCoinów": `eco give ${playerName} 20`,
+      "50 SMCoinów": `eco give ${playerName} 50`,
+      "100 SMCoinów": `eco give ${playerName} 100`,
     };
 
     const command = serviceCommands[serviceName];

@@ -23,6 +23,19 @@ model PlayerCode {
   used  Boolean @default(false)  // Nowe pole, domyślnie `false`
 }
 
+model PlayerMoneyRanking {
+  uuid   String @id @default(uuid())
+  name   String
+  money  Float
+}
+
+model PlayerTimeRanking {
+  uuid        String @id @default(uuid())
+  name        String
+  time_played BigInt  // 🔥 Przechowujemy ticki jako BigInt!
+}
+
+
 model Orders {
   id           String  @id @default(uuid()) // Unikalne ID zamówienia
   orderId      String  @unique // ID zamówienia z HotPay
