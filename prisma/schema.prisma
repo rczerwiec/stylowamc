@@ -35,6 +35,13 @@ model PlayerTimeRanking {
   time_played BigInt  // 🔥 Przechowujemy ticki jako BigInt!
 }
 
+model IslandLevelRanking {
+  uuid        String @id @default(uuid())
+  position    Int
+  player_name String
+  level       Int
+}
+
 
 model Orders {
   id           String  @id @default(uuid()) // Unikalne ID zamówienia
