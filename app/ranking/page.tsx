@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { FaSpinner } from "react-icons/fa";
 
 interface PlayerTime {
@@ -98,10 +99,12 @@ export default function Ranking() {
           <ul className="mt-2 text-gray-300 space-y-2">
             {timeRanking.map((player, index) => (
               <li key={player.uuid} className="flex items-center space-x-3">
-                <img
+                <Image
                   src={`https://minotar.net/avatar/${player.name}/32`}
                   alt={player.name}
-                  className="w-8 h-8 rounded-md"
+                  width={32}
+                  height={32}
+                  className="rounded-md"
                 />
                 <span>#{index + 1} - {player.name} ({player.time_played})</span>
               </li>
@@ -124,10 +127,12 @@ export default function Ranking() {
           <ul className="mt-2 text-gray-300 space-y-2">
             {moneyRanking.map((player, index) => (
               <li key={player.uuid} className="flex items-center space-x-3">
-                <img
+                <Image
                   src={`https://minotar.net/avatar/${player.name}/32`}
                   alt={player.name}
-                  className="w-8 h-8 rounded-md"
+                  width={32}
+                  height={32}
+                  className="rounded-md"
                 />
                 <span>#{index + 1} - {player.name} ({player.money} $)</span>
               </li>
@@ -140,29 +145,31 @@ export default function Ranking() {
 
       {/* Ranking Wysp */}
       <div className="bg-gray-700 p-4 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold text-yellow-400 text-center">Ranking Wysp</h3>
-            {loadingIsland ? (
-              <div className="flex justify-center items-center mt-4">
-                <FaSpinner className="animate-spin text-yellow-400 text-2xl" />
-                <p className="ml-2 text-gray-400">Ładowanie rankingu...</p>
-              </div>
-            ) : islandRanking.length > 0 ? (
-              <ul className="mt-2 text-gray-300 space-y-2">
-                {islandRanking.map((item) => (
-                  <li key={item.position} className="flex items-center space-x-3">
-                         <img
-                      src={`https://minotar.net/avatar/${item.player_name}/32`}
-                      alt={item.player_name}
-                      className="w-8 h-8 rounded-md"
-                    />
-                    <span>#{item.position} - {item.player_name} (Poziom: {item.level})</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-center text-gray-400">Brak danych...</p>
-            )}
+        <h3 className="text-xl font-semibold text-yellow-400 text-center">Ranking Wysp</h3>
+        {loadingIsland ? (
+          <div className="flex justify-center items-center mt-4">
+            <FaSpinner className="animate-spin text-yellow-400 text-2xl" />
+            <p className="ml-2 text-gray-400">Ładowanie rankingu...</p>
           </div>
+        ) : islandRanking.length > 0 ? (
+          <ul className="mt-2 text-gray-300 space-y-2">
+            {islandRanking.map((item) => (
+              <li key={item.position} className="flex items-center space-x-3">
+                <Image
+                  src={`https://minotar.net/avatar/${item.player_name}/32`}
+                  alt={item.player_name}
+                  width={32}
+                  height={32}
+                  className="rounded-md"
+                />
+                <span>#{item.position} - {item.player_name} (Poziom: {item.level})</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-center text-gray-400">Brak danych...</p>
+        )}
+      </div>
     </div>
   );
 
@@ -175,7 +182,6 @@ export default function Ranking() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full bg-gray-900 text-white p-6 rounded-lg">
-
       <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-5xl">
         <h2 className="text-2xl font-bold mb-6 text-center">Rankingi Serwera</h2>
 
