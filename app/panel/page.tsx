@@ -1,59 +1,138 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { auth } from "@/app/firebase/config";
-//import { useAuthState } from "react-firebase-hooks/auth";
-import Image from "next/image";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import Link from "next/link";
-import { FaClock, FaMoneyBillWave, FaSignOutAlt, FaShoppingCart, FaTrophy, FaChartBar } from "react-icons/fa";
+import { FaClock, FaMoneyBillWave, FaSignOutAlt, FaShoppingCart, FaTrophy, FaChartBar, FaSpinner } from "react-icons/fa";
+import Image from "next/image";
+
+interface PlayerStats {
+  uuid: string;
+  name: string;
+  kills: number;
+  deaths: number;
+  money: number;
+  playtime: number;
+  island_level: number;
+  smcoins: number;
+}
+
 
 export default function PlayerPanel() {
-  //const [user] = useAuthState(auth);
+  const [user] = useAuthState(auth);
+  const [stats, setStats] = useState<PlayerStats | null>(null);
+  const [loadingStats, setLoadingStats] = useState(true);
+  const [userName, setUserName] = useState<string | null>(null);
+  const [userUID, setUserUID] = useState<string | null>(null);
+
+  // Pobieramy dane użytkownika (nazwa i uuid) na podstawie emaila
+  useEffect(() => {
+    if (user && user.email) {
+      const fetchUserData = async () => {
+        try {
+          const response = await fetch(`/api/user?email=${user.email}`);
+          const data = await response.json();
+          if (response.ok) {
+            setUserName(data.name || "Nowy użytkownik");
+            setUserUID(data.uuid);
+          } else {
+            console.error("Błąd pobierania użytkownika:", data.error);
+          }
+        } catch (error) {
+          console.error("Błąd sieci podczas pobierania danych użytkownika:", error);
+        }
+      };
+      fetchUserData();
+    }
+  }, [user]);
+
+  // Pobieramy statystyki gracza, gdy userUID jest już dostępny
+  useEffect(() => {
+    if (userUID) {
+      const fetchStats = async () => {
+        try {
+          setLoadingStats(true);
+          const response = await fetch(`/api/player/stats?uuid=${userUID}`);
+          const data = await response.json();
+          if (data.stats) {
+            setStats(data.stats);
+          } else {
+            console.error("Brak statystyk w odpowiedzi");
+          }
+        } catch (error) {
+          console.error("❌ Błąd pobierania statystyk gracza:", error);
+        } finally {
+          setLoadingStats(false);
+        }
+      };
+      fetchStats();
+    }
+  }, [userUID]);
 
   const handleLogout = async () => {
     try {
       await signOut(auth);
       toast.success("✅ Wylogowano pomyślnie!");
     } catch (error) {
-      console.error("❌ Błąd podczas wylogowania:", error);
-      toast.error("❌ Wystąpił błąd podczas wylogowania.");
+      console.error("❌ Błąd podczas wylogowywania:", error);
+      toast.error("❌ Wystąpił błąd podczas wylogowywania.");
     }
   };
 
   return (
     <div className="flex flex-col sm:flex-row items-start w-full bg-gray-900 text-white p-6 rounded-lg gap-6">
-      {/* 🔥 Sekcja gracza (LEWA STRONA) */}
+      {/* Sekcja gracza (LEWA STRONA) */}
       <div className="bg-gray-800 p-6 rounded-lg shadow-md min-h-[700px] w-full sm:w-3/5">
         <h2 className="text-3xl font-bold mb-6 text-center sm:text-left">Panel Gracza</h2>
 
         {/* Skin gracza */}
         <div className="flex flex-col items-center text-center mb-6">
           <Image
-            src={`https://crafatar.com/renders/body/479a4f57-8bae-4c35-a4d9-f6688dd7edbf?scale=10&overlay`}
+            src={`https://crafatar.com/renders/body/${stats?.uuid}?scale=10&overlay`}
             alt="Skin"
-            className="rounded-lg "
-            width={32}
-            height={32}
+            className="h-auto rounded-lg"
+            width={128}
+            height={128}
           />
-          <h3 className="text-xl font-semibold mt-4">Stylowy</h3>
-          <p className="text-gray-400 text-sm">UUID: 123e4567-e89b-12d3-a456-426614174000</p>
+          <h3 className="text-xl font-semibold mt-4">{userName || "Nowy użytkownik"}</h3>
+          <p className="text-gray-400 text-sm">UUID: {stats?.uuid || "Brak danych"}</p>
         </div>
 
         {/* Dane gracza */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center pt-3">
           <div className="bg-gray-700 p-4 rounded-lg flex flex-col items-center shadow-md">
             <FaMoneyBillWave className="text-green-400 text-2xl mb-2" />
-            <p className="text-lg font-semibold">9999 $</p>
+            <p className="text-lg font-semibold">{stats?.money} $</p>
             <p className="text-gray-400 text-sm">Saldo</p>
           </div>
           <div className="bg-gray-700 p-4 rounded-lg flex flex-col items-center shadow-md">
             <FaClock className="text-blue-400 text-2xl mb-2" />
-            <p className="text-lg font-semibold">24h 15m</p>
+            <p className="text-lg font-semibold">{stats?.playtime}</p>
             <p className="text-gray-400 text-sm">Czas gry</p>
           </div>
-          
+        </div>
+
+        {/* Statystyki gracza z Mode1Stats */}
+        <div className="mt-6 bg-gray-700 p-4 rounded-lg shadow-md">
+          <h3 className="text-xl font-semibold text-center mb-2">Statystyki</h3>
+          {loadingStats ? (
+            <div className="flex justify-center items-center">
+              <FaSpinner className="animate-spin text-yellow-400 text-2xl" />
+              <span className="ml-2 text-gray-400">Ładowanie statystyk...</span>
+            </div>
+          ) : stats ? (
+            <ul className="space-y-2 text-sm text-gray-300">
+              <li>Kills: <strong>{stats.kills}</strong></li>
+              <li>Deaths: <strong>{stats.deaths}</strong></li>
+              <li>Island Level: <strong>{stats.island_level}</strong></li>
+              <li>SM Coins: <strong>{stats.smcoins}</strong></li>
+            </ul>
+          ) : (
+            <p className="text-center text-gray-400">Brak statystyk do wyświetlenia.</p>
+          )}
         </div>
 
         {/* Dodatkowe opcje */}
@@ -73,11 +152,10 @@ export default function PlayerPanel() {
         </div>
       </div>
 
-      {/* 🏆 Sekcja osiągnięć i statystyk (PRAWA STRONA) */}
+      {/* Sekcja osiągnięć i statystyk (PRAWA STRONA) */}
       <div className="bg-gray-800 p-6 rounded-lg shadow-md w-full sm:w-3/5 min-h-[700px]">
         <h2 className="text-2xl font-bold mb-4">🏆 Osiągnięcia i Statystyki</h2>
 
-        {/* Statystyki */}
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div className="bg-gray-700 p-4 rounded-lg flex flex-col items-center shadow-md">
             <p className="text-lg font-semibold">🔥 10</p>
@@ -87,10 +165,8 @@ export default function PlayerPanel() {
             <p className="text-lg font-semibold">⭐ 3</p>
             <p className="text-gray-400 text-sm">Rzadkie osiągnięcia</p>
           </div>
-          
         </div>
 
-        {/* Przycisk do pełnej strony statystyk */}
         <div className="mt-6 text-center">
           <Link
             href="/statistics"
@@ -100,7 +176,6 @@ export default function PlayerPanel() {
           </Link>
         </div>
 
-        {/* 🎖️ Osiągnięcia jako grid */}
         <h3 className="text-xl font-semibold mb-3 mt-6">🎖️ Twoje osiągnięcia</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {[
@@ -127,7 +202,6 @@ export default function PlayerPanel() {
           ))}
         </div>
 
-        {/* Przycisk do pełnej strony osiągnięć */}
         <div className="mt-6 text-center">
           <Link
             href="/achievements"

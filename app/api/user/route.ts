@@ -13,14 +13,14 @@ export async function GET(req: Request) {
     // Pobieranie użytkownika na podstawie e-maila
     const user = await prisma.user.findUnique({
       where: { email },
-      select: { name: true },
+      select: { name: true, uuid: true },
     });
 
     if (!user) {
       return NextResponse.json({ error: "Użytkownik nie istnieje" }, { status: 404 });
     }
 
-    return NextResponse.json({ name: user.name });
+    return NextResponse.json({ name: user.name, uuid: user.uuid });
   } catch (error) {
     console.error("Błąd pobierania użytkownika:", error);
     return NextResponse.json({ error: "Wewnętrzny błąd serwera" }, { status: 500 });

@@ -8,12 +8,13 @@ datasource db {
 }
 
 model User {
-  id         String  @id @default(uuid())
-  email      String  @unique
-  firebaseId String  @unique
-  password   String
-  name       String?
-  createdAt  DateTime @default(now())
+  id            String  @id @default(uuid())
+  email         String  @unique
+  firebaseId    String  @unique
+  password      String
+  name          String?
+  uuid          String?
+  createdAt     DateTime @default(now())
 }
 
 model PlayerCode {
@@ -51,4 +52,59 @@ model Orders {
   service_name String  // Nazwa usługi
   status       String  // Status płatności: PENDING, SUCCESS, FAILED
   createdAt    DateTime @default(now()) // Data utworzenia zamówienia
+}
+
+model Mode1Stats {
+  uuid         String   @id @db.VarChar(36)
+  name         String   @db.VarChar(16)
+  kills        Int      @default(0)
+  deaths       Int      @default(0)
+  money        Float    @default(0)
+  playtime     BigInt   @default(0)
+  island_level Int      @default(0)
+  smcoins      Float    @default(0)
+}
+
+model Mode2Stats {
+  uuid         String   @id @db.VarChar(36)
+  name         String   @db.VarChar(16)
+  kills        Int      @default(0)
+  deaths       Int      @default(0)
+  money        Float    @default(0)
+  playtime     BigInt   @default(0)
+  island_level Int      @default(0)
+  smcoins      Float    @default(0)
+}
+
+model Mode3Stats {
+  uuid         String   @id @db.VarChar(36)
+  name         String   @db.VarChar(16)
+  kills        Int      @default(0)
+  deaths       Int      @default(0)
+  money        Float    @default(0)
+  playtime     BigInt   @default(0)
+  island_level Int      @default(0)
+  smcoins      Float    @default(0)
+}
+
+model Mode4Stats {
+  uuid         String   @id @db.VarChar(36)
+  name         String   @db.VarChar(16)
+  kills        Int      @default(0)
+  deaths       Int      @default(0)
+  money        Float    @default(0)
+  playtime     BigInt   @default(0)
+  island_level Int      @default(0)
+  smcoins      Float    @default(0)
+}
+
+model Mode5Stats {
+  uuid         String   @id @db.VarChar(36)
+  name         String   @db.VarChar(16)
+  kills        Int      @default(0)
+  deaths       Int      @default(0)
+  money        Float    @default(0)
+  playtime     BigInt   @default(0)
+  island_level Int      @default(0)
+  smcoins      Float    @default(0)
 }

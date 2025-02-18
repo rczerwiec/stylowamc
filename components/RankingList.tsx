@@ -71,8 +71,8 @@ const RankingList = () => {
                   src={`https://minotar.net/avatar/${player.name}/32`}
                   alt={player.name}
                   className="rounded-md"
-                  width={8}
-                  height={8}
+                  width={32}
+                  height={32}
                 />
                 <span className="text-text-light font-medium flex-1">
                   {index + 1}. {player.name}

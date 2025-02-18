@@ -178,7 +178,7 @@ export default function Shop() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl">
   {items.map((item: Item) => (
     <div key={item.id} className="bg-gray-800 p-6 rounded-lg shadow-md flex flex-col items-center text-center h-full">
-      <Image src={item.image} alt={item.name} className="mb-4" width={20} height={20}/>
+      <Image src={item.image} alt={item.name} className="mb-4" height={80} width={80}/>
       <h3 className="text-xl font-semibold">{item.name}</h3>
       <p className="text-gray-400 text-sm mt-2 flex-grow">{item.description}</p>
       <p className="text-yellow-400 font-bold text-lg mt-3">{item.price}</p>

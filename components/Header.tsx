@@ -140,6 +140,8 @@ const Header = () => {
                   src={`https://minotar.net/helm/${userName || "Steve"}/64`}
                   alt="Avatar"
                   className="w-full h-full object-cover"
+                  height={100}
+                  width={100}
                 />
               </div>
               <div className="text-white font-medium ml-3">
@@ -156,6 +158,8 @@ const Header = () => {
                   src="https://minotar.net/helm/Steve/64"
                   alt="Gość"
                   className="w-full h-full object-cover"
+                  height={32}
+                  width={32}
                 />
               </div>
               <div className="text-white font-medium ml-3">
