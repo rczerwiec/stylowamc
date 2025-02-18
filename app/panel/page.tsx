@@ -2,14 +2,15 @@
 
 import React from "react";
 import { auth } from "@/app/firebase/config";
-import { useAuthState } from "react-firebase-hooks/auth";
+//import { useAuthState } from "react-firebase-hooks/auth";
+import Image from "next/image";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { FaClock, FaMoneyBillWave, FaSignOutAlt, FaShoppingCart, FaTrophy, FaChartBar } from "react-icons/fa";
 
 export default function PlayerPanel() {
-  const [user] = useAuthState(auth);
+  //const [user] = useAuthState(auth);
 
   const handleLogout = async () => {
     try {
@@ -29,10 +30,12 @@ export default function PlayerPanel() {
 
         {/* Skin gracza */}
         <div className="flex flex-col items-center text-center mb-6">
-          <img
+          <Image
             src={`https://crafatar.com/renders/body/479a4f57-8bae-4c35-a4d9-f6688dd7edbf?scale=10&overlay`}
             alt="Skin"
-            className="w-32 h-auto rounded-lg "
+            className="rounded-lg "
+            width={32}
+            height={32}
           />
           <h3 className="text-xl font-semibold mt-4">Stylowy</h3>
           <p className="text-gray-400 text-sm">UUID: 123e4567-e89b-12d3-a456-426614174000</p>

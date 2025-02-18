@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FaMedal, FaSpinner } from "react-icons/fa";
+import Image from "next/image";
 
 interface Player {
   name: string;
@@ -66,10 +67,12 @@ const RankingList = () => {
               className="flex gap-3 md:gap-1 items-center justify-between bg-gray-800 px-4 py-3 md:px-3 md:py-2 rounded-lg shadow-md w-full"
             >
               <div className="flex items-center space-x-3 md:space-x-3 w-full">
-                <img
+                <Image
                   src={`https://minotar.net/avatar/${player.name}/32`}
                   alt={player.name}
-                  className="w-8 h-8 md:w-8 md:h-8 rounded-md"
+                  className="rounded-md"
+                  width={8}
+                  height={8}
                 />
                 <span className="text-text-light font-medium flex-1">
                   {index + 1}. {player.name}

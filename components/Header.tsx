@@ -136,7 +136,7 @@ const Header = () => {
               className="flex items-center bg-gray-800 px-4 py-2 rounded-lg shadow-md hover:bg-gray-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <div className="w-10 h-10 rounded-full ring-2 ring-gray-300 flex items-center justify-center overflow-hidden">
-                <img
+                <Image
                   src={`https://minotar.net/helm/${userName || "Steve"}/64`}
                   alt="Avatar"
                   className="w-full h-full object-cover"
@@ -152,7 +152,7 @@ const Header = () => {
           <Link href="/login">
             <span className="flex items-center bg-gray-800 px-4 py-2 rounded-lg shadow-md hover:bg-gray-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
               <div className="w-10 h-10 rounded-full ring-2 ring-gray-300 flex items-center justify-center overflow-hidden">
-                <img
+                <Image
                   src="https://minotar.net/helm/Steve/64"
                   alt="Gość"
                   className="w-full h-full object-cover"
