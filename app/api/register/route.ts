@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     }
 
     console.log("Sprawdzanie kodu w bazie...");
-    const validCode = await prisma.playerCode.findFirst({
+    const validCode = await prisma.playerStats.findFirst({
       where: {
         code: code,
         used: false,
@@ -71,7 +71,7 @@ export async function POST(req: Request) {
     console.log("Nowy użytkownik utworzony:", newUser);
 
     console.log("Oznaczanie kodu jako użyty...");
-    await prisma.playerCode.update({
+    await prisma.playerStats.update({
       where: { code: code },
       data: { used: true },
     });

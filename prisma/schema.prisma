@@ -17,12 +17,6 @@ model User {
   createdAt     DateTime @default(now())
 }
 
-model PlayerCode {
-  uuid  String  @id @default(uuid())
-  name  String?
-  code  String  @unique
-  used  Boolean @default(false)  // Nowe pole, domyślnie `false`
-}
 
 model PlayerMoneyRanking {
   uuid   String @id @default(uuid())
@@ -54,15 +48,32 @@ model Orders {
   createdAt    DateTime @default(now()) // Data utworzenia zamówienia
 }
 
+
+model PlayerStats {
+  uuid              String   @id @default(uuid())
+  name              String?
+  code              String   @unique
+  used              Boolean  @default(false)
+  join_date         DateTime @default(now())
+  last_seen         DateTime @default(now())
+  money             Float    @default(0)
+  playtime          BigInt   @default(0)
+  smcoins          Float    @default(0)
+  money_spent_pln   Float    @default(0)
+  achievements_count Int     @default(0)
+}
+
 model Mode1Stats {
-  uuid         String   @id @db.VarChar(36)
-  name         String   @db.VarChar(16)
-  kills        Int      @default(0)
-  deaths       Int      @default(0)
-  money        Float    @default(0)
-  playtime     BigInt   @default(0)
-  island_level Int      @default(0)
-  smcoins      Float    @default(0)
+  uuid          String   @id @db.VarChar(36)
+  name          String   @db.VarChar(16)
+  kills         Int      @default(0)
+  deaths        Int      @default(0)
+  money         Float    @default(0)
+  playtime      BigInt   @default(0)
+  island_level  Int      @default(0)
+  smcoins       Float    @default(0)
+  broken_blocks Int      @default(0)
+  mob_kills     Int      @default(0)
 }
 
 model Mode2Stats {
@@ -74,6 +85,8 @@ model Mode2Stats {
   playtime     BigInt   @default(0)
   island_level Int      @default(0)
   smcoins      Float    @default(0)
+  broken_blocks Int      @default(0)
+  mob_kills     Int      @default(0)
 }
 
 model Mode3Stats {
@@ -85,6 +98,8 @@ model Mode3Stats {
   playtime     BigInt   @default(0)
   island_level Int      @default(0)
   smcoins      Float    @default(0)
+  broken_blocks Int      @default(0)
+  mob_kills     Int      @default(0)
 }
 
 model Mode4Stats {
@@ -96,6 +111,8 @@ model Mode4Stats {
   playtime     BigInt   @default(0)
   island_level Int      @default(0)
   smcoins      Float    @default(0)
+  broken_blocks Int      @default(0)
+  mob_kills     Int      @default(0)
 }
 
 model Mode5Stats {
@@ -107,4 +124,6 @@ model Mode5Stats {
   playtime     BigInt   @default(0)
   island_level Int      @default(0)
   smcoins      Float    @default(0)
+  broken_blocks Int      @default(0)
+  mob_kills     Int      @default(0)
 }

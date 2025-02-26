@@ -25,9 +25,20 @@ export default function Login() {
         setPassword("");
   
         router.push("/");
+      } else {
+        toast.error("❌ Nieprawidłowy email lub hasło");
       }
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Wystąpił błąd logowania.");
+    } catch (error: any) {
+      if (error.code === 'auth/invalid-credential') {
+        toast.error("❌ Nieprawidłowy email lub hasło");
+      } else if (error.code === 'auth/user-not-found') {
+        toast.error("❌ Nie znaleziono użytkownika o podanym adresie email");
+      } else if (error.code === 'auth/wrong-password') {
+        toast.error("❌ Nieprawidłowe hasło");
+      } else {
+        toast.error("❌ Wystąpił błąd podczas logowania");
+      }
+      console.error('Błąd logowania:', error);
     }
   };
 
