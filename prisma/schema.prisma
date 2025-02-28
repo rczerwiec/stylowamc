@@ -127,3 +127,29 @@ model Mode5Stats {
   broken_blocks Int      @default(0)
   mob_kills     Int      @default(0)
 }
+
+model PlayerAchievements {
+  id                     Int      @id @default(autoincrement())
+  uuid                   String
+  player_name            String
+  achievement_id        String
+  achievement_name      String?
+  achievement_description String?
+  material              String?
+  unlock_date           DateTime @default(now())
+
+  @@unique([uuid, achievement_id], name: "unique_player_achievement")
+}
+
+model Achievement {
+  id                    Int      @id @default(autoincrement())
+  uuid                  String
+  player_name          String
+  achievement_id       String
+  achievement_name     String?   @db.VarChar(128)
+  achievement_description String? @db.VarChar(256)
+  material             String
+  unlock_date          DateTime  @default(now())
+
+  @@index([uuid])
+}

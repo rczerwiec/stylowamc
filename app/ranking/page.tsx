@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaSpinner } from "react-icons/fa";
+import Link from "next/link";
 
 interface PlayerTime {
   uuid: string;
@@ -98,15 +99,20 @@ export default function Ranking() {
         ) : timeRanking.length > 0 ? (
           <ul className="mt-2 text-gray-300 space-y-2">
             {timeRanking.map((player, index) => (
-              <li key={player.uuid} className="flex items-center space-x-3">
-                <Image
-                  src={`https://minotar.net/avatar/${player.name}/32`}
-                  alt={player.name}
-                  width={32}
-                  height={32}
-                  className="rounded-md"
-                />
-                <span>#{index + 1} - {player.name} ({player.time_played})</span>
+              <li key={player.uuid}>
+                <Link 
+                  href={`/panel/${player.name}`}
+                  className="flex items-center space-x-3 hover:bg-gray-600 p-2 rounded-lg transition-colors duration-200 block"
+                >
+                  <Image
+                    src={`https://minotar.net/avatar/${player.name}/32`}
+                    alt={player.name}
+                    width={32}
+                    height={32}
+                    className="rounded-md"
+                  />
+                  <span>#{index + 1} - {player.name} ({player.time_played})</span>
+                </Link>
               </li>
             ))}
           </ul>
@@ -126,15 +132,20 @@ export default function Ranking() {
         ) : moneyRanking.length > 0 ? (
           <ul className="mt-2 text-gray-300 space-y-2">
             {moneyRanking.map((player, index) => (
-              <li key={player.uuid} className="flex items-center space-x-3">
-                <Image
-                  src={`https://minotar.net/avatar/${player.name}/32`}
-                  alt={player.name}
-                  width={32}
-                  height={32}
-                  className="rounded-md"
-                />
-                <span>#{index + 1} - {player.name} ({player.money} $)</span>
+              <li key={player.uuid}>
+                <Link 
+                  href={`/panel/${player.name}`}
+                  className="flex items-center space-x-3 hover:bg-gray-600 p-2 rounded-lg transition-colors duration-200 block"
+                >
+                  <Image
+                    src={`https://minotar.net/avatar/${player.name}/32`}
+                    alt={player.name}
+                    width={32}
+                    height={32}
+                    className="rounded-md"
+                  />
+                  <span>#{index + 1} - {player.name} ({player.money} $)</span>
+                </Link>
               </li>
             ))}
           </ul>
@@ -154,15 +165,20 @@ export default function Ranking() {
         ) : islandRanking.length > 0 ? (
           <ul className="mt-2 text-gray-300 space-y-2">
             {islandRanking.map((item) => (
-              <li key={item.position} className="flex items-center space-x-3">
-                <Image
-                  src={`https://minotar.net/avatar/${item.player_name}/32`}
-                  alt={item.player_name}
-                  width={32}
-                  height={32}
-                  className="rounded-md"
-                />
-                <span>#{item.position} - {item.player_name} (Poziom: {item.level})</span>
+              <li key={item.position}>
+                <Link 
+                  href={`/panel/${item.player_name}`}
+                  className="flex items-center space-x-3 hover:bg-gray-600 p-2 rounded-lg transition-colors duration-200 block"
+                >
+                  <Image
+                    src={`https://minotar.net/avatar/${item.player_name}/32`}
+                    alt={item.player_name}
+                    width={32}
+                    height={32}
+                    className="rounded-md"
+                  />
+                  <span>#{item.position} - {item.player_name} (Poziom: {item.level})</span>
+                </Link>
               </li>
             ))}
           </ul>

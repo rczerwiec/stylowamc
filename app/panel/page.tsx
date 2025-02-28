@@ -50,6 +50,17 @@ interface PlayerStats {
   mode5: null;
 }
 
+interface Achievement {
+  id: number;
+  uuid: string;
+  player_name: string;
+  achievement_id: string;
+  achievement_name: string;
+  achievement_description: string;
+  material: string;
+  unlock_date: string;
+}
+
 const formatPlayTime = (ticks: number) => {
   const totalMinutes = ticks / 60; // Konwersja ticków na minuty
   const days = Math.floor(totalMinutes / 1440); // 1 dzień = 1440 minut
@@ -59,6 +70,12 @@ const formatPlayTime = (ticks: number) => {
   return `${days > 0 ? `${days}d ` : ""}${hours}h ${minutes}m`;
 };
 
+// Funkcja do pobierania ikon przedmiotów z oficjalnego CDN Minecrafta
+const getMaterialImage = (material: string) => {
+  const materialName = material.toLowerCase();
+  return `https://minecraft-api.vercel.app/images/items/${materialName}.png`;
+};
+
 export default function PlayerPanel() {
   const [user] = useAuthState(auth);
   const [stats, setStats] = useState<PlayerStats | null>(null);
@@ -66,6 +83,8 @@ export default function PlayerPanel() {
   const [userName, setUserName] = useState<string | null>(null);
   const [userUID, setUserUID] = useState<string | null>(null);
   const [activeMode, setActiveMode] = useState('general'); // 'general', 'oneblock', 'survival'
+  const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const [loadingAchievements, setLoadingAchievements] = useState(true);
 
   // Pobieramy dane użytkownika (nazwa i uuid) na podstawie emaila
   useEffect(() => {
@@ -110,6 +129,28 @@ export default function PlayerPanel() {
         }
       };
       fetchStats();
+    }
+  }, [userUID]);
+
+  // Dodaj nowy useEffect do pobierania osiągnięć:
+  useEffect(() => {
+    if (userUID) {
+      const fetchAchievements = async () => {
+        try {
+          setLoadingAchievements(true);
+          const response = await fetch(`/api/player/achievements?uuid=${userUID}`);
+          const data = await response.json();
+          console.log("Osiągnięcia",data);
+          if (data.achievements) {
+            setAchievements(data.achievements);
+          }
+        } catch (error) {
+          console.error("Błąd pobierania osiągnięć:", error);
+        } finally {
+          setLoadingAchievements(false);
+        }
+      };
+      fetchAchievements();
     }
   }, [userUID]);
 
@@ -390,30 +431,40 @@ export default function PlayerPanel() {
         </h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {[
-            { name: "Pierwsze kroki", icon: "🥇", desc: "Twoje pierwsze wejście na serwer", date: "2024-02-15" },
-            { name: "Bogacz", icon: "💰", desc: "Osiągnąłeś 10 000$", date: "2024-02-10" },
-            { name: "Maratończyk", icon: "🏃", desc: "Spędziłeś 100 godzin na serwerze", date: "2024-02-05" },
-            { name: "Budowniczy", icon: "🏗️", desc: "Postawiłeś 1000 bloków", date: "2024-02-01" },
-            { name: "Zwycięzca PvP", icon: "⚔️", desc: "Wygrałeś 10 walk PvP", date: "2024-01-30" },
-            { name: "Mistrz handlu", icon: "🛒", desc: "Zrobiłeś 50 transakcji na rynku", date: "2024-01-25" },
-            { name: "Mistrz handlu", icon: "🛒", desc: "Zrobiłeś 50 transakcji na rynku", date: "2024-01-25" },
-            { name: "Mistrz handlu", icon: "🛒", desc: "Zrobiłeś 50 transakcji na rynku", date: "2024-01-25" },
-            { name: "Mistrz handlu", icon: "🛒", desc: "Zrobiłeś 50 transakcji na rynku", date: "2024-01-25" },
-            { name: "Mistrz handlu", icon: "🛒", desc: "Zrobiłeś 50 transakcji na rynku", date: "2024-01-25" },
-          ].map((achieve, index) => (
-            <div
-              key={index}
-              className="bg-gray-700 p-4 rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300"
-            >
-              <div className="flex flex-col items-center text-center">
-                <span className="text-3xl mb-2">{achieve.icon}</span>
-                <p className="font-semibold text-sm mb-1">{achieve.name}</p>
-                <p className="text-xs text-gray-400">{achieve.desc}</p>
-                <p className="text-xs text-gray-500 mt-2">{achieve.date}</p>
-              </div>
+          {loadingAchievements ? (
+            <div className="col-span-full flex justify-center items-center py-8">
+              <FaSpinner className="animate-spin text-yellow-400 text-2xl" />
+              <span className="ml-2 text-gray-400">Ładowanie osiągnięć...</span>
             </div>
-          ))}
+          ) : achievements.length > 0 ? (
+            achievements.map((achieve) => (
+              <div
+                key={achieve.id}
+                className="bg-gray-700 p-4 rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <span className="mb-2">
+                    <Image
+                      src={getMaterialImage(achieve.material)}
+                      alt={achieve.material}
+                      width={32}
+                      height={32}
+                      className="pixelated"
+                    />
+                  </span>
+                  <p className="font-semibold text-sm mb-1">{achieve.achievement_name}</p>
+                  <p className="text-xs text-gray-400">{achieve.achievement_description}</p>
+                  <p className="text-xs text-gray-500 mt-2">
+                    {new Date(achieve.unlock_date).toLocaleDateString('pl-PL')}
+                  </p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="col-span-full text-center text-gray-400 py-8">
+              Brak zdobytych osiągnięć
+            </div>
+          )}
         </div>
 
         <div className="mt-6 text-center">
