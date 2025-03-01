@@ -7,6 +7,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
+interface FirebaseError extends Error {
+  code?: string;
+}
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,17 +33,18 @@ export default function Login() {
         toast.error("❌ Nieprawidłowy email lub hasło");
       }
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        if (error.code === 'auth/invalid-credential') {
+      const firebaseError = error as FirebaseError;
+      if (firebaseError.code) {
+        if (firebaseError.code === 'auth/invalid-credential') {
           toast.error("❌ Nieprawidłowy email lub hasło");
-        } else if (error.code === 'auth/user-not-found') {
+        } else if (firebaseError.code === 'auth/user-not-found') {
           toast.error("❌ Nie znaleziono użytkownika o podanym adresie email");
-        } else if (error.code === 'auth/wrong-password') {
+        } else if (firebaseError.code === 'auth/wrong-password') {
           toast.error("❌ Nieprawidłowe hasło");
         } else {
           toast.error("❌ Wystąpił błąd podczas logowania");
         }
-        console.error('Błąd logowania:', error.message);
+        console.error('Błąd logowania:', firebaseError.message);
       }
     }
   };
