@@ -5,10 +5,14 @@ import { useParams } from "next/navigation";
 import { FaClock, FaMoneyBillWave, FaTrophy, FaChartBar, FaSpinner, FaSignOutAlt, FaShoppingCart } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
+import PlayerBasicStats from "@/app/components/PlayerBasicStats";
+import GeneralStats from "@/app/components/GeneralStats";
+import RankHistory from "@/app/components/RankHistory";
+import AchievementsList from "@/app/components/AchievementsList";
 
 // Dodaj funkcję formatPlayTime
 const formatPlayTime = (ticks: number) => {
-  const totalMinutes = ticks / 60; // Konwersja ticków na minuty
+  const totalMinutes = ticks / 1200; // 1 minuta = 1200 ticków
   const days = Math.floor(totalMinutes / 1440); // 1 dzień = 1440 minut
   const hours = Math.floor((totalMinutes % 1440) / 60);
   const minutes = Math.floor(totalMinutes % 60);
@@ -181,19 +185,11 @@ export default function PlayerProfile() {
             <p className="text-gray-400 text-sm">UUID: {stats.uuid}</p>
           </div>
 
-          {/* Podstawowe statystyki */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center mb-6">
-            <div className="bg-gray-700 p-4 rounded-lg flex flex-col items-center shadow-md">
-              <FaMoneyBillWave className="text-green-400 text-2xl mb-2" />
-              <p className="text-lg font-semibold">{stats.money || 0} $</p>
-              <p className="text-gray-400 text-sm">Saldo</p>
-            </div>
-            <div className="bg-gray-700 p-4 rounded-lg flex flex-col items-center shadow-md">
-              <FaClock className="text-blue-400 text-2xl mb-2" />
-              <p className="text-lg font-semibold">{formatPlayTime(stats.playtime || 0)}</p>
-              <p className="text-gray-400 text-sm">Czas gry</p>
-            </div>
-          </div>
+          <PlayerBasicStats 
+            smcoins={stats.general.smcoins}
+            playtime={stats.general.playtime}
+            formatPlayTime={formatPlayTime}
+          />
         </div>
 
         {/* Sekcja statystyk (PRAWA STRONA) */}
@@ -235,49 +231,15 @@ export default function PlayerProfile() {
           {/* Wyświetlanie statystyk w zależności od wybranego trybu */}
           <div>
             {activeMode === 'general' && (
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Osiągnięcia */}
-                  <div className="bg-gray-700 p-4 rounded-lg">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Zdobyte osiągnięcia:</span>
-                      <span className="text-yellow-400 font-semibold">
-                        {stats.achievements_count} / 50
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Wydane PLN */}
-                  <div className="bg-gray-700 p-4 rounded-lg">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Wydane PLN:</span>
-                      <span className="text-green-400 font-semibold">
-                        {stats.money_spent_pln} zł
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Data dołączenia */}
-                  <div className="bg-gray-700 p-4 rounded-lg">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Dołączył(a):</span>
-                      <span className="text-blue-400 font-semibold">
-                        {new Date(stats.join_date).toLocaleDateString('pl-PL')}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Ostatnio widziany */}
-                  <div className="bg-gray-700 p-4 rounded-lg">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Ostatnio online:</span>
-                      <span className="text-blue-400 font-semibold">
-                        {new Date(stats.last_seen).toLocaleDateString('pl-PL')}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <>
+                <GeneralStats
+                  achievements_count={stats.achievements_count}
+                  money_spent_pln={stats.money_spent_pln}
+                  join_date={stats.join_date}
+                  last_seen={stats.last_seen}
+                />
+                <RankHistory className="mt-6" />
+              </>
             )}
 
             {activeMode === 'oneblock' && stats.oneblock && (
@@ -337,59 +299,10 @@ export default function PlayerProfile() {
         </div>
       </div>
 
-      {/* Sekcja osiągnięć */}
-      <div className="bg-gray-800 p-6 rounded-lg shadow-md w-full">
-        <h2 className="text-2xl font-bold mb-6 flex items-center">
-          <FaTrophy className="mr-2 text-yellow-400" /> 
-          Osiągnięcia
-        </h2>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {loadingAchievements ? (
-            <div className="col-span-full flex justify-center items-center py-8">
-              <FaSpinner className="animate-spin text-yellow-400 text-2xl" />
-              <span className="ml-2 text-gray-400">Ładowanie osiągnięć...</span>
-            </div>
-          ) : achievements.length > 0 ? (
-            achievements.map((achieve) => (
-              <div
-                key={achieve.id}
-                className="bg-gray-700 p-4 rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300"
-              >
-                <div className="flex flex-col items-center text-center">
-                  <span className="mb-2">
-                    <Image
-                      src={getMaterialImage(achieve.material)}
-                      alt={achieve.material}
-                      width={32}
-                      height={32}
-                      className="pixelated"
-                    />
-                  </span>
-                  <p className="font-semibold text-sm mb-1">{achieve.achievement_name}</p>
-                  <p className="text-xs text-gray-400">{achieve.achievement_description}</p>
-                  <p className="text-xs text-gray-500 mt-2">
-                    {new Date(achieve.unlock_date).toLocaleDateString('pl-PL')}
-                  </p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="col-span-full text-center text-gray-400 py-8">
-              Brak zdobytych osiągnięć
-            </div>
-          )}
-        </div>
-
-        <div className="mt-6 text-center">
-          <Link
-            href="/achievements"
-            className="bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg shadow-md hover:bg-yellow-600 transition inline-block flex items-center justify-center w-full font-semibold"
-          >
-            <FaTrophy className="mr-2" /> Zobacz wszystkie osiągnięcia
-          </Link>
-        </div>
-      </div>
+      <AchievementsList 
+        achievements={achievements}
+        loading={loadingAchievements}
+      />
     </div>
   );
 } 
