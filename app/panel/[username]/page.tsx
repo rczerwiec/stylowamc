@@ -2,9 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { FaClock, FaMoneyBillWave, FaTrophy, FaChartBar, FaSpinner, FaSignOutAlt, FaShoppingCart } from "react-icons/fa";
+import { FaSpinner } from "react-icons/fa";
 import Image from "next/image";
-import Link from "next/link";
 import PlayerBasicStats from "@/app/components/PlayerBasicStats";
 import GeneralStats from "@/app/components/GeneralStats";
 import RankHistory from "@/app/components/RankHistory";
@@ -69,12 +68,6 @@ interface Achievement {
   material: string;
   unlock_date: string;
 }
-
-// Dodaj funkcję getMaterialImage
-const getMaterialImage = (material: string) => {
-  const materialName = material.toLowerCase();
-  return `https://minecraft-api.vercel.app/images/items/${materialName}.png`;
-};
 
 export default function PlayerProfile() {
   const params = useParams();
