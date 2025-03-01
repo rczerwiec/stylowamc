@@ -7,6 +7,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
+interface UserData {
+  email: string;
+  name: string;
+  // inne właściwości
+}
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
