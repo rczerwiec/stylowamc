@@ -32,8 +32,15 @@ export async function GET(request: Request) {
         }
       });
     } else {
+      if (!uuid) {
+        return NextResponse.json(
+          { error: "UUID nie może być null" },
+          { status: 400 }
+        );
+      }
+
       achievements = await prisma.playerAchievements.findMany({
-        where: { uuid: uuid },
+        where: { uuid: uuid as string },
         orderBy: { unlock_date: 'desc' },
         select: {
           id: true,
