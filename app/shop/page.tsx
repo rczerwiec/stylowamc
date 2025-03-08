@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-
+import { FaShoppingCart } from "react-icons/fa";
+import Link from "next/link";
 
 interface Item {
   id: number;
@@ -12,13 +13,12 @@ interface Item {
   image: string;
 }
 
-
 const items = [
   {
     id: 1,
     name: "Ranga VIP",
     description: "Dostęp do ekskluzywnych przywilejów i komend VIP.",
-    price: "12,99 PLN",
+    price: "12.99 PLN",
     image: "/images/logo.png",
   },
   {
@@ -141,28 +141,31 @@ export default function Shop() {
     }
   };
   
-  
-
   return (
-    <div className="flex flex-col items-center justify-center w-full bg-gray-900 text-white p-6 rounded-xl">
-      <h2 className="text-3xl font-bold mb-6">🎁 Sklep 🎁</h2>
+    <div className="flex flex-col w-full bg-gray-900 text-white p-6 rounded-lg gap-6 max-w-[1400px] mx-auto">
+      <h2 className="text-3xl font-bold mb-6 text-center">Sklep</h2>
+
+      {/* Informacja o płatnościach */}
+      <div className="bg-yellow-500 text-gray-900 p-4 rounded-md mb-6">
+        <h3 className="font-bold">Pracujemy nad zaimplementowaniem nowych sposobów płatności do naszej strony.</h3>
+        <p>
+          Jeśli chcesz zakupić rangę przez <strong>paysafecard</strong> lub <strong>paypal</strong>, to załóż ticketa na naszym discordzie - <a href="https://dc.stylowamc.pl" className="text-blue-600 underline">dc.stylowamc.pl</a> lub skontaktuj się z właścicielem serwera - <strong>Stylowy (Stylisher)</strong>. Aktualnie jedynymi metodami platnosci jest BLIK oraz przelew.
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl">
-  {items.map((item: Item) => (
-    <div key={item.id} className="bg-gray-800 p-6 rounded-lg shadow-md flex flex-col items-center text-center h-full">
-      <Image src={item.image} alt={item.name} className="mb-4" height={80} width={80}/>
-      <h3 className="text-xl font-semibold">{item.name}</h3>
-      <p className="text-gray-400 text-sm mt-2 flex-grow">{item.description}</p>
-      <p className="text-yellow-400 font-bold text-lg mt-3">{item.price}</p>
-      <button
-        onClick={() => openModal(item)}
-        className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-semibold transition duration-200"
-      >
-        Kup teraz
-      </button>
-    </div>
-  ))}
-</div>
+        {items.map((item: Item) => (
+          <div key={item.id} className="bg-gray-800 p-6 rounded-lg shadow-md flex flex-col items-center text-center h-full">
+            <Image src={item.image} alt={item.name} className="mb-4" height={80} width={80}/>
+            <h3 className="text-xl font-semibold">{item.name}</h3>
+            <p className="text-gray-400 text-sm mt-2 flex-grow">{item.description}</p>
+            <p className="text-yellow-400 font-bold text-lg mt-3">{item.price}</p>
+            <Link href="/purchase/vip" className="bg-yellow-500 text-gray-900 px-4 py-2 rounded-md mt-2 inline-block">
+              <FaShoppingCart className="inline mr-1" /> Kup teraz
+            </Link>
+          </div>
+        ))}
+      </div>
 
       {isModalOpen && selectedItem && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" onClick={closeModal}>
