@@ -2,8 +2,6 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { FaShoppingCart } from "react-icons/fa";
-import Link from "next/link";
 
 interface Item {
   id: number;
