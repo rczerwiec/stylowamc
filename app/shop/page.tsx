@@ -37,7 +37,7 @@ const items = [
     id: 4,
     name: "Ranga UVIP",
     description: "Najwyższy poziom rangi, dostęp do wszystkiego co tylko możliwe dla Vipa. Ranga na 60 dni!",
-    price: "99.99 PLN",
+    price: "89.99 PLN",
     image: "/images/logo.png",
   },
   {
