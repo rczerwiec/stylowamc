@@ -160,9 +160,12 @@ export default function Shop() {
             <h3 className="text-xl font-semibold">{item.name}</h3>
             <p className="text-gray-400 text-sm mt-2 flex-grow">{item.description}</p>
             <p className="text-yellow-400 font-bold text-lg mt-3">{item.price}</p>
-            <Link href="/purchase/vip" className="bg-yellow-500 text-gray-900 px-4 py-2 rounded-md mt-2 inline-block">
-              <FaShoppingCart className="inline mr-1" /> Kup teraz
-            </Link>
+            <button
+        onClick={() => openModal(item)}
+        className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-semibold transition duration-200"
+      >
+        Kup teraz
+      </button>
           </div>
         ))}
       </div>
