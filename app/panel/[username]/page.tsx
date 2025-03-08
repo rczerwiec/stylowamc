@@ -157,6 +157,17 @@ export default function PlayerProfile() {
     );
   }
 
+  // Generowanie losowego x i y
+  const skinVariationsX = [
+    "default", "marching", "walking", "crouching", "crossed", 
+    "criss_cross", "ultimate", "isometric", "mojavatar", 
+    "kicking", "archer", "dead", "sleeping", "dungeon", 
+    "lunging", "pointing", "relaxing", "cheering"
+  ];
+  
+
+  const randomX = skinVariationsX[Math.floor(Math.random() * skinVariationsX.length)];
+
   return (
     <div className="flex flex-col w-full bg-gray-900 text-white p-6 rounded-lg gap-6 max-w-[1400px] mx-auto">
       {/* Górna sekcja - flex row */}
@@ -168,7 +179,7 @@ export default function PlayerProfile() {
           {/* Skin gracza */}
           <div className="flex flex-col items-center text-center mb-6">
             <Image
-              src={`https://crafatar.com/renders/body/${stats.uuid}?scale=10&overlay`}
+              src={`https://starlightskins.lunareclipse.studio/render/${randomX}/${username}/full`}
               alt="Skin"
               className="h-auto rounded-lg"
               width={128}

@@ -174,18 +174,28 @@ export default function PlayerPanel() {
     );
   }
 
+  const skinVariationsX = [
+    "default", "marching", "walking", "crouching", "crossed", 
+    "criss_cross", "ultimate", "isometric", "mojavatar", 
+    "kicking", "archer", "dead", "sleeping", "dungeon", 
+    "lunging", "pointing", "relaxing", "cheering"
+  ];
+  
+
+  const randomX = skinVariationsX[Math.floor(Math.random() * skinVariationsX.length)];
+
   return (
     <div className="flex flex-col w-full bg-gray-900 text-white p-6 rounded-lg gap-6 max-w-[1400px] mx-auto">
       {/* Górna sekcja - flex row */}
       <div className="flex flex-col sm:flex-row gap-6">
         {/* Sekcja gracza (LEWA STRONA) */}
         <div className="bg-gray-800 p-6 rounded-lg shadow-md w-full sm:w-2/5">
-          <h2 className="text-3xl font-bold mb-6 text-center sm:text-left">Panel Gracza</h2>
+          <h2 className="text-3xl font-bold mb-6 text-center sm:text-left">Profil Gracza</h2>
 
           {/* Skin gracza */}
           <div className="flex flex-col items-center text-center mb-6">
             <Image
-              src={`https://crafatar.com/renders/body/${stats.uuid}?scale=10&overlay`}
+              src={`https://starlightskins.lunareclipse.studio/render/${randomX}/${userName}/full`}
               alt="Skin"
               className="h-auto rounded-lg"
               width={128}
