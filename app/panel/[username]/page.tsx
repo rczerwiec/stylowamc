@@ -4,10 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { FaSpinner } from "react-icons/fa";
 import Image from "next/image";
-import PlayerBasicStats from "@/app/components/PlayerBasicStats";
-import GeneralStats from "@/app/components/GeneralStats";
-import RankHistory from "@/app/components/RankHistory";
-import AchievementsList from "@/app/components/AchievementsList";
+import PlayerBasicStats from "@/components/PlayerBasicStats";
+import GeneralStats from "@/components/GeneralStats";
+import RankHistory from "@/components/RankHistory";
+import AchievementsList from "@/components/AchievementsList";
 
 // Dodaj funkcję formatPlayTime
 const formatPlayTime = (ticks: number) => {
@@ -31,6 +31,18 @@ interface PlayerStats {
     playtime: number;
     smcoins: number;
   };
+  mode0: {
+    uuid: string;
+    name: string;
+    kills: number;
+    deaths: number;
+    money: number;
+    playtime: number;
+    island_level: number;
+    smcoins: number;
+    broken_blocks: number;
+    mob_kills: number;
+  } | null;
   oneblock: {
     uuid: string;
     name: string;
@@ -193,6 +205,8 @@ export default function PlayerProfile() {
             smcoins={stats.general.smcoins}
             playtime={stats.general.playtime}
             formatPlayTime={formatPlayTime}
+            playtimeOneBlock={stats.oneblock?.playtime || 0}
+            playtimeLobby={stats.mode0?.playtime || 0}
           />
         </div>
 

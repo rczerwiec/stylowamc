@@ -36,7 +36,11 @@ export async function GET(request: Request) {
     }
 
     // Pobieramy wszystkie statystyki gracza równolegle
-    const [mode1Stats, mode2Stats, mode3Stats, mode4Stats, mode5Stats] = await Promise.all([
+    const [mode0Stats, mode1Stats, mode2Stats, mode3Stats, mode4Stats, mode5Stats] = await Promise.all([
+            // Statystyki z trybu OneBlock
+      prisma.mode0Stats.findUnique({
+        where: { uuid: playerStats.uuid }
+      }),
       // Statystyki z trybu OneBlock
       prisma.mode1Stats.findUnique({
         where: { uuid: playerStats.uuid }
@@ -59,6 +63,16 @@ export async function GET(request: Request) {
       })
     ]);
 
+    // Zsumuj playtime ze wszystkich trybów
+    const totalPlaytime = [
+      Number(mode0Stats?.playtime) || 0,
+      Number(mode1Stats?.playtime) || 0,
+      Number(mode2Stats?.playtime) || 0,
+      Number(mode3Stats?.playtime) || 0,
+      Number(mode4Stats?.playtime) || 0,
+      Number(mode5Stats?.playtime) || 0
+    ].reduce((acc, time) => acc + time, 0);
+
     // Łączymy wszystkie statystyki w jeden obiekt
     const combinedStats = {
       // Podstawowe informacje o graczu
@@ -72,7 +86,7 @@ export async function GET(request: Request) {
       // Ogólne statystyki
       general: {
         money: playerStats.money,
-        playtime: Number(playerStats.playtime),
+        playtime: totalPlaytime,
         smcoins: playerStats.smcoins,
       },
 
@@ -87,6 +101,10 @@ export async function GET(request: Request) {
         playtime: Number(mode2Stats.playtime),
       } : null,
 
+      mode0: mode0Stats ? {
+        ...mode0Stats,
+        playtime: Number(mode0Stats.playtime),
+      } : null,
       mode3: mode3Stats ? {
         ...mode3Stats,
         playtime: Number(mode3Stats.playtime),

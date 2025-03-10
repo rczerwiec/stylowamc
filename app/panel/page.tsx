@@ -8,10 +8,10 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 import { FaSignOutAlt, FaShoppingCart, FaSpinner } from "react-icons/fa";
 import Image from "next/image";
-import PlayerBasicStats from "@/app/components/PlayerBasicStats";
-import GeneralStats from "@/app/components/GeneralStats";
-import RankHistory from "@/app/components/RankHistory";
-import AchievementsList from "@/app/components/AchievementsList";
+import PlayerBasicStats from "@/components/PlayerBasicStats";
+import GeneralStats from "@/components/GeneralStats";
+import RankHistory from "@/components/RankHistory";
+import AchievementsList from "@/components/AchievementsList";
 
 interface PlayerStats {
   uuid: string;
@@ -20,6 +20,18 @@ interface PlayerStats {
   last_seen: string;
   money_spent_pln: number;
   achievements_count: number;
+  mode0: {
+    uuid: string;
+    name: string;
+    kills: number;
+    deaths: number;
+    money: number;
+    playtime: number;
+    island_level: number;
+    smcoins: number;
+    broken_blocks: number;
+    mob_kills: number;
+  } | null;
   general: {
     money: number;
     playtime: number;
@@ -63,7 +75,7 @@ interface Achievement {
 }
 
 const formatPlayTime = (ticks: number) => {
-  const totalMinutes = ticks / 1200; // 1 minuta = 1200 ticków
+  const totalMinutes = ticks / 20; // 1 minuta = 1200 ticków
   const days = Math.floor(totalMinutes / 1440); // 1 dzień = 1440 minut
   const hours = Math.floor((totalMinutes % 1440) / 60);
   const minutes = Math.floor(totalMinutes % 60);
@@ -177,7 +189,7 @@ export default function PlayerPanel() {
   const skinVariationsX = [
     "default", "marching", "walking", "crouching", "crossed", 
     "criss_cross", "ultimate", "isometric", "mojavatar", 
-    "kicking", "archer", "dead", "sleeping", "dungeon", 
+    "kicking", "archer", "dead", "sleeping", 
     "lunging", "pointing", "relaxing", "cheering"
   ];
   
@@ -209,6 +221,8 @@ export default function PlayerPanel() {
             smcoins={stats.general.smcoins}
             playtime={stats.general.playtime}
             formatPlayTime={formatPlayTime}
+            playtimeOneBlock={stats.oneblock?.playtime || 0}
+            playtimeLobby={stats.mode0?.playtime || 0}
           />
 
           {/* Dodatkowe opcje */}

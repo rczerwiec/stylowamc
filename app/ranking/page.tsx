@@ -144,7 +144,7 @@ export default function Ranking() {
                     height={32}
                     className="rounded-md"
                   />
-                  <span>#{index + 1} - {player.name} ({player.money} $)</span>
+                  <span>#{index + 1} - {player.name} ({player.money.toFixed(2)} $)</span>
                 </Link>
               </li>
             ))}

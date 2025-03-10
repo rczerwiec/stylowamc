@@ -27,11 +27,10 @@ const RankingList = () => {
 
         const data = await response.json();
 
-        // 🔥 Przekształcamy dane do formatu { name, amount }
         const rankingArray = Object.entries(data.spending)
           .map(([name, amount]) => ({ name, amount: Number(amount) }))
-          .sort((a, b) => b.amount - a.amount) // Sortujemy od największej kwoty
-          .slice(0, 10); // TOP 10
+          .sort((a, b) => b.amount - a.amount)
+          .slice(0, 10);
 
         setRanking(rankingArray);
       } catch (error) {
@@ -46,9 +45,9 @@ const RankingList = () => {
   }, []);
 
   return (
-    <aside className="w-full md:w-2/7 p-4 md:p-6 bg-[#1A1A1A] rounded-xl border border-gray-700 shadow-strong font-alegreya-sans">
-      <h2 className="text-lg md:text-xl font-bold mb-4 text-primary flex items-center justify-center md:justify-start">
-        <FaMedal className="mr-2 text-yellow-400" />
+    <aside className="w-full lg:w-96 p-4 md:p-6 bg-[#1A1A1A] rounded-xl border border-gray-700 shadow-strong font-alegreya-sans">
+      <h2 className="text-xl md:text-2xl font-bold mb-6 text-primary flex items-center justify-center">
+        <FaMedal className="mr-3 text-yellow-400" />
         Ranking ItemShop&apos;a
       </h2>
 
@@ -60,24 +59,38 @@ const RankingList = () => {
       ) : error ? (
         <p className="text-center text-red-400">Błąd ładowania rankingu.</p>
       ) : ranking.length > 0 ? (
-        <ul className="space-y-2 md:space-y-3 w-full">
+        <ul className="space-y-3">
           {ranking.map((player, index) => (
             <li
               key={index}
-              className="flex gap-3 md:gap-1 items-center justify-between bg-gray-800 px-4 py-3 md:px-3 md:py-2 rounded-lg shadow-md w-full"
+              className="flex items-center bg-gray-800 px-4 py-3 rounded-lg shadow-md hover:bg-gray-750 transition-colors duration-200"
             >
-              <div className="flex items-center space-x-3 md:space-x-3 w-full">
-                <Image
-                  src={`https://minotar.net/avatar/${player.name}/32`}
-                  alt={player.name}
-                  className="rounded-md"
-                  width={32}
-                  height={32}
-                />
-                <span className="text-text-light font-medium flex-1">
-                  {index + 1}. {player.name}
+              <div className="flex items-center min-w-0 w-full">
+                {/* Pozycja w rankingu */}
+                <span className="text-gray-400 font-medium min-w-[30px]">
+                  #{index + 1}
                 </span>
-                <span className="text-primary font-bold">{player.amount} PLN</span>
+
+                {/* Avatar gracza */}
+                <div className="flex-shrink-0 mx-3">
+                  <Image
+                    src={`https://minotar.net/avatar/${player.name}/32`}
+                    alt={player.name}
+                    className="rounded-md"
+                    width={32}
+                    height={32}
+                  />
+                </div>
+
+                {/* Nazwa gracza */}
+                <span className="text-text-light font-medium truncate flex-1">
+                  {player.name}
+                </span>
+
+                {/* Kwota */}
+                <span className="text-primary font-bold ml-3 flex-shrink-0">
+                  {player.amount.toFixed(2)} PLN
+                </span>
               </div>
             </li>
           ))}

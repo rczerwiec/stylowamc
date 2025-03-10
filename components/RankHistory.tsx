@@ -5,16 +5,16 @@ interface RankHistoryProps {
 export default function RankHistory({ className = "" }: RankHistoryProps) {
   const ranks = [
     { rank: "Admin", from: "20.02.2025", to: "26.02.2025", color: "text-red-400", bgColor: "bg-red-400" },
-    { rank: "Helper", from: "15.02.2025", to: "20.02.2025", color: "text-blue-400", bgColor: "bg-blue-400" },
-    { rank: "Moderator", from: "10.02.2025", to: "15.02.2025", color: "text-green-400", bgColor: "bg-green-400" },
-    { rank: "VIP+", from: "05.02.2025", to: "10.02.2025", color: "text-purple-400", bgColor: "bg-purple-400" },
+    { rank: "J.Helper", from: "15.02.2025", to: "20.02.2025", color: "text-blue-400", bgColor: "bg-blue-400" },
+    { rank: "ChatMod", from: "10.02.2025", to: "15.02.2025", color: "text-green-400", bgColor: "bg-green-400" },
+    { rank: "SVIP", from: "05.02.2025", to: "10.02.2025", color: "text-purple-400", bgColor: "bg-purple-400" },
     { rank: "VIP", from: "01.02.2025", to: "05.02.2025", color: "text-pink-400", bgColor: "bg-pink-400" },
     { rank: "Gracz", from: "26.01.2025", to: "obecnie", color: "text-gray-300", bgColor: "bg-gray-300" }
   ];
 
   return (
     <div className={`mt-6 ${className}`}>
-      <h4 className="text-lg font-semibold text-yellow-400 mb-3">Historia rang</h4>
+      <h4 className="text-lg font-semibold text-yellow-400 mb-3">Historia rang (w trakcie tworzenia)</h4>
       <div className="relative pl-6">
         <div className="absolute left-[9px] top-0 bottom-0 w-0.5 bg-gray-600"></div>
         {ranks.map((role, index) => (

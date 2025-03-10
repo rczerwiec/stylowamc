@@ -3,31 +3,30 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql" // Możesz zmienić na `mysql`, `sqlite`, `mongodb`
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id            String  @id @default(uuid())
-  email         String  @unique
-  firebaseId    String  @unique
-  password      String
-  name          String?
-  uuid          String?
-  createdAt     DateTime @default(now())
+  id         String   @id @default(uuid())
+  email      String   @unique
+  firebaseId String   @unique
+  password   String
+  name       String?
+  uuid       String?
+  createdAt  DateTime @default(now())
 }
 
-
 model PlayerMoneyRanking {
-  uuid   String @id @default(uuid())
-  name   String
-  money  Float
+  uuid  String @id @default(uuid())
+  name  String
+  money Float
 }
 
 model PlayerTimeRanking {
   uuid        String @id @default(uuid())
   name        String
-  time_played BigInt  // 🔥 Przechowujemy ticki jako BigInt!
+  time_played BigInt
 }
 
 model IslandLevelRanking {
@@ -37,119 +36,130 @@ model IslandLevelRanking {
   level       Int
 }
 
-
 model Orders {
-  id           String  @id @default(uuid()) // Unikalne ID zamówienia
-  orderId      String  @unique // ID zamówienia z HotPay
-  name         String  // Nazwa gracza
-  amount       Float   // Kwota płatności
-  service_name String  // Nazwa usługi
-  status       String  // Status płatności: PENDING, SUCCESS, FAILED
-  createdAt    DateTime @default(now()) // Data utworzenia zamówienia
+  id           String   @id @default(uuid())
+  orderId      String   @unique
+  name         String
+  amount       Float
+  service_name String
+  status       String
+  createdAt    DateTime @default(now())
 }
 
-
 model PlayerStats {
-  uuid              String   @id @default(uuid())
-  name              String?
-  code              String   @unique
-  used              Boolean  @default(false)
-  join_date         DateTime @default(now())
-  last_seen         DateTime @default(now())
-  money             Float    @default(0)
-  playtime          BigInt   @default(0)
-  smcoins          Float    @default(0)
-  money_spent_pln   Float    @default(0)
-  achievements_count Int     @default(0)
+  uuid               String   @id @default(uuid())
+  name               String?
+  code               String   @unique
+  used               Boolean  @default(false)
+  join_date          DateTime @default(now())
+  last_seen          DateTime @default(now())
+  money              Float    @default(0)
+  playtime           BigInt   @default(0)
+  smcoins            Float    @default(0)
+  money_spent_pln    Float    @default(0)
+  achievements_count Int      @default(0)
+}
+
+model Mode0Stats {
+  uuid          String @id @db.VarChar(36)
+  name          String @db.VarChar(16)
+  kills         Int    @default(0)
+  deaths        Int    @default(0)
+  money         Float  @default(0)
+  playtime      BigInt @default(0)
+  island_level  Int    @default(0)
+  smcoins       Float  @default(0)
+  broken_blocks Int    @default(0)
+  mob_kills     Int    @default(0)
 }
 
 model Mode1Stats {
-  uuid          String   @id @db.VarChar(36)
-  name          String   @db.VarChar(16)
-  kills         Int      @default(0)
-  deaths        Int      @default(0)
-  money         Float    @default(0)
-  playtime      BigInt   @default(0)
-  island_level  Int      @default(0)
-  smcoins       Float    @default(0)
-  broken_blocks Int      @default(0)
-  mob_kills     Int      @default(0)
+  uuid          String @id @db.VarChar(36)
+  name          String @db.VarChar(16)
+  kills         Int    @default(0)
+  deaths        Int    @default(0)
+  money         Float  @default(0)
+  playtime      BigInt @default(0)
+  island_level  Int    @default(0)
+  smcoins       Float  @default(0)
+  broken_blocks Int    @default(0)
+  mob_kills     Int    @default(0)
 }
 
 model Mode2Stats {
-  uuid         String   @id @db.VarChar(36)
-  name         String   @db.VarChar(16)
-  kills        Int      @default(0)
-  deaths       Int      @default(0)
-  money        Float    @default(0)
-  playtime     BigInt   @default(0)
-  island_level Int      @default(0)
-  smcoins      Float    @default(0)
-  broken_blocks Int      @default(0)
-  mob_kills     Int      @default(0)
+  uuid          String @id @db.VarChar(36)
+  name          String @db.VarChar(16)
+  kills         Int    @default(0)
+  deaths        Int    @default(0)
+  money         Float  @default(0)
+  playtime      BigInt @default(0)
+  island_level  Int    @default(0)
+  smcoins       Float  @default(0)
+  broken_blocks Int    @default(0)
+  mob_kills     Int    @default(0)
 }
 
 model Mode3Stats {
-  uuid         String   @id @db.VarChar(36)
-  name         String   @db.VarChar(16)
-  kills        Int      @default(0)
-  deaths       Int      @default(0)
-  money        Float    @default(0)
-  playtime     BigInt   @default(0)
-  island_level Int      @default(0)
-  smcoins      Float    @default(0)
-  broken_blocks Int      @default(0)
-  mob_kills     Int      @default(0)
+  uuid          String @id @db.VarChar(36)
+  name          String @db.VarChar(16)
+  kills         Int    @default(0)
+  deaths        Int    @default(0)
+  money         Float  @default(0)
+  playtime      BigInt @default(0)
+  island_level  Int    @default(0)
+  smcoins       Float  @default(0)
+  broken_blocks Int    @default(0)
+  mob_kills     Int    @default(0)
 }
 
 model Mode4Stats {
-  uuid         String   @id @db.VarChar(36)
-  name         String   @db.VarChar(16)
-  kills        Int      @default(0)
-  deaths       Int      @default(0)
-  money        Float    @default(0)
-  playtime     BigInt   @default(0)
-  island_level Int      @default(0)
-  smcoins      Float    @default(0)
-  broken_blocks Int      @default(0)
-  mob_kills     Int      @default(0)
+  uuid          String @id @db.VarChar(36)
+  name          String @db.VarChar(16)
+  kills         Int    @default(0)
+  deaths        Int    @default(0)
+  money         Float  @default(0)
+  playtime      BigInt @default(0)
+  island_level  Int    @default(0)
+  smcoins       Float  @default(0)
+  broken_blocks Int    @default(0)
+  mob_kills     Int    @default(0)
 }
 
 model Mode5Stats {
-  uuid         String   @id @db.VarChar(36)
-  name         String   @db.VarChar(16)
-  kills        Int      @default(0)
-  deaths       Int      @default(0)
-  money        Float    @default(0)
-  playtime     BigInt   @default(0)
-  island_level Int      @default(0)
-  smcoins      Float    @default(0)
-  broken_blocks Int      @default(0)
-  mob_kills     Int      @default(0)
+  uuid          String @id @db.VarChar(36)
+  name          String @db.VarChar(16)
+  kills         Int    @default(0)
+  deaths        Int    @default(0)
+  money         Float  @default(0)
+  playtime      BigInt @default(0)
+  island_level  Int    @default(0)
+  smcoins       Float  @default(0)
+  broken_blocks Int    @default(0)
+  mob_kills     Int    @default(0)
 }
 
 model PlayerAchievements {
-  id                     Int      @id @default(autoincrement())
-  uuid                   String
-  player_name            String
-  achievement_id        String
-  achievement_name      String?
+  id                      Int      @id @default(autoincrement())
+  uuid                    String
+  player_name             String
+  achievement_id          String
+  material                String?
+  unlock_date             DateTime @default(now())
   achievement_description String?
-  material              String?
-  unlock_date           DateTime @default(now())
+  achievement_name        String?
 
   @@unique([uuid, achievement_id], name: "unique_player_achievement")
 }
 
 model Achievement {
-  id                    Int      @id @default(autoincrement())
-  uuid                  String
-  player_name          String
-  achievement_id       String
-  achievement_name     String?   @db.VarChar(128)
-  achievement_description String? @db.VarChar(256)
-  material             String
-  unlock_date          DateTime  @default(now())
+  id                      Int      @id @default(autoincrement())
+  uuid                    String
+  player_name             String
+  achievement_id          String
+  achievement_name        String?  @db.VarChar(128)
+  achievement_description String?  @db.VarChar(256)
+  material                String
+  unlock_date             DateTime @default(now())
 
   @@index([uuid])
 }

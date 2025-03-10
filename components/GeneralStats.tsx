@@ -5,7 +5,7 @@ interface GeneralStatsProps {
   last_seen: string;
 }
 
-const TOTAL_ACHIEVEMENTS = 60; // Całkowita liczba osiągnięć
+const TOTAL_ACHIEVEMENTS = 77; // Całkowita liczba osiągnięć
 
 export default function GeneralStats({ 
   achievements_count, 
