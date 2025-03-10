@@ -32,6 +32,14 @@ const Changelog = () => {
     lobby: [
       {
         mode: "Lobby",
+        version: "1.0.2",
+        date: "10.03.2025",
+        changes: [
+          "Usprawnienia zabezpieczeń.",
+        ],
+      },
+      {
+        mode: "Lobby",
         version: "1.0.1",
         date: "09.03.2025",
         changes: [
@@ -51,13 +59,15 @@ const Changelog = () => {
     oneblock: [
       {
         mode: "OneBlock",
-        version: "1.1.1",
+        version: "1.2.0",
         date: "10.03.2025",
         changes: [
           "Naprawiony błąd związany z /ob upgrade w przypadku gdy nie jesteś właścicielem wyspy.",
           "Liczne usprawnienia permisji ",
           "Dodany plugin na /sit /lay itd (wyłacznie rangi vip)",
           "Dodane ograniczenia antyspamowe na chacie (wiadomości co 3sekundy).",
+          "Dodano level wyspy przy nicku na chacie.",
+          "Zmieniono liczne dropy ze skrzynek afk.",
         ],
       },
       {
