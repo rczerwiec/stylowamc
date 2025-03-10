@@ -24,6 +24,8 @@ const Changelog = () => {
           "Dodana stronę z opisem rang.",
           "Dodano stronę z changelogiem.",
           "Drobne poprawki wizualne.",
+          "Dodano osobne czasy dla trybów w panelu gracza.",
+          "Naprawione zliczanie czasu w panelu gracza.",
         ],
       },
     ],
