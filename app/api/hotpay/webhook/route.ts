@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
       "Ranga MVIP": `lp user ${playerName} parent addtemp mvip 45d`,
       "Ranga UVIP": `lp user ${playerName} parent addtemp uvip 60d`,
       "10 SMCoinów": `smc dodaj 10 ${playerName}`,
-      "25 SMCoinów": `smc dodaj 20 ${playerName}`,
+      "25 SMCoinów": `smc dodaj 25 ${playerName}`,
       "50 SMCoinów": `smc dodaj 50 ${playerName}`,
       "100 SMCoinów": `smc dodaj 100 ${playerName}`,
     };

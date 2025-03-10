@@ -51,6 +51,17 @@ const Changelog = () => {
     oneblock: [
       {
         mode: "OneBlock",
+        version: "1.1.1",
+        date: "10.03.2025",
+        changes: [
+          "Naprawiony błąd związany z /ob upgrade w przypadku gdy nie jesteś właścicielem wyspy.",
+          "Liczne usprawnienia permisji ",
+          "Dodany plugin na /sit /lay itd (wyłacznie rangi vip)",
+          "Dodane ograniczenia antyspamowe na chacie (wiadomości co 3sekundy).",
+        ],
+      },
+      {
+        mode: "OneBlock",
         version: "1.1.0",
         date: "09.03.2025",
         changes: [
@@ -114,11 +125,9 @@ const Changelog = () => {
         <ul className="list-disc list-inside mb-6">
           <li>Dalsza naprawa błędów w tłumaczeniach (oneblock).</li>
           <li>Poprawki w liczeniu liczb graczy i czasu (lobby).</li>
-          <li>Naprawa /ob upgrade - gdy chcesz ulepszyć wyspę nie będąc jej właścicielem (oneblock).</li>
           <li>Dodanie rud ze stoniarek (oneblock)</li>
           <li>Dodanie kasyna (oneblock)</li>
           <li>Poprawki w permisjach</li>
-          <li>Dodanie /sit i pozostałych dla rangi vipowskich /lay itd (oneblock)</li>
           <li>Dodanie marry (oneblock)</li>
         </ul>
       </div>
