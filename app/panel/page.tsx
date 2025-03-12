@@ -302,7 +302,7 @@ export default function PlayerPanel() {
                 </div>
                 <div className="flex justify-between">
                   <span>Saldo:</span>
-                  <span className="text-yellow-400">{stats.oneblock.money} $</span>
+                  <span className="text-yellow-400">{stats.oneblock.money.toFixed(2)} $</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Zabójstwa:</span>

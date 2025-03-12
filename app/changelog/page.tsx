@@ -17,6 +17,14 @@ const Changelog = () => {
     strona: [
       {
         mode: "Strona",
+        version: "1.0.2",
+        date: "12.03.2025",
+        changes: [
+          "Drobne poprawki wizualne.",
+        ],
+      },
+      {
+        mode: "Strona",
         version: "1.0.1",
         date: "10.03.2025",
         changes: [
@@ -30,6 +38,19 @@ const Changelog = () => {
       },
     ],
     lobby: [
+      {
+        mode: "Lobby",
+        version: "1.0.2",
+        date: "12.03.2025",
+        changes: [
+          "Utworzono autorski plugin do komunikacji sieć-serwer.",
+          "Naprawione liczniki graczy na scoreboardzie.",
+          "Naprawione liczniki graczy w hologramach nad NPC.",
+          "Naprawiony licznik graczy całej sieci na TABIE",
+          "Drobne poprawki w Scoreboardzie",
+          "Dodano komendę na poziomie sieci - /lobby - przenoszącą do serwera lobby.",
+        ],
+      },
       {
         mode: "Lobby",
         version: "1.0.2",
@@ -57,6 +78,16 @@ const Changelog = () => {
       },
     ],
     oneblock: [
+      {
+        mode: "OneBlock",
+        version: "1.2.1",
+        date: "12.03.2025",
+        changes: [
+          "Po usunięciu wyspy, nie traci się już przedmiotów.",
+          "TAB pokazuje teraz wszystkich graczy w całej sieci.",
+          "Dodano komendę na poziomie sieci - /lobby - przenoszącą do serwera lobby.",
+        ],
+      },
       {
         mode: "OneBlock",
         version: "1.2.0",

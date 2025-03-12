@@ -305,7 +305,7 @@ export default function PlayerProfile() {
                 </div>
                 <div className="flex justify-between">
                   <span>Saldo:</span>
-                  <span className="text-yellow-400">{stats.survival.money} $</span>
+                  <span className="text-yellow-400">{stats.survival.money.toFixed(2)} $</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Zabójstwa:</span>

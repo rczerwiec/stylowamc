@@ -29,7 +29,7 @@ export default function GeneralStats({
           <div className="flex justify-between items-center">
             <span className="text-gray-300">Wydane PLN:</span>
             <span className="text-green-400 font-semibold">
-              {money_spent_pln} zł
+              {money_spent_pln.toFixed(2)} zł
             </span>
           </div>
         </div>
