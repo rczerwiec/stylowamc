@@ -85,6 +85,8 @@ const Changelog = () => {
         version: "1.2.2",
         date: "12.03.2025",
         changes: [
+          "Naprawiono podświetlanie/aut-uzupełnianie się komend typu /msg /tpa /home",
+          "Dodano nowe dodatki do slimefuna",
           "TAB pokazuje teraz wszystkich graczy w całej sieci.",
           "Dodano komendę na poziomie sieci - /lobby - przenoszącą do serwera lobby.",
           "Usprawniono system cenzury.",
@@ -175,10 +177,11 @@ const Changelog = () => {
         <h3 className="text-xl font-semibold mb-4">Planowane zmiany i znane błędy</h3>
         <ul className="list-disc list-inside mb-6">
           <li>Dalsza naprawa błędów w tłumaczeniach (oneblock).</li>
-          <li>Poprawki w liczeniu liczb graczy i czasu (lobby).</li>
           <li>Dodanie rud ze stoniarek (oneblock)</li>
           <li>Dodanie kasyna (oneblock)</li>
+          <li>Dodanie płatności SMS (strona)</li>
           <li>Poprawki w permisjach</li>
+          <li>Przywrócenie /wb</li>
           <li>Dodanie marry (oneblock)</li>
         </ul>
       </div>
