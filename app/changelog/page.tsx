@@ -21,6 +21,7 @@ const Changelog = () => {
         date: "12.03.2025",
         changes: [
           "Drobne poprawki wizualne.",
+          "Dodana możliwość płatności PayPal",
         ],
       },
       {
@@ -49,6 +50,7 @@ const Changelog = () => {
           "Naprawiony licznik graczy całej sieci na TABIE",
           "Drobne poprawki w Scoreboardzie",
           "Dodano komendę na poziomie sieci - /lobby - przenoszącą do serwera lobby.",
+          "Usprawniono system cenzury.",
         ],
       },
       {
@@ -80,12 +82,20 @@ const Changelog = () => {
     oneblock: [
       {
         mode: "OneBlock",
-        version: "1.2.1",
+        version: "1.2.2",
         date: "12.03.2025",
         changes: [
-          "Po usunięciu wyspy, nie traci się już przedmiotów.",
           "TAB pokazuje teraz wszystkich graczy w całej sieci.",
           "Dodano komendę na poziomie sieci - /lobby - przenoszącą do serwera lobby.",
+          "Usprawniono system cenzury.",
+        ],
+      },
+      {
+        mode: "OneBlock",
+        version: "1.2.1",
+        date: "11.03.2025",
+        changes: [
+          "Po usunięciu wyspy, nie traci się już przedmiotów.",
         ],
       },
       {
