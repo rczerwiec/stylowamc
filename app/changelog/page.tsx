@@ -17,6 +17,14 @@ const Changelog = () => {
     strona: [
       {
         mode: "Strona",
+        version: "1.0.3",
+        date: "13.03.2025",
+        changes: [
+          "Dodano możliwość kupienia fly na wyspie.",
+        ],
+      },
+      {
+        mode: "Strona",
         version: "1.0.2",
         date: "12.03.2025",
         changes: [
@@ -80,6 +88,15 @@ const Changelog = () => {
       },
     ],
     oneblock: [
+      {
+        mode: "OneBlock",
+        version: "1.2.3",
+        date: "13.03.2025",
+        changes: [
+          "Drobne poprawki w pluginach.",
+          "Fly na wyspie dla UVIP oraz do kupna na stronie",
+        ],
+      },
       {
         mode: "OneBlock",
         version: "1.2.2",

@@ -68,6 +68,13 @@ const items = [
     price: "89.99 PLN",
     image: "/images/sunflower.gif",
   },
+  {
+    id: 9,
+    name: "Fly na Wyspie",
+    description: "Wykup sobie możliwość latania na swojej wyspie na 30 dni!",
+    price: "9.99 PLN",
+    image: "/images/fly.png",
+  },
 ];
 
 export default function Shop() {
@@ -147,7 +154,7 @@ export default function Shop() {
       <div className="bg-yellow-500 text-gray-900 p-4 rounded-md mb-6">
         <h3 className="font-bold">Pracujemy nad zaimplementowaniem nowych sposobów płatności do naszej strony.</h3>
         <p>
-          Jeśli chcesz zakupić rangę przez <strong>paysafecard</strong> lub <strong>paypal</strong>, to załóż ticketa na naszym discordzie - <a href="https://dc.stylowamc.pl" className="text-blue-600 underline">dc.stylowamc.pl</a> lub skontaktuj się z właścicielem serwera - <strong>Stylowy (Stylisher)</strong>. Aktualnie jedynymi metodami platnosci jest BLIK oraz przelew.
+          Jeśli chcesz zakupić rangę przez <strong>paysafecard</strong>, to załóż ticketa na naszym discordzie - <a href="https://dc.stylowamc.pl" className="text-blue-600 underline">dc.stylowamc.pl</a> lub skontaktuj się z właścicielem serwera - <strong>Stylowy (Stylisher)</strong>. Aktualnie jedynymi metodami platnosci jest BLIK oraz przelew.
         </p>
       </div>
 
