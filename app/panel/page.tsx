@@ -75,7 +75,7 @@ interface Achievement {
 }
 
 const formatPlayTime = (ticks: number) => {
-  const totalMinutes = ticks / 20; // 1 minuta = 1200 ticków
+  const totalMinutes = ticks / 1200; // 1 minuta = 1200 ticków
   const days = Math.floor(totalMinutes / 1440); // 1 dzień = 1440 minut
   const hours = Math.floor((totalMinutes % 1440) / 60);
   const minutes = Math.floor(totalMinutes % 60);
