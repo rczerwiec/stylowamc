@@ -211,12 +211,16 @@ const Changelog = () => {
         <h3 className="text-xl font-semibold mb-4">Planowane zmiany i znane błędy</h3>
         <ul className="list-disc list-inside mb-6">
           <li>Dalsza naprawa błędów w tłumaczeniach (oneblock).</li>
-          <li>Dodanie rud ze stoniarek (oneblock)</li>
           <li>Dodanie kasyna (oneblock)</li>
           <li>Dodanie płatności SMS (strona)</li>
           <li>Poprawki w permisjach</li>
           <li>Przywrócenie /wb</li>
           <li>Dodanie marry (oneblock)</li>
+          <li>Dodanie możliwości ulepszenia stoniarek (oneblock)</li>
+          <li>Ograniczenie minerów na wyspie np. max 25 na wyspę (oneblock)</li>
+          <li>Nowe statystyki na stronie </li>
+          <li>Możliwość wyszukiwania graczy/lista graczy na stronie</li>
+          <li>Historia rang na stronie</li>
         </ul>
       </div>
 
