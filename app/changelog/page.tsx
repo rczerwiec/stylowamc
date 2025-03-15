@@ -17,6 +17,14 @@ const Changelog = () => {
     strona: [
       {
         mode: "Strona",
+        version: "1.0.4",
+        date: "14.03.2025",
+        changes: [
+          "Naprawiono błędy w panelu zalogowanego gracza (błędnie liczony czas gry).",
+        ],
+      },
+      {
+        mode: "Strona",
         version: "1.0.3",
         date: "13.03.2025",
         changes: [
@@ -88,6 +96,15 @@ const Changelog = () => {
       },
     ],
     oneblock: [
+      {
+        mode: "OneBlock",
+        version: "1.3.0",
+        date: "14.03.2025",
+        changes: [
+          "Dodano rudy do generatorów cobblestone'a, stone'a oraz bazaltu (autorski plugin).",
+          "Tymczasowo usunięto questy związane z enchantingiem.",
+        ],
+      },
       {
         mode: "OneBlock",
         version: "1.2.3",
