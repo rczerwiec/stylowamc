@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
       "25 SMCoinów": `smc dodaj 25 ${playerName}`,
       "50 SMCoinów": `smc dodaj 50 ${playerName}`,
       "100 SMCoinów": `smc dodaj 100 ${playerName}`,
-      "Fly na Wyspie": `/lp user ${playerName} permission settemp smbento.fly true 30d`,
+      "Fly na Wyspie": `lp user ${playerName} permission settemp smbento.fly true 30d`,
     };
 
     const command = serviceCommands[serviceName];

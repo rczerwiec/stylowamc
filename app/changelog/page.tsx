@@ -57,6 +57,18 @@ const Changelog = () => {
     lobby: [
       {
         mode: "Lobby",
+        version: "1.1.0",
+        date: "15.03.2025",
+        changes: [
+          "Przerobiono system lunchpadów (zmiana na autorski)",
+          "Dodano kompas (autorski)",
+          "Dodano double-jumpa (autorski)",
+          "Dodano system trailów (autorski)",
+          "Dodano system gadgetów (autorski)"
+        ],
+      },
+      {
+        mode: "Lobby",
         version: "1.0.2",
         date: "12.03.2025",
         changes: [
@@ -96,6 +108,15 @@ const Changelog = () => {
       },
     ],
     oneblock: [
+      {
+        mode: "OneBlock",
+        version: "1.3.1",
+        date: "15.03.2025",
+        changes: [
+          "Dodano /ob warp",
+          "Usprawnienia w systemie generatora rud - dodano redstone i lapis oraz hologram nad spawnerem w trakcie kopania",
+        ],
+      },
       {
         mode: "OneBlock",
         version: "1.3.0",
@@ -221,6 +242,7 @@ const Changelog = () => {
           <li>Nowe statystyki na stronie </li>
           <li>Możliwość wyszukiwania graczy/lista graczy na stronie</li>
           <li>Historia rang na stronie</li>
+          <li>Logowanie premium - od nowej edycji</li>
         </ul>
       </div>
 
