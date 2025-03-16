@@ -29,7 +29,7 @@ interface PageProps {
 }
 
 // Komponent strony konkursu
-export default function CompetitionPage({ params, searchParams }: PageProps) {
+export default function CompetitionPage({ params }: PageProps) {
   const { slug } = params;
   const competition = competitions[slug];
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
