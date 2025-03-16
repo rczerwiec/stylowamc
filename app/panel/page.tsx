@@ -195,7 +195,7 @@ export default function PlayerPanel() {
           
           <div className="space-y-4 text-gray-300">
             <p className="text-lg">
-              Niestety, nie znaleźliśmy gracza o nicku <span className="font-semibold text-white">"Ten gracz nie istnieje"</span> w naszej bazie danych.
+              Niestety, nie znaleźliśmy gracza o nicku <span className="font-semibold text-white">&quot;Ten gracz nie istnieje&quot;</span> w naszej bazie danych.
             </p>
             
             <p>

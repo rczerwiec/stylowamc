@@ -255,7 +255,7 @@ const HistoryPage = () => {
           </div>
           <div className="space-y-4">
             {presidents.map((president, index) => {
-              const [startDate, endDate] = president.period.split(' - ');
+              const { name, achievements } = president;
               
               return (
                 <Link href={`/panel/${president.name}`} key={index}>
