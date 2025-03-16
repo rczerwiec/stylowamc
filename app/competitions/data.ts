@@ -65,7 +65,7 @@ export const competitions: Record<string, CompetitionData> = {
       {
         place: 4,
         playerName: 'nika24533',
-        description: 'Witajcie w Żabim Królestwie! Ta wyjątkowa wyspa to miejsce, gdzie żaby są głównym motywem przewodnim. Konstrukcja składa się z kilku mniejszych wysepek połączonych malowniczymi mostami. Na każdej z nich znajdziemy coś wyjątkowego: uroczą mini osadę, majestatyczny kościół, a przede wszystkim - ogromny zamek będący domem dla graczy. Całość przypomina scenerię wyjętą prosto z bajki, gdzie każdy element opowiada swoją własną historię.',
+        description: 'To prawdziwa perełka, udekorowana posągami różnych zwierząt. Szczególnie podoba mi się klimat tych zwisających lian, które dodają niesamowitego uroku! 🌿 Pod wyspą znajdziemy dodatkowo mob grinder, więc jest nie tylko ładnie, ale i praktycznie!.',
         mainImage: '/images/konkurs1/nika1.png',
         gallery: [
           '/images/konkurs1/nika2.png',
@@ -107,7 +107,6 @@ export const competitions: Record<string, CompetitionData> = {
           '/images/konkurs1/koxtar1.png',
           '/images/konkurs1/koxtar2.png',
           '/images/konkurs1/koxtar3.png',
-          '/images/konkurs1/koxtar4.png',
         ],
         teamMembers: ['franix_']
       }
