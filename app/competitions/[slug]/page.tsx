@@ -21,14 +21,8 @@ const getMedalColor = (place: number) => {
   }
 };
 
-type Props = {
-  params: {
-    slug: string
-  }
-}
-
 // Komponent strony konkursu
-export default function CompetitionPage({ params }: Props) {
+export default function CompetitionPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const competition = competitions[slug];
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
