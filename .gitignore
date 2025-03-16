@@ -15,7 +15,7 @@
 
 # next.js
 /.next/
-/app/public/images/konkurs1/*
+/public/images/konkurs1/*
 /out/
 
 # production
