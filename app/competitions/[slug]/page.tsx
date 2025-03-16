@@ -3,15 +3,14 @@ import ClientCompetitionPage from './ClientPage';
 import { competitions } from '../data';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
+  }>;
 }
 
-export default async function CompetitionPage({ params, searchParams }: PageProps) {
-  const competition = competitions[params.slug];
-  console.log(searchParams);
+export default async function CompetitionPage({ params }: PageProps) {
+  const resolvedParams = await params;
+  const competition = competitions[resolvedParams.slug];
 
   if (!competition) {
     notFound();
