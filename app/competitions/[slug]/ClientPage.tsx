@@ -23,13 +23,10 @@ const getMedalColor = (place: number) => {
 };
 
 type Props = {
-  params: {
-    slug: string;
-  };
   competition: CompetitionData;
 };
 
-export default function ClientCompetitionPage({competition }: Props) {
+export default function ClientCompetitionPage({ competition }: Props) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState<number>(0);
   const [currentEntry, setCurrentEntry] = useState<typeof competition.allEntries[0] | null>(null);
