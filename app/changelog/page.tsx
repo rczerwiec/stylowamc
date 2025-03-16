@@ -17,6 +17,16 @@ const Changelog = () => {
     strona: [
       {
         mode: "Strona",
+        version: "1.0.5",
+        date: "16.03.2025",
+        changes: [
+          "Dodano zakładkę 'Historia' - znajdują się tam historie prezydentów, mistrzów w parkourze oraz wyniki konkursów.",
+          "Poprawiono strone z błędem o nieistniejącym graczu gdy się go spróbuje wyszukać np. www.stylowamc.pl/panel/notch",
+          "Zaaktualizowano opis rang",
+        ],
+      },
+      {
+        mode: "Strona",
         version: "1.0.4",
         date: "14.03.2025",
         changes: [
@@ -55,6 +65,14 @@ const Changelog = () => {
       },
     ],
     lobby: [
+      {
+        mode: "Lobby",
+        version: "1.1.1",
+        date: "16.03.2025",
+        changes: [
+          "Serwer pamięta teraz sesja zalogowanego użytkownika - nie musisz się ponownie logować jeśli wyszedłeś na kilka minut.",
+        ],
+      },
       {
         mode: "Lobby",
         version: "1.1.0",
@@ -108,6 +126,14 @@ const Changelog = () => {
       },
     ],
     oneblock: [
+      {
+        mode: "OneBlock",
+        version: "1.3.2",
+        date: "16.03.2025",
+        changes: [
+          "Dodano ograniczenia na ilość minerów na wyspie (max 12)",
+        ],
+      },
       {
         mode: "OneBlock",
         version: "1.3.1",
