@@ -85,10 +85,10 @@ const Header = () => {
               { href: "/", text: "STRONA GŁÓWNA" },
               { href: "/vote", text: "GŁOSUJ" },
               { href: "/ranking", text: "RANKING" },
-              { href: "https://stylowamc.fandom.com/pl/f", text: "WIKI" },
               { href: "/policy", text: "REGULAMIN" },
               { href: "https://docs.google.com/spreadsheets/d/1dzcaZ_wtZOlHw3BcOiQzo-FkXHSuTrbckFp0pRP05cM", text: "OPIS RANG" },
               { href: "/changelog", text: "ZMIANY" },
+              { href: "/history", text: "HISTORIA" },
             ].map((item, index) => (
               <li key={index} className="w-full sm:w-auto">
                 <Link

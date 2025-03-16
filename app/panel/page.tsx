@@ -6,7 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import Link from "next/link";
-import { FaSignOutAlt, FaShoppingCart, FaSpinner } from "react-icons/fa";
+import { FaSignOutAlt, FaShoppingCart, FaSpinner, FaHome, FaTrophy } from "react-icons/fa";
 import Image from "next/image";
 import PlayerBasicStats from "@/components/PlayerBasicStats";
 import GeneralStats from "@/components/GeneralStats";
@@ -177,10 +177,55 @@ export default function PlayerPanel() {
 
   if (!stats) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2">❌ Brak danych</h2>
-          <p>Nie znaleziono statystyk gracza</p>
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
+        <div className="bg-gray-800/80 backdrop-blur-sm rounded-lg p-8 max-w-2xl w-full border border-gray-700 shadow-lg text-center">
+          <div className="mb-6">
+            <Image
+              src={`https://minotar.net/helm/${userName}/100`}
+              alt={userName || "Ten gracz nie istnieje"}
+              width={100}
+              height={100}
+              className="mx-auto rounded-lg shadow-lg border-2 border-gray-700"
+            />
+          </div>
+          
+          <h2 className="text-3xl font-bold text-yellow-400 mb-4 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+            Gracz nie znaleziony
+          </h2>
+          
+          <div className="space-y-4 text-gray-300">
+            <p className="text-lg">
+              Niestety, nie znaleźliśmy gracza o nicku <span className="font-semibold text-white">"Ten gracz nie istnieje"</span> w naszej bazie danych.
+            </p>
+            
+            <p>
+              Możliwe przyczyny:
+            </p>
+            
+            <ul className="list-disc list-inside text-left space-y-2 bg-gray-700/50 rounded-lg p-4 border border-gray-600">
+              <li>Gracz nigdy nie dołączył na nasz serwer</li>
+              <li>Nick został wpisany niepoprawnie</li>
+              <li>Konto gracza zostało usunięte</li>
+            </ul>
+          </div>
+
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <Link 
+              href="/"
+              className="inline-flex items-center justify-center px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold rounded-lg transition-colors duration-300 shadow-lg"
+            >
+              <FaHome className="mr-2" />
+              Strona główna
+            </Link>
+            
+            <Link
+              href="/ranking"
+              className="inline-flex items-center justify-center px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-colors duration-300 border border-gray-600 shadow-lg"
+            >
+              <FaTrophy className="mr-2" />
+              Zobacz ranking
+            </Link>
+          </div>
         </div>
       </div>
     );
