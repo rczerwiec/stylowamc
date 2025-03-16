@@ -21,9 +21,17 @@ const getMedalColor = (place: number) => {
   }
 };
 
+interface PageProps {
+  params: {
+    slug: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
 // Komponent strony konkursu
-export default function CompetitionPage({ params }: { params: { slug: string } }) {
-  const competition = competitions[params.slug];
+export default function CompetitionPage({ params, searchParams }: PageProps) {
+  const { slug } = params;
+  const competition = competitions[slug];
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState<number>(0);
   const [currentEntry, setCurrentEntry] = useState<typeof competition.allEntries[0] | null>(null);
