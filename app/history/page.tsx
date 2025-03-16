@@ -255,8 +255,6 @@ const HistoryPage = () => {
           </div>
           <div className="space-y-4">
             {presidents.map((president, index) => {
-              const { name, achievements } = president;
-              
               return (
                 <Link href={`/panel/${president.name}`} key={index}>
                   <div className="bg-gray-700 p-4 rounded-lg hover:bg-gray-600 transition-colors cursor-pointer">
