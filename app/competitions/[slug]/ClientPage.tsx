@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { FaTrophy, FaCalendar, FaUsers, FaMedal, FaUserFriends, FaImages } from 'react-icons/fa';
-import { competitions, CompetitionData } from '../data';
+import { CompetitionData } from '../data';
 import ImageModal from '../../components/ImageModal';
 
 // Funkcja pomocnicza do określania koloru medalu
@@ -29,8 +29,7 @@ type Props = {
   competition: CompetitionData;
 };
 
-export default function ClientCompetitionPage({ params, competition }: Props) {
-  const { slug } = params;
+export default function ClientCompetitionPage({competition }: Props) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState<number>(0);
   const [currentEntry, setCurrentEntry] = useState<typeof competition.allEntries[0] | null>(null);
