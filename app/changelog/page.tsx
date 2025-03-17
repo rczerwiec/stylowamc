@@ -128,6 +128,24 @@ const Changelog = () => {
     oneblock: [
       {
         mode: "OneBlock",
+        version: "1.4.0",
+        date: "17.03.2025",
+        changes: [
+          "Poprawiono błędy w niektórych questach.",
+          "Dodano łącznie prawie 100 nowych questów (rzemiosło, górnictwo)",
+          "Naprawiono otchłań",
+          "Zablokowano możliwość wyrzucania i podnoszenia przedmiotów na spawnie",
+          "Metin teraz respi się randomowo pomiedzy 16 a 22",
+          "Dodano wstępny system wykrywania afk na wyspach",
+          "Dodano system automatycznych wiadomości na chacie",
+          "Dodano system minigierek na chacie (eksperymentalny)",
+          "Na spawnie pojawił się npc, który pozwala na zakup alkoholu (eksperymentalny)",
+          "Naprawiono błąd z lataniem u UVIPÓW i osób które zakupiły fly na stronie",
+          "Zablokowano możliwość respienia kurczaków na spawnie jajkami"
+        ],
+      },
+      {
+        mode: "OneBlock",
         version: "1.3.2",
         date: "16.03.2025",
         changes: [
