@@ -128,6 +128,15 @@ const Changelog = () => {
     oneblock: [
       {
         mode: "OneBlock",
+        version: "1.4.1",
+        date: "18.03.2025",
+        changes: [
+          "Poprawki w pluginie z parkourem.",
+          "Rozpoczęte prace nad remakiem skrzyń premium",
+        ],
+      },
+      {
+        mode: "OneBlock",
         version: "1.4.0",
         date: "17.03.2025",
         changes: [
