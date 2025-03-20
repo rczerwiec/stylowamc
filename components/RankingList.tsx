@@ -5,7 +5,7 @@ import { FaMedal, FaSpinner, FaCrown, FaCoins, FaChartLine, FaGift } from "react
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface Player {
+interface RankingEntry {
   name: string;
   amount: number;
 }
@@ -26,7 +26,7 @@ const getMedalColor = (position: number) => {
 export default function RankingList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [rankingData, setRankingData] = useState<any[]>([]);
+  const [rankingData, setRankingData] = useState<RankingEntry[]>([]);
 
   useEffect(() => {
     const fetchRanking = async () => {

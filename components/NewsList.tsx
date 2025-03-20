@@ -6,8 +6,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { pl } from "date-fns/locale";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaCalendarAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { formatDate } from '@/utils/dateUtils';
+import { FaCalendarAlt, FaChevronLeft, FaChevronRight, FaCalendar } from "react-icons/fa";
 
 const getCategoryStyle = (category: string) => {
   switch (category) {
@@ -168,7 +167,7 @@ const NewsList = () => {
                       {news.category.charAt(0).toUpperCase() + news.category.slice(1)}
                     </motion.span>
                     <span className="text-gray-400 text-sm flex items-center gap-2">
-                      <FaCalendarAlt />
+                      <FaCalendar />
                       {format(new Date(news.date), "d MMMM yyyy", { locale: pl })}
                     </span>
                   </div>
