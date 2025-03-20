@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { NewsData, getLatestNews, getNewsByCategory } from "@/app/news/data";
-import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import { pl } from "date-fns/locale";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaCalendarAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { formatDate } from '@/utils/dateUtils';
 
 const getCategoryStyle = (category: string) => {
   switch (category) {

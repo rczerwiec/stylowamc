@@ -342,7 +342,7 @@ const Changelog = () => {
   });
 
   // Funkcja pomocnicza do konwersji daty w formacie DD.MM.YYYY na obiekt Date
-  const parseDate = (dateStr: string) => {
+  const parseDate = (dateStr: string): Date => {
     const [day, month, year] = dateStr.split('.').map(Number);
     return new Date(year, month - 1, day);
   };

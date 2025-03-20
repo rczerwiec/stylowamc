@@ -6,6 +6,7 @@ import { FaSearch, FaTrophy, FaHistory, FaSpinner } from 'react-icons/fa';
 import { format } from 'date-fns';
 import { pl } from 'date-fns/locale';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 interface Player {
   uuid: string;
@@ -124,10 +125,12 @@ export default function SearchBar({ variant = 'minimal' }: SearchBarProps) {
                       className="flex items-center gap-3 px-4 py-2 hover:bg-gray-700 cursor-pointer transition-colors"
                       whileHover={{ backgroundColor: "rgba(55, 65, 81, 1)" }}
                     >
-                      <img
+                      <Image
                         src={`https://minotar.net/helm/${player.name}/32`}
                         alt={player.name}
-                        className="w-8 h-8 rounded"
+                        width={32}
+                        height={32}
+                        className="rounded-lg"
                       />
                       <div>
                         <div className="text-white font-medium">{player.name}</div>
@@ -206,10 +209,12 @@ export default function SearchBar({ variant = 'minimal' }: SearchBarProps) {
                         className="flex items-center gap-4 px-6 py-3 hover:bg-gray-700 cursor-pointer transition-colors"
                         whileHover={{ backgroundColor: "rgba(55, 65, 81, 1)" }}
                       >
-                        <img
+                        <Image
                           src={`https://minotar.net/helm/${player.name}/40`}
                           alt={player.name}
-                          className="w-10 h-10 rounded"
+                          width={40}
+                          height={40}
+                          className="rounded-lg"
                         />
                         <div>
                           <div className="text-white font-medium text-lg">{player.name}</div>

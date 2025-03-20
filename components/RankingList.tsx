@@ -23,35 +23,25 @@ const getMedalColor = (position: number) => {
   }
 };
 
-const RankingList = () => {
-  const [ranking, setRanking] = useState<Player[]>([]);
+export default function RankingList() {
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [activeTab, setActiveTab] = useState<'spending'>('spending');
+  const [error, setError] = useState<string | null>(null);
+  const [rankingData, setRankingData] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchRanking = async () => {
       try {
         setLoading(true);
-        setError(false);
-        const response = await fetch('/api/orders/stats');
+        const response = await fetch('/api/ranking');
+        const data = await response.json();
 
         if (!response.ok) {
-          throw new Error("Błąd pobierania rankingu");
+          throw new Error(data.message || 'Wystąpił błąd podczas pobierania rankingu.');
         }
 
-        const data = await response.json();
-        
-        // Przekształcamy obiekt na tablicę i sortujemy
-        const rankingArray = Object.entries(data.spending)
-          .map(([name, amount]) => ({ name, amount: Number(amount) }))
-          .sort((a, b) => b.amount - a.amount)
-          .slice(0, 10);
-
-        setRanking(rankingArray);
+        setRankingData(data.ranking || []);
       } catch (error) {
-        console.error("❌ Błąd pobierania rankingu:", error);
-        setError(true);
+        setError(error instanceof Error ? error.message : 'Wystąpił nieznany błąd.');
       } finally {
         setLoading(false);
       }
@@ -88,7 +78,7 @@ const RankingList = () => {
             exit={{ opacity: 0, y: -20 }}
             className="text-center py-8"
           >
-            <p className="text-red-400">Wystąpił błąd podczas ładowania rankingu.</p>
+            <p className="text-red-400">{error}</p>
             <button 
               onClick={() => window.location.reload()} 
               className="mt-2 text-sm text-gray-400 hover:text-gray-300"
@@ -96,14 +86,14 @@ const RankingList = () => {
               Spróbuj ponownie
             </button>
           </motion.div>
-        ) : ranking.length > 0 ? (
+        ) : rankingData.length > 0 ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="space-y-3"
           >
-            {ranking.map((player, index) => (
+            {rankingData.map((player, index) => (
               <motion.div
                 key={player.name}
                 initial={{ opacity: 0, x: -20 }}
@@ -176,6 +166,4 @@ const RankingList = () => {
       </AnimatePresence>
     </aside>
   );
-};
-
-export default RankingList;
+}
