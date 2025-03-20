@@ -226,7 +226,7 @@ export default function HistoryPage() {
             Odkryj fascynującą historię StylowaMC, poznaj wszystkie wydarzenia, które ukształtowały nasz serwer i społeczność.
           </p>
           <Link
-            href="https://stylowamc.fandom.com/pl/f"
+            href="https://stylowamc.fandom.com/pl/wiki/Stylowamc_Wiki"
             target="_blank"
             className="inline-flex items-center gap-2 bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-[1.02]"
           >
