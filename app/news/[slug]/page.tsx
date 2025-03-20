@@ -6,9 +6,9 @@ import { format } from "date-fns";
 import { pl } from "date-fns/locale";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 const getCategoryStyle = (category: string) => {
@@ -26,8 +26,9 @@ const getCategoryStyle = (category: string) => {
   }
 };
 
-export default function NewsPage({ params }: PageProps) {
-  const news = getNewsById(params.slug);
+export default async function NewsPage({ params }: PageProps) {
+  const { slug } = await params;
+  const news = getNewsById(slug);
 
   if (!news) {
     notFound();
