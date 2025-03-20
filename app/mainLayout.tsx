@@ -11,9 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function MainLayout({
     children,
-  }: Readonly<{
+  }: {
     children: React.ReactNode;
-  }>){
+  }) {
 
     const [user, loading] = useAuthState(auth);
     const router = useRouter();
@@ -33,8 +33,8 @@ export default function MainLayout({
           <ToastContainer position="bottom-center" theme="dark" />
           <Header />
           
-          {/* 🔥 Dostosowanie `main` do mobilnych urządzeń */}
-          <main className="p-6 sm:p-10 flex flex-col items-center gap-4 sm:gap-8 w-full max-w-full sm:max-w-6xl flex-grow">
+          {/* 🔥 Zwiększona maksymalna szerokość i lepsze paddingi */}
+          <main className="p-4 sm:p-6 lg:p-8 flex flex-col items-center gap-4 sm:gap-6 lg:gap-8 w-full max-w-full sm:max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1600px] flex-grow">
             <section className="w-full flex flex-col items-start flex-grow">
               {children}
             </section>

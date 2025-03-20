@@ -71,7 +71,14 @@ export default function Ranking() {
           const response = await fetch("/api/ranking/island-level");
           const data = await response.json();
           if (data.ranking) {
-            setIslandRanking(data.ranking);
+            // Sortowanie rankingu wysp od najwyższego do najniższego poziomu
+            const sortedRanking = [...data.ranking].sort((a, b) => b.level - a.level);
+            // Aktualizacja pozycji po sortowaniu
+            const rankingWithUpdatedPositions = sortedRanking.map((item, index) => ({
+              ...item,
+              position: index + 1
+            }));
+            setIslandRanking(rankingWithUpdatedPositions);
           }
         } catch (error) {
           console.error("❌ Błąd pobierania rankingu wysp:", error);
@@ -89,8 +96,10 @@ export default function Ranking() {
   const renderOneBlockTab = () => (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* Ranking Czasu Gry */}
-      <div className="bg-gray-700 p-4 rounded-lg shadow-md">
-        <h3 className="text-xl font-semibold text-yellow-400 text-center">Czas spędzony na serwerze</h3>
+      <div className="bg-gray-700/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-600">
+        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600 text-center mb-4">
+          Czas spędzony na serwerze
+        </h3>
         {loadingTime ? (
           <div className="flex justify-center items-center mt-4">
             <FaSpinner className="animate-spin text-yellow-400 text-2xl" />
@@ -102,16 +111,31 @@ export default function Ranking() {
               <li key={player.uuid}>
                 <Link 
                   href={`/panel/${player.name}`}
-                  className="flex items-center space-x-3 hover:bg-gray-600 p-2 rounded-lg transition-colors duration-200 block"
+                  className="flex items-center space-x-3 hover:bg-gray-600/50 p-3 rounded-lg transition-all duration-300 group"
                 >
-                  <Image
-                    src={`https://minotar.net/avatar/${player.name}/32`}
-                    alt={player.name}
-                    width={32}
-                    height={32}
-                    className="rounded-md"
-                  />
-                  <span>#{index + 1} - {player.name} ({player.time_played})</span>
+                  <div className="relative">
+                    <Image
+                      src={`https://minotar.net/avatar/${player.name}/32`}
+                      alt={player.name}
+                      width={32}
+                      height={32}
+                      className="rounded-lg transition-transform duration-300 group-hover:scale-110"
+                    />
+                    {index < 3 && (
+                      <div className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center rounded-full text-xs font-bold" style={{
+                        background: index === 0 ? 'linear-gradient(to bottom right, #FFD700, #FFA500)' : 
+                                  index === 1 ? 'linear-gradient(to bottom right, #C0C0C0, #A0A0A0)' :
+                                  'linear-gradient(to bottom right, #CD7F32, #8B4513)',
+                        color: index === 0 ? '#000' : '#fff'
+                      }}>
+                        {index + 1}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-medium group-hover:text-yellow-400 transition-colors duration-300">{player.name}</span>
+                    <span className="text-sm text-gray-400">{player.time_played}</span>
+                  </div>
                 </Link>
               </li>
             ))}
@@ -122,8 +146,10 @@ export default function Ranking() {
       </div>
 
       {/* Ranking Topki Hajsu */}
-      <div className="bg-gray-700 p-4 rounded-lg shadow-md">
-        <h3 className="text-xl font-semibold text-yellow-400 text-center">Topka Hajsu</h3>
+      <div className="bg-gray-700/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-600">
+        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600 text-center mb-4">
+          Topka Hajsu
+        </h3>
         {loadingMoney ? (
           <div className="flex justify-center items-center mt-4">
             <FaSpinner className="animate-spin text-yellow-400 text-2xl" />
@@ -135,16 +161,31 @@ export default function Ranking() {
               <li key={player.uuid}>
                 <Link 
                   href={`/panel/${player.name}`}
-                  className="flex items-center space-x-3 hover:bg-gray-600 p-2 rounded-lg transition-colors duration-200 block"
+                  className="flex items-center space-x-3 hover:bg-gray-600/50 p-3 rounded-lg transition-all duration-300 group"
                 >
-                  <Image
-                    src={`https://minotar.net/avatar/${player.name}/32`}
-                    alt={player.name}
-                    width={32}
-                    height={32}
-                    className="rounded-md"
-                  />
-                  <span>#{index + 1} - {player.name} ({player.money.toFixed(2)} $)</span>
+                  <div className="relative">
+                    <Image
+                      src={`https://minotar.net/avatar/${player.name}/32`}
+                      alt={player.name}
+                      width={32}
+                      height={32}
+                      className="rounded-lg transition-transform duration-300 group-hover:scale-110"
+                    />
+                    {index < 3 && (
+                      <div className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center rounded-full text-xs font-bold" style={{
+                        background: index === 0 ? 'linear-gradient(to bottom right, #FFD700, #FFA500)' : 
+                                  index === 1 ? 'linear-gradient(to bottom right, #C0C0C0, #A0A0A0)' :
+                                  'linear-gradient(to bottom right, #CD7F32, #8B4513)',
+                        color: index === 0 ? '#000' : '#fff'
+                      }}>
+                        {index + 1}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-medium group-hover:text-yellow-400 transition-colors duration-300">{player.name}</span>
+                    <span className="text-sm text-gray-400">{player.money.toFixed(2)} $</span>
+                  </div>
                 </Link>
               </li>
             ))}
@@ -155,8 +196,10 @@ export default function Ranking() {
       </div>
 
       {/* Ranking Wysp */}
-      <div className="bg-gray-700 p-4 rounded-lg shadow-md">
-        <h3 className="text-xl font-semibold text-yellow-400 text-center">Ranking Wysp</h3>
+      <div className="bg-gray-700/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-600">
+        <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600 text-center mb-4">
+          Ranking Wysp
+        </h3>
         {loadingIsland ? (
           <div className="flex justify-center items-center mt-4">
             <FaSpinner className="animate-spin text-yellow-400 text-2xl" />
@@ -164,20 +207,35 @@ export default function Ranking() {
           </div>
         ) : islandRanking.length > 0 ? (
           <ul className="mt-2 text-gray-300 space-y-2">
-            {islandRanking.map((item) => (
-              <li key={item.position}>
+            {islandRanking.map((item, index) => (
+              <li key={`${item.player_name}-${item.level}`}>
                 <Link 
                   href={`/panel/${item.player_name}`}
-                  className="flex items-center space-x-3 hover:bg-gray-600 p-2 rounded-lg transition-colors duration-200 block"
+                  className="flex items-center space-x-3 hover:bg-gray-600/50 p-3 rounded-lg transition-all duration-300 group"
                 >
-                  <Image
-                    src={`https://minotar.net/avatar/${item.player_name}/32`}
-                    alt={item.player_name}
-                    width={32}
-                    height={32}
-                    className="rounded-md"
-                  />
-                  <span>#{item.position} - {item.player_name} (Poziom: {item.level})</span>
+                  <div className="relative">
+                    <Image
+                      src={`https://minotar.net/avatar/${item.player_name}/32`}
+                      alt={item.player_name}
+                      width={32}
+                      height={32}
+                      className="rounded-lg transition-transform duration-300 group-hover:scale-110"
+                    />
+                    {index < 3 && (
+                      <div className="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center rounded-full text-xs font-bold" style={{
+                        background: index === 0 ? 'linear-gradient(to bottom right, #FFD700, #FFA500)' : 
+                                  index === 1 ? 'linear-gradient(to bottom right, #C0C0C0, #A0A0A0)' :
+                                  'linear-gradient(to bottom right, #CD7F32, #8B4513)',
+                        color: index === 0 ? '#000' : '#fff'
+                      }}>
+                        {index + 1}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-medium group-hover:text-yellow-400 transition-colors duration-300">{item.player_name}</span>
+                    <span className="text-sm text-gray-400">Poziom: {item.level}</span>
+                  </div>
                 </Link>
               </li>
             ))}
@@ -197,32 +255,40 @@ export default function Ranking() {
   );
 
   return (
-    <div className="flex flex-col items-center justify-center w-full bg-gray-900 text-white p-6 rounded-lg">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-5xl">
-        <h2 className="text-2xl font-bold mb-6 text-center">Rankingi Serwera</h2>
+    <div className="flex flex-col items-center justify-center w-full">
+      <div className="bg-gray-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border border-gray-700 w-full">
+        <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+          Rankingi Serwera
+        </h2>
 
         {/* Nawigacja zakładek */}
-        <div className="flex justify-center mb-6 space-x-4">
+        <div className="flex justify-center mb-8 space-x-4">
           <button
             onClick={() => setActiveTab("Ogólne")}
-            className={`px-4 py-2 rounded-md ${
-              activeTab === "Ogólne" ? "bg-yellow-500 text-gray-900" : "bg-gray-700 text-gray-300"
+            className={`px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 ${
+              activeTab === "Ogólne" 
+                ? "bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-900 shadow-lg" 
+                : "bg-gray-700/50 text-gray-300 hover:bg-gray-700"
             }`}
           >
             Ogólne
           </button>
           <button
             onClick={() => setActiveTab("OneBlock")}
-            className={`px-4 py-2 rounded-md ${
-              activeTab === "OneBlock" ? "bg-yellow-500 text-gray-900" : "bg-gray-700 text-gray-300"
+            className={`px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 ${
+              activeTab === "OneBlock" 
+                ? "bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-900 shadow-lg" 
+                : "bg-gray-700/50 text-gray-300 hover:bg-gray-700"
             }`}
           >
             OneBlock
           </button>
           <button
             onClick={() => setActiveTab("Survival")}
-            className={`px-4 py-2 rounded-md ${
-              activeTab === "Survival" ? "bg-yellow-500 text-gray-900" : "bg-gray-700 text-gray-300"
+            className={`px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 ${
+              activeTab === "Survival" 
+                ? "bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-900 shadow-lg" 
+                : "bg-gray-700/50 text-gray-300 hover:bg-gray-700"
             }`}
           >
             Survival

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
 import { FaBars, FaTimes } from "react-icons/fa";
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   const [user] = useAuthState(auth);
@@ -86,7 +87,6 @@ const Header = () => {
               { href: "/vote", text: "GŁOSUJ" },
               { href: "/ranking", text: "RANKING" },
               { href: "/policy", text: "REGULAMIN" },
-              { href: "https://docs.google.com/spreadsheets/d/1dzcaZ_wtZOlHw3BcOiQzo-FkXHSuTrbckFp0pRP05cM", text: "OPIS RANG" },
               { href: "/changelog", text: "ZMIANY" },
               { href: "/history", text: "HISTORIA" },
             ].map((item, index) => (
@@ -122,6 +122,7 @@ const Header = () => {
 
       {/* User Panel + Shop Button - Widoczne tylko na desktopie */}
       <div className="hidden sm:flex items-center space-x-4">
+      <SearchBar variant="minimal" />
         {user ? (
           <div className="flex items-center space-x-4">
             {/* Nowy przycisk do panelu gracza */}

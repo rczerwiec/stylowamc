@@ -1,22 +1,22 @@
 'use client'
 
-import InfoBox from "@/components/InfoBox";
 import MainBanner from "@/components/MainBanner";
 import RankingList from "@/components/RankingList";
+import NewsList from "@/components/NewsList";
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-4 sm:px-6">
-      <div className="flex flex-col lg:flex-row gap-6">
-        {/* 🔥 Ranking na lewo */}
-        <div className="w-full lg:w-auto max-lg:hidden flex-shrink-0">
+    <div className="w-full">
+      <div className="flex flex-col lg:flex-row gap-6 xl:gap-8">
+        {/* 🔥 Kolumna lewa: Ranking */}
+        <div className="w-full lg:w-[400px] xl:w-[450px]">
           <RankingList />
         </div>
 
-        {/* 🔥 MainBanner + InfoBox w kolumnie po prawej */}
-        <div className="flex-1 flex flex-col items-center space-y-6">
+        {/* 🔥 Kolumna prawa: MainBanner + Aktualności */}
+        <div className="flex-1 flex flex-col gap-6 xl:gap-8">
           <MainBanner />
-          <InfoBox />
+          <NewsList />
         </div>
       </div>
     </div>

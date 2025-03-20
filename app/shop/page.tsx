@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { FaDiscord } from "react-icons/fa";
+import Link from "next/link";
 
 interface Item {
   id: number;
@@ -147,49 +149,129 @@ export default function Shop() {
   };
   
   return (
-    <div className="flex flex-col w-full bg-gray-900 text-white p-6 rounded-lg gap-6 max-w-[1400px] mx-auto">
-      <h2 className="text-3xl font-bold mb-6 text-center">Sklep</h2>
-
-      {/* Informacja o płatnościach */}
-      <div className="bg-yellow-500 text-gray-900 p-4 rounded-md mb-6">
-        <h3 className="font-bold">Pracujemy nad zaimplementowaniem nowych sposobów płatności do naszej strony.</h3>
-        <p>
-          Jeśli chcesz zakupić rangę przez <strong>paysafecard</strong>, to załóż ticketa na naszym discordzie - <a href="https://dc.stylowamc.pl" className="text-blue-600 underline">dc.stylowamc.pl</a> lub skontaktuj się z właścicielem serwera - <strong>Stylowy (Stylisher)</strong>. Aktualnie jedynymi metodami platnosci jest BLIK oraz przelew.
-        </p>
+    <div className="w-full">
+      {/* Nagłówek */}
+      <div className="w-full bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-lg p-6 mb-6">
+        <h2 className="text-4xl font-bold text-center bg-gradient-to-r from-yellow-500 to-yellow-300 bg-clip-text text-transparent">
+          🛒 Sklep
+        </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl">
+      {/* Informacja o płatnościach */}
+      <div className="w-full bg-yellow-500/10 backdrop-blur-sm border border-yellow-500/30 p-6 rounded-lg mb-6">
+        <div className="flex flex-col md:flex-row gap-6">
+          {/* Informacja o płatnościach */}
+          <div className="flex-1">
+            <h3 className="text-xl font-bold text-yellow-400 mb-3 flex items-center gap-2">
+              ⚠️ Dostępne metody płatności
+            </h3>
+            <p className="text-white/90 leading-relaxed">
+              Aktualnie obsługujemy płatności poprzez <strong className="text-yellow-400">BLIK</strong> oraz <strong className="text-yellow-400">przelew online</strong>.
+              <br />
+              Chcesz zapłacić przez <strong className="text-yellow-400">paysafecard</strong>? Napisz prywatną wiadomość do <strong className="text-yellow-400">Styles (Stylisher)</strong> na Discordzie lub utwórz ticket:
+            </p>
+            <div className="flex flex-wrap gap-4 mt-3">
+              <a 
+                href="https://dc.stylowamc.pl" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-[#5865F2] hover:bg-[#4752C4] text-white px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium"
+              >
+                <FaDiscord className="text-lg" />
+                Discord
+              </a>
+              <a 
+                href="mailto:stylowamc.wsparcie@gmail.com"
+                className="inline-flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium"
+              >
+                ✉️ Email
+              </a>
+            </div>
+          </div>
+
+          {/* Informacja o rangach */}
+          <div className="flex-1">
+            <h3 className="text-xl font-bold text-blue-400 mb-3 flex items-center gap-2">
+              ℹ️ Opis rang i przywilejów
+            </h3>
+            <p className="text-white/90 leading-relaxed">
+              Chcesz dowiedzieć się więcej o dostępnych rangach i ich przywilejach? Sprawdź szczegółowy opis każdej rangi:
+            </p>
+            <div className="mt-3">
+              <Link
+                href="https://docs.google.com/spreadsheets/d/1dzcaZ_wtZOlHw3BcOiQzo-FkXHSuTrbckFp0pRP05cM/edit?gid=0#gid=0"
+                target="_blank"
+                className="text-yellow-500 hover:text-yellow-400 transition-colors"
+              >
+                Sprawdź szczegółowy opis rang
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Lista przedmiotów */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {items.map((item: Item) => (
-          <div key={item.id} className="bg-gray-800 p-6 rounded-lg shadow-md flex flex-col items-center text-center h-full">
-            <Image src={item.image} alt={item.name} className="mb-4" height={80} width={80}/>
-            <h3 className="text-xl font-semibold">{item.name}</h3>
-            <p className="text-gray-400 text-sm mt-2 flex-grow">{item.description}</p>
-            <p className="text-yellow-400 font-bold text-lg mt-3">{item.price}</p>
+          <div 
+            key={item.id} 
+            className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 p-6 rounded-lg flex flex-col items-center text-center h-full transition-all duration-300 hover:border-gray-700 hover:transform hover:scale-[1.02]"
+          >
+            <div className="relative w-20 h-20 mb-4">
+              <Image 
+                src={item.image} 
+                alt={item.name} 
+                fill
+                className="object-contain"
+              />
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">{item.name}</h3>
+            <p className="text-gray-400 text-sm flex-grow">{item.description}</p>
+            <p className="text-2xl font-bold bg-gradient-to-r from-yellow-500 to-yellow-300 bg-clip-text text-transparent my-4">
+              {item.price}
+            </p>
             <button
-        onClick={() => openModal(item)}
-        className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-semibold transition duration-200"
-      >
-        Kup teraz
-      </button>
+              onClick={() => openModal(item)}
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Kup teraz
+            </button>
           </div>
         ))}
       </div>
 
+      {/* Modal */}
       {isModalOpen && selectedItem && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" onClick={closeModal}>
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-96 text-center" onClick={(e) => e.stopPropagation()}>
-            <h2 className="text-xl font-bold mb-4">Kupujesz: {selectedItem.name}</h2>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/70 backdrop-blur-sm z-50" onClick={closeModal}>
+          <div 
+            className="bg-gray-900/90 backdrop-blur-sm border border-gray-800 p-8 rounded-lg w-full max-w-md mx-4" 
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-transparent">
+              Kupujesz: {selectedItem.name}
+            </h2>
             <p className="text-gray-400 mb-4">Podaj swój nick z serwera:</p>
             <input
               type="text"
-              className="w-full p-2 rounded-md bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 mb-6 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
               placeholder="Wpisz swój nick"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
             />
-            <button onClick={handlePurchase} className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md font-semibold">
-              Potwierdź
-            </button>
+            <div className="flex gap-4">
+              <button 
+                onClick={closeModal}
+                className="flex-1 bg-gray-800 hover:bg-gray-700 text-white py-3 rounded-lg font-semibold transition-all duration-200"
+              >
+                Anuluj
+              </button>
+              <button 
+                onClick={handlePurchase} 
+                className="flex-1 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+              >
+                Potwierdź
+              </button>
+            </div>
           </div>
         </div>
       )}
