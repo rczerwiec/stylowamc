@@ -202,6 +202,15 @@ const Changelog = () => {
     oneblock: [
       {
         mode: "OneBlock",
+        version: "1.4.2",
+        date: "20.03.2025",
+        changes: [
+          "Aktualizacja minigierek na chacie - sa teraz o wiele trudniejsze.",
+          "Zmniejszono ilosc respiacych sie mobow na wyspie (eksperymentalnie)",
+        ],
+      },
+      {
+        mode: "OneBlock",
         version: "1.4.1",
         date: "18.03.2025",
         changes: [
