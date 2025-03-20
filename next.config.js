@@ -4,7 +4,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ['minotar.net'],
+    domains: ['minotar.net',"starlightskins.lunareclipse.studio","minecraft-api.vercel.app"],
   },
 }
 

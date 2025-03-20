@@ -32,15 +32,26 @@ export default function RankingList() {
     const fetchRanking = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/ranking');
-        const data = await response.json();
-
+        const response = await fetch('/api/orders/stats');
+        
         if (!response.ok) {
-          throw new Error(data.message || 'Wystąpił błąd podczas pobierania rankingu.');
+          throw new Error(`Błąd HTTP: ${response.status}`);
         }
-
-        setRankingData(data.ranking || []);
+        
+        const data = await response.json();
+        
+        // Przekształcenie obiektu z wydatkami na tablicę i sortowanie
+        const rankingArray = Object.entries(data.spending || {})
+          .map(([name, amount]) => ({ 
+            name, 
+            amount: typeof amount === 'number' ? amount : parseFloat(amount as string) 
+          }))
+          .sort((a, b) => b.amount - a.amount)
+          .slice(0, 10);
+        
+        setRankingData(rankingArray);
       } catch (error) {
+        console.error("❌ Błąd pobierania rankingu:", error);
         setError(error instanceof Error ? error.message : 'Wystąpił nieznany błąd.');
       } finally {
         setLoading(false);
@@ -142,7 +153,10 @@ export default function RankingList() {
                       {player.name}
                     </p>
                     <p className={`text-sm ${getMedalColor(index)}`}>
-                      {player.amount.toFixed(2)} PLN
+                      {player.amount.toLocaleString('pl-PL', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                      })} PLN
                     </p>
                   </div>
                 </div>
