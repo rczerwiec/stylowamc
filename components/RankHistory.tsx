@@ -23,7 +23,15 @@ const capitalizeRank = (rank: string) => {
   return rank.charAt(0).toUpperCase() + rank.slice(1).toLowerCase();
 };
 
-export default function RankHistory({ uuid, username }: { uuid?: string; username?: string }) {
+export default function RankHistory({ 
+  uuid, 
+  username,
+  className = ''
+}: { 
+  uuid?: string; 
+  username?: string;
+  className?: string;
+}) {
   const [isLoading, setIsLoading] = useState(true);
   const [ranks, setRanks] = useState<Rank[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -76,7 +84,7 @@ export default function RankHistory({ uuid, username }: { uuid?: string; usernam
 
   if (isLoading) {
     return (
-      <div className="mt-6">
+      <div className={`mt-6 ${className}`}>
         <h4 className="text-lg font-semibold text-yellow-400 mb-3 flex items-center gap-2">
           <FaCrown className="text-yellow-500" />
           Historia rang
@@ -90,7 +98,7 @@ export default function RankHistory({ uuid, username }: { uuid?: string; usernam
 
   if (error) {
     return (
-      <div className="mt-6">
+      <div className={`mt-6 ${className}`}>
         <h4 className="text-lg font-semibold text-yellow-400 mb-3 flex items-center gap-2">
           <FaCrown className="text-yellow-500" />
           Historia rang
@@ -104,7 +112,7 @@ export default function RankHistory({ uuid, username }: { uuid?: string; usernam
 
   if (noData) {
     return (
-      <div className="mt-6">
+      <div className={`mt-6 ${className}`}>
         <h4 className="text-lg font-semibold text-yellow-400 mb-3 flex items-center gap-2">
           <FaCrown className="text-yellow-500" />
           Historia rang
@@ -117,7 +125,7 @@ export default function RankHistory({ uuid, username }: { uuid?: string; usernam
   }
 
   return (
-    <div className="mt-6">
+    <div className={`mt-6 ${className}`}>
       <h4 className="text-lg font-semibold text-yellow-400 mb-3 flex items-center gap-2">
         <FaCrown className="text-yellow-500" />
         Historia rang
