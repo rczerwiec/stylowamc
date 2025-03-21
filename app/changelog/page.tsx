@@ -77,6 +77,14 @@ const Changelog = () => {
     strona: [
       {
         mode: "Strona",
+        version: "1.1.1",
+        date: "21.03.2025",
+        changes: [
+          "Zaimplementowany system historii rang (historia rang liczona jest od dzisiaj)",
+        ],
+      },
+      {
+        mode: "Strona",
         version: "1.1.0",
         date: "20.03.2025",
         changes: [
@@ -146,7 +154,8 @@ const Changelog = () => {
         changes: [
           "Naprawiono bład zwiazany z fly na lobby (chyba).",
           "Usunieto gadzet 'Zamrozenie czasu'",
-          "Naprawiono blad z zapisywaniem wczesniej wybranych trailsow przy wejsciu na serwer",
+          "Dodano zabezpieczenie przed spadnieciem do void (nie da sie już bedrockować)",
+          "Usuniętę hieroglify z pod spawna",
         ],
       },
       {

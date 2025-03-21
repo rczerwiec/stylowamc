@@ -163,3 +163,18 @@ model Achievement {
 
   @@index([uuid])
 }
+
+model PlayerRanks {
+  id          Int       @id @default(autoincrement())
+  nickname    String
+  uuid1       String
+  uuid2       String?
+  rank        String
+  from_when   DateTime
+  to_when     DateTime?
+  description String?
+
+  @@index([uuid1])
+  @@index([uuid2])
+  @@index([nickname])
+}
