@@ -141,6 +141,16 @@ const Changelog = () => {
     lobby: [
       {
         mode: "Lobby",
+        version: "1.1.2",
+        date: "21.03.2025",
+        changes: [
+          "Naprawiono bład zwiazany z fly na lobby (chyba).",
+          "Usunieto gadzet 'Zamrozenie czasu'",
+          "Naprawiono blad z zapisywaniem wczesniej wybranych trailsow przy wejsciu na serwer",
+        ],
+      },
+      {
+        mode: "Lobby",
         version: "1.1.1",
         date: "16.03.2025",
         changes: [
