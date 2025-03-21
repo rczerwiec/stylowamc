@@ -35,8 +35,15 @@ export async function GET(request: NextRequest) {
         playerUuid = player.uuid;
       }
 
+      if (!playerUuid) {
+        return NextResponse.json(
+          { error: "Nie znaleziono UUID gracza" },
+          { status: 404 }
+        );
+      }
+
       // Pobieramy rangi gracza
-      const playerRanks = await prisma.PlayerRanks.findMany({
+      const playerRanks = await prisma.playerRanks.findMany({
         where: {
           OR: [
             { uuid1: playerUuid },
