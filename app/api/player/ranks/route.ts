@@ -77,18 +77,23 @@ export async function GET(request: NextRequest) {
       };
 
       // Formatujemy dane rang
-      const formattedRanks = playerRanks.map((rank: PlayerRanks) => ({
-        id: rank.id,
-        uuid: rank.uuid1 || rank.uuid2 || '',
-        player_name: rank.nickname,
-        rank: rank.rank,
-        color: defaultColors[rank.rank]?.color || 'text-gray-300',
-        bg_color: defaultColors[rank.rank]?.bgColor || 'bg-gray-300',
-        is_active: rank.to_when === null,
-        from_date_formatted: rank.from_when.toLocaleDateString('pl-PL'),
-        to_date_formatted: rank.to_when ? rank.to_when.toLocaleDateString('pl-PL') : 'obecnie',
-        description: rank.description || ''
-      }));
+      const formattedRanks = playerRanks.map((rank: PlayerRanks) => {
+        const rankName = rank.rank || 'Gracz';
+        const colors = defaultColors[rankName] || { color: 'text-gray-300', bgColor: 'bg-gray-300' };
+        
+        return {
+          id: rank.id,
+          uuid: rank.uuid1 || rank.uuid2 || '',
+          player_name: rank.nickname || '',
+          rank: rankName,
+          color: colors.color,
+          bg_color: colors.bgColor,
+          is_active: rank.to_when === null,
+          from_date_formatted: rank.from_when?.toLocaleDateString('pl-PL') || '',
+          to_date_formatted: rank.to_when?.toLocaleDateString('pl-PL') || 'obecnie',
+          description: rank.description || ''
+        };
+      });
 
       return NextResponse.json({ ranks: formattedRanks });
     } catch (dbError) {
