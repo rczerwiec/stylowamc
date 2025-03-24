@@ -23,6 +23,11 @@ export default function HistoryPage() {
 
   const parkourChampions = [
     { 
+      name: "TheDivine0207", 
+      edition: "OneBlock S1 + Lobby",
+      points: 1139
+    },
+    { 
       name: "NeptunISGod", 
       edition: "OneBlock S1 + Lobby",
       points: 751
