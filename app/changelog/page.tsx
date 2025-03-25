@@ -221,6 +221,16 @@ const Changelog = () => {
     oneblock: [
       {
         mode: "OneBlock",
+        version: "1.4.3",
+        date: "24.03.2025",
+        changes: [
+          "Przywrócono skrzynki (eksperymentalna wersja, będzie dużo zmian) - całkowicie zmieniony plugin na którym opierały się skrzynki.",
+          "Postawiono tymczasowo NPC'a do wymiany starych kluczy, jeśli ktoś ma problem z wymianą to proszę o ticket na discordzie.",
+          "Zmniejszono ceny kluczy",
+        ],
+      },
+      {
+        mode: "OneBlock",
         version: "1.4.2",
         date: "20.03.2025",
         changes: [
