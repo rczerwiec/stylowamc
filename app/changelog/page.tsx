@@ -227,6 +227,7 @@ const Changelog = () => {
           "Przywrócono skrzynki (eksperymentalna wersja, będzie dużo zmian) - całkowicie zmieniony plugin na którym opierały się skrzynki.",
           "Postawiono tymczasowo NPC'a do wymiany starych kluczy, jeśli ktoś ma problem z wymianą to proszę o ticket na discordzie.",
           "Zmniejszono ceny kluczy",
+          "Zmieniono kity z kluczami",
         ],
       },
       {
