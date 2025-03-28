@@ -221,6 +221,23 @@ const Changelog = () => {
     oneblock: [
       {
         mode: "OneBlock",
+        version: "1.4.5",
+        date: "28.03.2025",
+        changes: [
+          "Dodano możliwość kopania spawnerów za pomocą kilofów.",
+        ],
+      },
+      {
+        mode: "OneBlock",
+        version: "1.4.4",
+        date: "25.03.2025",
+        changes: [
+          "Naprawiona strefa AFK.",
+          "Poprawione opisy kitów.",
+        ],
+      },
+      {
+        mode: "OneBlock",
         version: "1.4.3",
         date: "24.03.2025",
         changes: [

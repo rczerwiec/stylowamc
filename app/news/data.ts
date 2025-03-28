@@ -16,6 +16,39 @@ export interface NewsData {
 }
 
 export const news: Record<string, NewsData> = {
+  'news-28-marzec-2025': {
+    id: 'news-28-marzec-2025',
+    title: 'NOWE TRYBY i więcej!',
+    date: '2025-03-28',
+    category: 'ogłoszenie',
+    shortDescription: 'Nowe tryby, wybory prezydenckie i przyszłość OneBlocka',
+    fullDescription: `Cześć!
+
+Mamy dla Was kilka ważnych informacji dotyczących nadchodzących zmian i planów rozwoju serwera:
+
+1 Kwietnia pojawi się nowy, tajemniczy tryb gry. Co to będzie? Przekonacie się już niedługo!
+
+Trwają zaawansowane prace nad Survivalem. Pierwsza beta edycja wystartuje zgodnie z planem - 4 kwietnia.
+
+6 Kwietnia ruszają wybory na prezydenta serwera! Głosowanie będzie dostępne bezpośrednio na naszej stronie.
+
+Nie przerywamy jednocześnie prac nad OneBlockiem, będziemy na biężąco wprowadzać nowe funkcje i zmiany, które będą przygotowywały ten tryb powoli na drugą edycje. Nie martwcie się jednak - to nie oznacza końca trybu!
+Już w przyszłym tygodniu pojawią się liczne łatki do systemu Questów, oraz co ciekawe, kasyno!
+Co też może być dla Was istotne, możecie już dzisiaj zgłaszać swoje wyspy do muzeum! Dzięki temu, wasze wyspy z tej edycji OneBlocka po jego zakończeniu będą możliwe do odwiedzenia na trybie Muzeum.
+
+Co dalej? Zanim wystartuje OneBlock edycja 2, mamy w planach aż 4 nowe projekty:
+- Survival (start 4 kwietnia)
+- Tajemniczy tryb (premiera już 1 kwietnia)
+- Muzeum (gdzie będziecie mogli zobaczyć historię serwera, data startu na ten moment nieznana)
+- I jeszcze jeden sekretny tryb, który na razie pozostanie niespodzianką, wystartuje po stracie powyższych
+
+Bądźcie z nami, bo nadchodzące tygodnie zapowiadają się naprawdę ekscytująco! 🚀`,
+    image: '',
+    important: true,
+    author: 'Stylowy',
+    links: [
+    ]
+  },
   'news-20-marzec-2025': {
     id: 'news-20-marzec-2025',
     title: 'Redesign strony i więcej!',
