@@ -41,9 +41,18 @@ export default function HistoryPage() {
 
   const presidents = [
     {
-      name: "NeptunISGod",
+      name: "Arnold_Puttler",
       duration: "trwa",
-      period: "03 Luty 2025 - obecnie",
+      period: "06 Kwiecień 2025 - ",
+      achievements: [
+        "15 Prezydent SM",
+        "Wygrał wybory jednym głosem więcej niż inny kandydat"
+      ]
+    },
+    {
+      name: "NeptunISGod",
+      duration: "61	dni",
+      period: "03 Luty 2025 - 06 Kwiecień 2025",
       achievements: [
         "14 Prezydent SM",
         "Odzyskał władzę bez walki",

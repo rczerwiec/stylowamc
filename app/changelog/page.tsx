@@ -25,6 +25,10 @@ const getModeIcon = (mode: string) => {
       return <FaGamepad className="text-yellow-500" />;
     case 'muzeum':
       return <FaHistory className="text-purple-500" />;
+    case 'skygrid':
+      return <FaGamepad className="text-pink-500" />;
+    case 'survival':
+      return <FaGamepad className="text-orange-500" />;
     default:
       return <FaCode className="text-gray-500" />;
   }
@@ -60,6 +64,20 @@ const getModeColor = (mode: string) => {
         text: 'text-purple-500',
         hover: 'hover:bg-purple-500/20'
       };
+    case 'skygrid':
+      return {
+        bg: 'bg-pink-500/10',
+        border: 'border-pink-500/30',
+        text: 'text-pink-500',
+        hover: 'hover:bg-pink-500/20'
+      };
+    case 'survival':
+      return {
+        bg: 'bg-orange-500/10',
+        border: 'border-orange-500/30',
+        text: 'text-orange-500',
+        hover: 'hover:bg-orange-500/20'
+      };
     default:
       return {
         bg: 'bg-gray-500/10',
@@ -75,6 +93,14 @@ const Changelog = () => {
   const [changelogContent, setChangelogContent] = useState<ChangelogData>({
     ogolny: [],
     strona: [
+      {
+        mode: "Strona",
+        version: "1.1.2",
+        date: "06.04.2025",
+        changes: [
+          "Dodane zakładki o trybie skygrid oraz survival do changelogu strony",
+        ],
+      },
       {
         mode: "Strona",
         version: "1.1.1",
@@ -149,6 +175,16 @@ const Changelog = () => {
     lobby: [
       {
         mode: "Lobby",
+        version: "1.1.3",
+        date: "04.04.2025",
+        changes: [
+          "Dodane informacje o trybie SkyGrid to scoreboarda oraz npc.",
+          "Zmienione motd serwera",
+          "Poprawiony błąd z nieładującą się ikonką serwera",
+        ],
+      },
+      {
+        mode: "Lobby",
         version: "1.1.2",
         date: "21.03.2025",
         changes: [
@@ -215,6 +251,16 @@ const Changelog = () => {
         date: "07.03.2025",
         changes: [
           "Otwarcie pierwszej wersji serwerowego Lobby.",
+        ],
+      },
+    ],
+    skygrid: [
+      {
+        mode: "SkyGrid",
+        version: "1.0.0",
+        date: "01.04.2025",
+        changes: [
+          "Start Serwera SkyGrid",
         ],
       },
     ],
@@ -382,14 +428,14 @@ const Changelog = () => {
       // },
     ],
     survival: [
-      // {
-      //   mode: "Survival",
-      //   version: "1.0.0",
-      //   date: "08.03.2025",
-      //   changes: [
-      //     "Wprowadzono nowe mechaniki gry.",
-      //   ],
-      // },
+      {
+        mode: "Survival",
+        version: "1.0.0",
+        date: "11.04.2025",
+        changes: [
+          "Start trybu Survival",
+        ],
+      },
     ],
   });
 
@@ -420,6 +466,8 @@ const Changelog = () => {
     { id: 'lobby', label: 'Lobby', icon: <FaServer /> },
     { id: 'oneblock', label: 'OneBlock', icon: <FaGamepad /> },
     { id: 'muzeum', label: 'Muzeum', icon: <FaHistory /> },
+    { id: 'skygrid', label: 'SkyGrid', icon: <FaGamepad /> },
+    { id: 'survival', label: 'Survival', icon: <FaGamepad /> },
   ];
 
   return (
