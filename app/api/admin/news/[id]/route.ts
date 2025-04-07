@@ -10,9 +10,9 @@ function checkAuth(request: NextRequest): boolean {
 // GET - pobierz news po ID
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const id = context.params.id;
+  const params = await context.params;
   
   try {
     // Sprawdź autoryzację
@@ -21,7 +21,7 @@ export async function GET(
     }
 
     // Pobierz news po ID
-    const news = getNewsById(id);
+    const news = getNewsById(params.id);
     if (!news) {
       return NextResponse.json({ error: 'News not found' }, { status: 404 });
     }
@@ -36,9 +36,9 @@ export async function GET(
 // PUT - zaktualizuj news
 export async function PUT(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const id = context.params.id;
+  const params = await context.params;
   
   try {
     // Sprawdź autoryzację
@@ -50,7 +50,7 @@ export async function PUT(
     const newsData = await request.json();
 
     // Zaktualizuj news
-    const success = updateNews(id, newsData);
+    const success = updateNews(params.id, newsData);
     if (!success) {
       return NextResponse.json({ error: 'Failed to update news' }, { status: 500 });
     }
@@ -65,9 +65,9 @@ export async function PUT(
 // DELETE - usuń news
 export async function DELETE(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const id = context.params.id;
+  const params = await context.params;
   
   try {
     // Sprawdź autoryzację
@@ -76,7 +76,7 @@ export async function DELETE(
     }
 
     // Usuń news
-    const success = deleteNews(id);
+    const success = deleteNews(params.id);
     if (!success) {
       return NextResponse.json({ error: 'Failed to delete news' }, { status: 500 });
     }

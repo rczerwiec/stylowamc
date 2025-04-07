@@ -3,13 +3,13 @@ import { getAllNews, addNews } from '@/app/lib/newsData';
 import { NewsData } from '@/app/news/data';
 
 // Funkcja pomocnicza do sprawdzania autoryzacji
-function checkAuth(request: Request): boolean {
+function checkAuth(request: NextRequest): boolean {
   const sessionToken = request.cookies.get('sessionToken')?.value;
   return sessionToken === process.env.ADMIN_SESSION_TOKEN;
 }
 
 // GET - pobierz listę newsów
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
     // Sprawdź autoryzację
     if (!checkAuth(request)) {
@@ -26,7 +26,7 @@ export async function GET(request: Request) {
 }
 
 // POST - dodaj nowy news
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     // Sprawdź autoryzację
     if (!checkAuth(request)) {

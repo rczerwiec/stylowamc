@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { NewsData } from '@/app/news/data';
+import { NewsData, NewsCategory } from '@/app/news/data';
 
 // Ścieżka do pliku z danymi
 const dataFilePath = path.join(process.cwd(), 'app', 'data', 'news.json');
@@ -17,7 +17,7 @@ export function readNewsData(): { news: Record<string, NewsData> } {
             id: "1",
             title: "Witaj w panelu administracyjnym",
             date: "2023-04-01",
-            category: "ogłoszenie",
+            category: "ogłoszenie" as NewsCategory,
             shortDescription: "Pierwszy news w systemie zarządzania treścią.",
             fullDescription: "To jest pierwszy news w systemie zarządzania treścią. Możesz go edytować lub usunąć, aby zobaczyć jak działa system.",
             image: "/images/news/default.jpg",
@@ -42,11 +42,27 @@ export function readNewsData(): { news: Record<string, NewsData> } {
     
     // Odczytaj dane z pliku
     const fileContent = fs.readFileSync(dataFilePath, 'utf8');
-    return JSON.parse(fileContent);
+    const data = JSON.parse(fileContent);
+    
+    // Upewnij się, że wszystkie kategorie są zgodne z typem NewsCategory
+    Object.keys(data.news).forEach(key => {
+      const news = data.news[key];
+      if (typeof news.category === 'string' && !isValidNewsCategory(news.category)) {
+        // Jeśli kategoria nie jest prawidłowa, ustaw domyślną wartość
+        news.category = 'ogłoszenie' as NewsCategory;
+      }
+    });
+    
+    return data;
   } catch (error) {
     console.error('Błąd podczas odczytu danych newsów:', error);
     return { news: {} };
   }
+}
+
+// Funkcja pomocnicza do sprawdzania, czy kategoria jest prawidłowa
+function isValidNewsCategory(category: string): category is NewsCategory {
+  return ['ogłoszenie', 'konkurs', 'event', 'aktualizacja'].includes(category);
 }
 
 // Funkcja do zapisu danych do pliku

@@ -1,3 +1,5 @@
+import { readNewsData } from '@/app/lib/newsData';
+
 export type NewsCategory = 'ogłoszenie' | 'konkurs' | 'event' | 'aktualizacja';
 
 export interface NewsData {
@@ -13,6 +15,10 @@ export interface NewsData {
   author: string;
   links: string[];
 }
+
+// Pobierz dane newsów
+const newsData = readNewsData();
+const news = newsData.news;
 
 export const getLatestNews = (count: number = 5) => {
   return Object.values(news)
