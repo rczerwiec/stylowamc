@@ -10,7 +10,7 @@ function checkAuth(request: NextRequest): boolean {
 // GET - pobierz news po ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     // Sprawdź autoryzację
@@ -19,7 +19,7 @@ export async function GET(
     }
 
     // Pobierz news po ID
-    const news = getNewsById(params.id);
+    const news = getNewsById(context.params.id);
     if (!news) {
       return NextResponse.json({ error: 'News not found' }, { status: 404 });
     }
@@ -34,7 +34,7 @@ export async function GET(
 // PUT - zaktualizuj news
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     // Sprawdź autoryzację
@@ -46,7 +46,7 @@ export async function PUT(
     const newsData = await request.json();
 
     // Zaktualizuj news
-    const success = updateNews(params.id, newsData);
+    const success = updateNews(context.params.id, newsData);
     if (!success) {
       return NextResponse.json({ error: 'Failed to update news' }, { status: 500 });
     }
@@ -61,7 +61,7 @@ export async function PUT(
 // DELETE - usuń news
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     // Sprawdź autoryzację
@@ -70,7 +70,7 @@ export async function DELETE(
     }
 
     // Usuń news
-    const success = deleteNews(params.id);
+    const success = deleteNews(context.params.id);
     if (!success) {
       return NextResponse.json({ error: 'Failed to delete news' }, { status: 500 });
     }
