@@ -17,6 +17,8 @@
 /.next/
 /public/images/konkurs1/*
 /out/
+/app/data/changelog.json
+/app/data/news.json
 
 # production
 /build

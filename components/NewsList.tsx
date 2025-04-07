@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { NewsData, getLatestNews, getNewsByCategory } from "@/app/news/data";
+import { useState, useEffect } from "react";
+import { NewsData } from "@/app/news/data";
 import Link from "next/link";
 import { format } from "date-fns";
 import { pl } from "date-fns/locale";
@@ -52,14 +52,35 @@ const NewsList = () => {
   const [selectedCategory, setSelectedCategory] = useState<NewsData["category"] | "all">("all");
   const [currentPage, setCurrentPage] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [news, setNews] = useState<NewsData[]>([]);
+  const [loading, setLoading] = useState(true);
   const newsPerPage = 3;
 
-  const allNews = selectedCategory === "all" 
-    ? getLatestNews() 
-    : getNewsByCategory(selectedCategory);
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await fetch('/api/news');
+        const data = await response.json();
+        if (data.news) {
+          const newsArray = Object.values(data.news) as NewsData[];
+          setNews(newsArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
+        }
+      } catch (error) {
+        console.error('Błąd podczas pobierania newsów:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const totalPages = Math.ceil(allNews.length / newsPerPage);
-  const currentNews = allNews.slice(currentPage * newsPerPage, (currentPage + 1) * newsPerPage);
+    fetchNews();
+  }, []);
+
+  const filteredNews = selectedCategory === "all" 
+    ? news 
+    : news.filter(item => item.category === selectedCategory);
+
+  const totalPages = Math.ceil(filteredNews.length / newsPerPage);
+  const currentNews = filteredNews.slice(currentPage * newsPerPage, (currentPage + 1) * newsPerPage);
 
   const handlePrevPage = () => {
     setDirection(-1);
@@ -92,6 +113,16 @@ const NewsList = () => {
       opacity: 0
     })
   };
+
+  if (loading) {
+    return (
+      <div className="w-full bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 p-6">
+        <div className="flex justify-center items-center h-[500px]">
+          <div className="text-gray-400">Ładowanie newsów...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 p-6">

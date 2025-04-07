@@ -1,9 +1,11 @@
-import { getNewsById } from "../data";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import { pl } from "date-fns/locale";
+import { promises as fs } from 'fs';
+import path from 'path';
+import { NewsData } from "../data";
 
 interface PageProps {
   params: Promise<{
@@ -26,9 +28,21 @@ const getCategoryStyle = (category: string) => {
   }
 };
 
+async function getNewsById(id: string): Promise<NewsData | null> {
+  try {
+    const jsonDirectory = path.join(process.cwd(), 'app/data');
+    const fileContents = await fs.readFile(jsonDirectory + '/news.json', 'utf8');
+    const data = JSON.parse(fileContents);
+    return data.news[id] || null;
+  } catch (error) {
+    console.error('Error reading news:', error);
+    return null;
+  }
+}
+
 export default async function NewsPage({ params }: PageProps) {
   const { slug } = await params;
-  const news = getNewsById(slug);
+  const news = await getNewsById(slug);
 
   if (!news) {
     notFound();
@@ -112,10 +126,10 @@ export default async function NewsPage({ params }: PageProps) {
                 {news.links.map((link, index) => (
                   <Link
                     key={index}
-                    href={link.url}
+                    href={link}
                     className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
                   >
-                    {link.text}
+                    {link}
                   </Link>
                 ))}
               </div>
