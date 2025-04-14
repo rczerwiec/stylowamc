@@ -3,7 +3,30 @@ import path from 'path';
 import { NewsData, NewsCategory } from '@/app/news/data';
 
 // Ścieżka do pliku z danymi
-const dataFilePath = path.join(process.cwd(), 'app', 'data', 'news.json');
+const dataFilePath = path.join(process.cwd(), 'app/data', 'news.json');
+
+// Funkcja pomocnicza do generowania ID newsa
+function generateNewsId(title: string, date: string): string {
+  // Format daty: YYYY-MM-DD
+  const [year, month, day] = date.split('-');
+  const monthNames: Record<string, string> = {
+    '01': 'styczen',
+    '02': 'luty',
+    '03': 'marzec',
+    '04': 'kwiecien',
+    '05': 'maj',
+    '06': 'czerwiec',
+    '07': 'lipiec',
+    '08': 'sierpien',
+    '09': 'wrzesien',
+    '10': 'pazdziernik',
+    '11': 'listopad',
+    '12': 'grudzien'
+  };
+  
+  const monthName = monthNames[month] || 'unknown';
+  return `news-${day}-${monthName}-${year}`;
+}
 
 // Funkcja do odczytu danych z pliku
 export function readNewsData(): { news: Record<string, NewsData> } {
@@ -90,23 +113,23 @@ export function getNewsById(id: string): NewsData | null {
 }
 
 // Funkcja do dodania nowego newsa
-export function addNews(news: Omit<NewsData, 'id'>): NewsData | null {
+export function addNews(newsData: Omit<NewsData, 'id'>): NewsData | null {
   try {
     const data = readNewsData();
     
-    // Generuj nowe ID (największe ID + 1)
-    const ids = Object.keys(data.news).map(Number);
-    const newId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
+    // Generowanie ID na podstawie tytułu i daty
+    const newsId = generateNewsId(newsData.title, newsData.date);
     
-    // Dodaj nowy news
+    // Tworzenie nowego obiektu newsa
     const newNews: NewsData = {
-      ...news,
-      id: newId.toString(),
+      ...newsData,
+      id: newsId
     };
     
-    data.news[newId.toString()] = newNews;
+    // Dodawanie do kolekcji
+    data.news[newsId] = newNews;
     
-    // Zapisz zmiany
+    // Zapis do pliku
     if (writeNewsData(data)) {
       return newNews;
     }
@@ -119,7 +142,7 @@ export function addNews(news: Omit<NewsData, 'id'>): NewsData | null {
 }
 
 // Funkcja do aktualizacji newsa
-export function updateNews(id: string, news: Partial<NewsData>): boolean {
+export function updateNews(id: string, newsData: Partial<NewsData>): boolean {
   try {
     const data = readNewsData();
     
@@ -131,7 +154,7 @@ export function updateNews(id: string, news: Partial<NewsData>): boolean {
     // Aktualizuj news
     data.news[id] = {
       ...data.news[id],
-      ...news,
+      ...newsData,
       id, // Zachowaj oryginalne ID
     };
     

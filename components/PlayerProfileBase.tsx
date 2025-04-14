@@ -52,10 +52,55 @@ export interface PlayerStats {
     deaths: number;
     money: number;
     playtime: number;
-    island_level: number;
     smcoins: number;
-    broken_blocks: number;
     mob_kills: number;
+    blocks_broken: number;
+    blocks_placed: number;
+    // McMMO stats
+    mcmmo_level: number;
+    mcmmo_gornictwo: number;
+    mcmmo_wykopaliska: number;
+    mcmmo_zielarstwo: number;
+    mcmmo_drwal: number;
+    mcmmo_lucznictwo: number;
+    mcmmo_siekiery: number;
+    mcmmo_crossbows: number;
+    mcmmo_maces: number;
+    mcmmo_miecze: number;
+    mcmmo_tresowanie: number;
+    mcmmo_tridents: number;
+    mcmmo_niezrecznosc: number;
+    mcmmo_akrobatyka: number;
+    mcmmo_alchemia: number;
+    mcmmo_naprawianie: number;
+    mcmmo_odzyskiwanie: number;
+    mcmmo_przepalanie: number;
+    // Fishing stats
+    smfishing_level: number;
+    smfishing_xp: number;
+    smfishing_total_catches: number;
+    smfishing_catches_common: number;
+    smfishing_catches_uncommon: number;
+    smfishing_catches_rare: number;
+    smfishing_catches_epic: number;
+    smfishing_catches_legendary: number;
+    // Metin stats
+    smmetin_total: number;
+    // Rudy stats
+    smpickaxe_rubin: number;
+    smpickaxe_meteoryt: number;
+    smpickaxe_platyna: number;
+    smpickaxe_bedrock: number;
+    smpickaxe_netherium: number;
+    smpickaxe_total: number;
+    // Dodatkowe rudy stats
+    mined_gold: number;
+    mined_redstone: number;
+    mined_lapis: number;
+    mined_coal: number;
+    mined_diamond: number;
+    mined_netherite: number;
+    mined_quantum: number;
   } | null;
 }
 
@@ -230,14 +275,14 @@ export default function PlayerProfileBase({
               onClick={() => setActiveMode('oneblock')}
               className={`px-4 py-2 rounded-lg transition-colors ${activeMode === 'oneblock' ? 'bg-yellow-500 text-gray-900' : 'bg-gray-700 text-white hover:bg-gray-600'}`}
             >
-              OneBlock
+              OneBlock S1 (SM8)
             </button>
             <button 
               onClick={() => setActiveMode('survival')}
               className={`px-4 py-2 rounded-lg transition-colors ${activeMode === 'survival' ? 'bg-yellow-500 text-gray-900' : 'bg-gray-700 text-white hover:bg-gray-600'}`}
               disabled={!stats.survival}
             >
-              Survival
+              Survival S1 (SM8)
             </button>
           </div>
           
@@ -280,30 +325,213 @@ export default function PlayerProfileBase({
               </div>
             )}
             
-            {activeMode === 'survival' && stats.survival ? (
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-gray-800/80 p-3 rounded-lg">
-                    <p className="text-gray-400">Poziom</p>
-                    <p className="text-xl font-semibold text-yellow-400">{stats.survival.island_level}</p>
-                  </div>
-                  <div className="bg-gray-800/80 p-3 rounded-lg">
-                    <p className="text-gray-400">Zabójstwa / Śmierci</p>
-                    <p className="text-xl font-semibold">{stats.survival.kills} / {stats.survival.deaths}</p>
-                  </div>
-                  <div className="bg-gray-800/80 p-3 rounded-lg">
-                    <p className="text-gray-400">Zniszczone bloki</p>
-                    <p className="text-xl font-semibold">{stats.survival.broken_blocks}</p>
-                  </div>
-                  <div className="bg-gray-800/80 p-3 rounded-lg">
-                    <p className="text-gray-400">Zabite moby</p>
-                    <p className="text-xl font-semibold">{stats.survival.mob_kills}</p>
+            {activeMode === 'survival' && stats.survival && (
+              <div className="space-y-6">
+                {/* Podstawowe statystyki */}
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">Podstawowe Statystyki</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Zabójstwa / Śmierci</p>
+                      <p className="text-xl font-semibold">{stats.survival.kills} / {stats.survival.deaths}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Zniszczone / Postawione bloki</p>
+                      <p className="text-xl font-semibold">{stats.survival.blocks_broken} / {stats.survival.blocks_placed}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Zabite moby</p>
+                      <p className="text-xl font-semibold">{stats.survival.mob_kills}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Poziom McMMO</p>
+                      <p className="text-xl font-semibold text-yellow-400">{stats.survival.mcmmo_level}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : activeMode === 'survival' && (
-              <div className="text-center py-4">
-                <p className="text-gray-400">Ten gracz nie ma jeszcze statystyk z trybu Survival.</p>
+
+                {/* McMMO Statystyki */}
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">Statystyki McMMO</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Górnictwo</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_gornictwo}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Wykopaliska</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_wykopaliska}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Zielarstwo</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_zielarstwo}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Drwal</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_drwal}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Łucznictwo</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_lucznictwo}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Siekiery</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_siekiery}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Kusze</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_crossbows}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Maczugi</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_maces}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Miecze</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_miecze}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Tresowanie</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_tresowanie}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Trójzęby</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_tridents}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Niezręczność</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_niezrecznosc}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Akrobatyka</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_akrobatyka}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Alchemia</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_alchemia}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Naprawianie</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_naprawianie}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Odzyskiwanie</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_odzyskiwanie}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Przepalanie</p>
+                      <p className="text-lg font-semibold">{stats.survival.mcmmo_przepalanie}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Fishing Statystyki */}
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">Statystyki Wędkowania</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Poziom wędkowania</p>
+                      <p className="text-lg font-semibold">{stats.survival.smfishing_level}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Doświadczenie</p>
+                      <p className="text-lg font-semibold">{stats.survival.smfishing_xp}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Łącznie złowiono</p>
+                      <p className="text-lg font-semibold">{stats.survival.smfishing_total_catches}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Pospolite ryby</p>
+                      <p className="text-lg font-semibold text-gray-300">{stats.survival.smfishing_catches_common}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Niepospolite ryby</p>
+                      <p className="text-lg font-semibold text-green-400">{stats.survival.smfishing_catches_uncommon}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Rzadkie ryby</p>
+                      <p className="text-lg font-semibold text-blue-400">{stats.survival.smfishing_catches_rare}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Epickie ryby</p>
+                      <p className="text-lg font-semibold text-purple-400">{stats.survival.smfishing_catches_epic}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Legendaryjne ryby</p>
+                      <p className="text-lg font-semibold text-yellow-400">{stats.survival.smfishing_catches_legendary}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Metin i Kilofy */}
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">Metiny</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Zabite Metiny</p>
+                      <p className="text-lg font-semibold">{stats.survival.smmetin_total}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Wykopane Rudy */}
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">Wykopane Rudy</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {/* Podstawowe rudy */}
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Węgiel</p>
+                      <p className="text-lg font-semibold">{stats.survival.mined_coal || 0}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Złoto</p>
+                      <p className="text-lg font-semibold text-yellow-400">{stats.survival.mined_gold || 0}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Redstone</p>
+                      <p className="text-lg font-semibold text-red-500">{stats.survival.mined_redstone || 0}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Lapis Lazuli</p>
+                      <p className="text-lg font-semibold text-blue-400">{stats.survival.mined_lapis || 0}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Diamenty</p>
+                      <p className="text-lg font-semibold text-cyan-300">{stats.survival.mined_diamond || 0}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Netherite</p>
+                      <p className="text-lg font-semibold text-gray-400">{stats.survival.mined_netherite || 0}</p>
+                    </div>
+
+                    {/* Custom rudy */}
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Rubiny</p>
+                      <p className="text-lg font-semibold text-red-400">{stats.survival.smpickaxe_rubin}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Netherium</p>
+                      <p className="text-lg font-semibold text-purple-400">{stats.survival.smpickaxe_netherium}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Kwantyty</p>
+                      <p className="text-lg font-semibold text-emerald-400">{stats.survival.mined_quantum || 0}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Meteoryty</p>
+                      <p className="text-lg font-semibold text-orange-400">{stats.survival.smpickaxe_meteoryt}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Platyna</p>
+                      <p className="text-lg font-semibold text-gray-300">{stats.survival.smpickaxe_platyna}</p>
+                    </div>
+                    <div className="bg-gray-800/80 p-3 rounded-lg">
+                      <p className="text-gray-400">Bedrock</p>
+                      <p className="text-lg font-semibold text-gray-600">{stats.survival.smpickaxe_bedrock}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </div>
