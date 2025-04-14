@@ -249,6 +249,7 @@ export default function PlayerProfileBase({
             formatPlayTime={formatPlayTime}
             playtimeOneBlock={stats.oneblock?.playtime || 0}
             playtimeLobby={stats.mode0?.playtime || 0}
+            playtimeSurvival={stats.survival?.playtime || 0}
           />
 
           {/* Przyciski akcji dla zalogowanego użytkownika */}
@@ -299,6 +300,13 @@ export default function PlayerProfileBase({
                 {/* Historia rang */}
                 <RankHistory className="mt-6" uuid={stats.uuid} />
               </>
+            )}
+            
+            {activeMode === 'oneblock' && !stats.oneblock && (
+              <div className="flex flex-col items-center justify-center p-8 text-center bg-gray-800/50 rounded-lg">
+                <p className="text-xl text-gray-300 mb-2">Statystyki nie zostały jeszcze wczytane.</p>
+                <p className="text-gray-400">Wejdź na tryb i pograj chwilę, a po jakimś czasie się pojawią ;)</p>
+              </div>
             )}
             
             {activeMode === 'oneblock' && stats.oneblock && (
