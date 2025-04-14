@@ -130,6 +130,13 @@ model Mode2Stats {
   smpickaxe_bedrock Int @default(0)
   smpickaxe_netherium Int @default(0)
   smpickaxe_total Int @default(0)
+  mined_gold Int @default(0)
+  mined_redstone Int @default(0)
+  mined_lapis Int @default(0)
+  mined_coal Int @default(0)
+  mined_diamond Int @default(0)
+  mined_netherite Int @default(0)
+  mined_quantum Int @default(0)
 }
 
 model Mode3Stats {

@@ -280,7 +280,6 @@ export default function PlayerProfileBase({
             <button 
               onClick={() => setActiveMode('survival')}
               className={`px-4 py-2 rounded-lg transition-colors ${activeMode === 'survival' ? 'bg-yellow-500 text-gray-900' : 'bg-gray-700 text-white hover:bg-gray-600'}`}
-              disabled={!stats.survival}
             >
               Survival S1 (SM8)
             </button>
@@ -322,6 +321,13 @@ export default function PlayerProfileBase({
                     <p className="text-xl font-semibold">{stats.oneblock.mob_kills}</p>
                   </div>
                 </div>
+              </div>
+            )}
+            
+            {activeMode === 'survival' && !stats.survival && (
+              <div className="flex flex-col items-center justify-center p-8 text-center bg-gray-800/50 rounded-lg">
+                <p className="text-xl text-gray-300 mb-2">Statystyki nie zostały jeszcze wczytane.</p>
+                <p className="text-gray-400">Wejdź na tryb i pograj chwilę, a po jakimś czasie się pojawią ;)</p>
               </div>
             )}
             
