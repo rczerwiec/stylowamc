@@ -80,7 +80,7 @@ const items = [
   {
     id: 10,
     name: "Fly na Działce",
-    description: "Wykup sobie możliwość latania na swojej działce na 30 dni!",
+    description: "Wykup sobie możliwość latania na swojej działce na 30 dni! Żeby włączyć latanie na swojej działce musisz użyć komendy /claimfly!",
     price: "9.99 PLN",
     image: "/images/fly.png",
   },
