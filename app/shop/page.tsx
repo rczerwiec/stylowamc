@@ -73,7 +73,14 @@ const items = [
   {
     id: 9,
     name: "Fly na Wyspie",
-    description: "Wykup sobie możliwość latania na swojej wyspie na 30 dni!",
+    description: "Wykup sobie możliwość latania na swojej wyspie OneBlock na 30 dni!",
+    price: "9.99 PLN",
+    image: "/images/fly.png",
+  },
+  {
+    id: 10,
+    name: "Fly na Działce",
+    description: "Wykup sobie możliwość latania na swojej działce na 30 dni!",
     price: "9.99 PLN",
     image: "/images/fly.png",
   },
