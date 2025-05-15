@@ -41,12 +41,32 @@ export default function HistoryPage() {
 
   const presidents = [
     {
-      name: "Arnold_Puttler",
+      name: "SkorpionISGod",
       duration: "trwa",
-      period: "06 Kwiecień 2025 - ",
+      period: "15 Maj 2025 - obecnie",
+      achievements: [
+        "17 Prezydent SM",
+        "Muller ogłosił, że w przypadku jego śmierci to on zostanie prezydentem oraz przywódcą rzeszy",
+      ]
+    },
+    {
+      name: "Heinrich_Muller",
+      duration: "16 dni",
+      period: "30 Kwiecień 2025 - 15 Maj 2025",
+      achievements: [
+        "16 Prezydent SM",
+        "Puttler ogłosił, że w przypadku jego śmierci to on zostanie prezydentem oraz przywódcą rzeszy",
+        "Zginał w wyniku obrażeń podczas zamachu 15.05.2025"
+      ]
+    },
+    {
+      name: "Arnold_Puttler",
+      duration: "24 dni",
+      period: "06 Kwiecień 2025 - 30 Kwiecień 2025",
       achievements: [
         "15 Prezydent SM",
-        "Wygrał wybory jednym głosem więcej niż inny kandydat"
+        "Wygrał wybory jednym głosem więcej niż inny kandydat",
+        "Zginał w wyniku obrażeń podczas zamachu 29.04.2025"
       ]
     },
     {
